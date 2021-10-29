@@ -10,10 +10,72 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_14_072209) do
+ActiveRecord::Schema.define(version: 2021_10_29_044642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "consumption_tax_rates", force: :cascade do |t|
+    t.integer "tax_classification", null: false
+    t.integer "adaptation_start_date", null: false
+    t.integer "adaptation_end_date"
+    t.integer "tax_rate", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "foods", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.string "name", null: false
+    t.text "food_description", null: false
+    t.integer "price", null: false
+    t.integer "sales_limit"
+    t.integer "sales_status", null: false
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_foods_on_name"
+    t.index ["restaurant_id"], name: "index_foods_on_restaurant_id"
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "food_id", null: false
+    t.integer "count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["food_id"], name: "index_order_details_on_food_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "consumption_tax_rate_id", null: false
+    t.string "rceipt_number", null: false
+    t.integer "total_price", default: 0, null: false
+    t.integer "progress_status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["consumption_tax_rate_id"], name: "index_orders_on_consumption_tax_rate_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.decimal "fee", default: "0.0", null: false
+    t.integer "postal_code", null: false
+    t.integer "prefecture_code"
+    t.string "prefecture", null: false
+    t.string "city", null: false
+    t.string "block_building", null: false
+    t.string "phone_number", null: false
+    t.datetime "update_time", null: false
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_restaurants_on_name"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -40,4 +102,9 @@ ActiveRecord::Schema.define(version: 2021_10_14_072209) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "foods", "restaurants"
+  add_foreign_key "order_details", "foods"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "orders", "consumption_tax_rates"
+  add_foreign_key "orders", "users"
 end
