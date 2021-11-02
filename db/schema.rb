@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_033452) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_foods_on_name"
+    t.index ["name"], name: "index_foods_on_name", unique: true
     t.index ["restaurant_id"], name: "index_foods_on_restaurant_id"
   end
 
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_033452) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_restaurants_on_name"
+    t.index ["name"], name: "index_restaurants_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
