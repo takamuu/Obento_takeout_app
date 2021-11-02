@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_044642) do
+ActiveRecord::Schema.define(version: 2021_10_29_033452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "consumption_tax_rates", force: :cascade do |t|
-    t.integer "tax_classification", null: false
-    t.integer "adaptation_start_date", null: false
-    t.integer "adaptation_end_date"
-    t.integer "tax_rate", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "foods", force: :cascade do |t|
     t.bigint "restaurant_id", null: false
@@ -50,13 +41,12 @@ ActiveRecord::Schema.define(version: 2021_10_29_044642) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "consumption_tax_rate_id", null: false
     t.string "rceipt_number", null: false
     t.integer "total_price", default: 0, null: false
+    t.integer "consumption_tax", default: 0, null: false
     t.integer "progress_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["consumption_tax_rate_id"], name: "index_orders_on_consumption_tax_rate_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -105,6 +95,5 @@ ActiveRecord::Schema.define(version: 2021_10_29_044642) do
   add_foreign_key "foods", "restaurants"
   add_foreign_key "order_details", "foods"
   add_foreign_key "order_details", "orders"
-  add_foreign_key "orders", "consumption_tax_rates"
   add_foreign_key "orders", "users"
 end
