@@ -2,6 +2,8 @@ Order.delete_all
 User.delete_all
 Food.delete_all
 Restaurant.delete_all
+TemporaryOrder.delete_all
+Cart.delete_all
 
 
 user_params = [
@@ -18,6 +20,20 @@ user_params = [
 
 
 User.create!(user_params)
+3.times do |n|
+  name = Faker::Name.name
+  email = "example-#{n+1}@example.com"
+  kana = "カナテスト#{n+1}"
+  User.create!(name: name,
+               email: email,
+               kana: kana,
+               password: "password",
+               phone_number: "000-0000-0000",
+               status: 0,
+               stripe_id: "12345"
+  )
+end
+
 puts "ユーザーの初期データの投入に成功しました!"
 
 
@@ -39,3 +55,15 @@ Order.create!(user_id: 1, rceipt_number: "BBBB", total_price: 3000, consumption_
 Order.create!(user_id: 1, rceipt_number: "CCCC", total_price: 3000, consumption_tax: 300, progress_status: 2)
 
 puts "orderデータの投入に成功しました！"
+
+Cart.create!(user_id: 1, total_price: 1500)
+Cart.create!(user_id: 2, total_price: 2000)
+
+puts "cartデータの投入に成功しました！"
+
+TemporaryOrder.create!(food_id: 1, restaurant_id: 1, cart_id: 1, count: 1, active: true)
+TemporaryOrder.create!(food_id: 2, restaurant_id: 1, cart_id: 1, count: 2, active: true)
+
+puts "temporary_orderデータのの投入に成功しました！"
+
+

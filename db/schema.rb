@@ -17,11 +17,9 @@ ActiveRecord::Schema.define(version: 2021_11_02_234611) do
 
   create_table "carts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "temporary_order_id", null: false
     t.integer "total_price", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["temporary_order_id"], name: "index_carts_on_temporary_order_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -80,10 +78,12 @@ ActiveRecord::Schema.define(version: 2021_11_02_234611) do
   create_table "temporary_orders", force: :cascade do |t|
     t.bigint "food_id", null: false
     t.bigint "restaurant_id", null: false
+    t.bigint "cart_id"
     t.integer "count", default: 0, null: false
     t.boolean "active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_temporary_orders_on_cart_id"
     t.index ["food_id"], name: "index_temporary_orders_on_food_id"
     t.index ["restaurant_id"], name: "index_temporary_orders_on_restaurant_id"
   end
@@ -117,12 +117,12 @@ ActiveRecord::Schema.define(version: 2021_11_02_234611) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "carts", "temporary_orders"
   add_foreign_key "carts", "users"
   add_foreign_key "foods", "restaurants"
   add_foreign_key "order_details", "foods"
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "users"
+  add_foreign_key "temporary_orders", "carts"
   add_foreign_key "temporary_orders", "foods"
   add_foreign_key "temporary_orders", "restaurants"
 end

@@ -1,10 +1,9 @@
 class Food < ApplicationRecord
   belongs_to :restaurant
-
+  belongs_to :cart, optional: true
+  has_one :temporary_order
   has_many :order_details, dependent: :destroy
   has_many :orders, through: :order_details
-
-  has_one :temporary_order
 
   validates :name,             presence: true, uniqueness: true
   validates :food_description, presence: true
