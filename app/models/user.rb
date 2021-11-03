@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   
   has_one :cart,    dependent: :destroy
-  has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :destroy, optional: true
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates :password,     presence: true
   validates :phone_number, presence: true
   validates :status,       presence: true
-  
+
   enum status: {
     active: 0,
     supended: 1
