@@ -10,7 +10,7 @@ class CreateRestaurants < ActiveRecord::Migration[6.1]
       t.string   :city,           null: false
       t.string   :block_building, null: false
       t.string   :phone_number,   null: false
-      t.datetime :update_time,    null: false
+      t.time     :update_time,    null: false
       t.string   :image
 
       t.timestamps
