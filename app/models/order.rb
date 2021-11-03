@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
+  belongs_to :user
   has_many :order_details
+  has_many :foods, through: :order_details
 
   validates :rceipt_number,   presence: true
   validates :total_price,     presence: true
