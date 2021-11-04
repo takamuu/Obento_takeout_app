@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_044642) do
+ActiveRecord::Schema.define(version: 2021_11_02_234611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "consumption_tax_rates", force: :cascade do |t|
-    t.integer "tax_classification", null: false
-    t.integer "adaptation_start_date", null: false
-    t.integer "adaptation_end_date"
-    t.integer "tax_rate", null: false
+  create_table "carts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "total_price", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "foods", force: :cascade do |t|
@@ -34,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_044642) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_foods_on_name"
+    t.index ["name"], name: "index_foods_on_name", unique: true
     t.index ["restaurant_id"], name: "index_foods_on_restaurant_id"
   end
 
@@ -50,13 +49,12 @@ ActiveRecord::Schema.define(version: 2021_10_29_044642) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "consumption_tax_rate_id", null: false
     t.string "rceipt_number", null: false
     t.integer "total_price", default: 0, null: false
+    t.integer "consumption_tax", default: 0, null: false
     t.integer "progress_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["consumption_tax_rate_id"], name: "index_orders_on_consumption_tax_rate_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -70,11 +68,24 @@ ActiveRecord::Schema.define(version: 2021_10_29_044642) do
     t.string "city", null: false
     t.string "block_building", null: false
     t.string "phone_number", null: false
-    t.datetime "update_time", null: false
+    t.time "update_time", null: false
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_restaurants_on_name"
+    t.index ["name"], name: "index_restaurants_on_name", unique: true
+  end
+
+  create_table "temporary_orders", force: :cascade do |t|
+    t.bigint "food_id", null: false
+    t.bigint "restaurant_id", null: false
+    t.bigint "cart_id"
+    t.integer "count", default: 0, null: false
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_temporary_orders_on_cart_id"
+    t.index ["food_id"], name: "index_temporary_orders_on_food_id"
+    t.index ["restaurant_id"], name: "index_temporary_orders_on_restaurant_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -96,15 +107,22 @@ ActiveRecord::Schema.define(version: 2021_10_29_044642) do
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "kana"
+    t.string "phone_number"
+    t.integer "status", default: 0
+    t.string "stripe_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "carts", "users"
   add_foreign_key "foods", "restaurants"
   add_foreign_key "order_details", "foods"
   add_foreign_key "order_details", "orders"
-  add_foreign_key "orders", "consumption_tax_rates"
   add_foreign_key "orders", "users"
+  add_foreign_key "temporary_orders", "carts"
+  add_foreign_key "temporary_orders", "foods"
+  add_foreign_key "temporary_orders", "restaurants"
 end

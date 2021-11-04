@@ -2,7 +2,7 @@ class CreateFoods < ActiveRecord::Migration[6.1]
   def change
     create_table :foods do |t|
       t.references :restaurant,       null: false, foreign_key: true
-      t.string     :name,             null: false, unique: true
+      t.string     :name,             null: false
       t.text       :food_description, null: false
       t.integer    :price,            null: false
       t.integer    :sales_limit
@@ -12,6 +12,6 @@ class CreateFoods < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :foods, :name
+    add_index :foods, :name, unique: true
   end
 end
