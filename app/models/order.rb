@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :order_details
+  has_many :order_details, dependent: :destroy
   has_many :foods, through: :order_details
 
   validates :rceipt_number,   presence: true

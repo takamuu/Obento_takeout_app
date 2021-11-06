@@ -1,6 +1,5 @@
 class Restaurant < ApplicationRecord
   has_many :foods, dependent: :destroy
-  has_many :temporary_orders, through: :foods
 
   validates :name,           presence: true, uniqueness: true, length: { maximum: 30 }
   validates :fee,            presence: true, numericality: { greater_than: 0 }

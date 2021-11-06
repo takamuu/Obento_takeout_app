@@ -3,7 +3,7 @@ Order.delete_all
 User.delete_all
 Restaurant.delete_all
 Food.delete_all
-TemporaryOrder.delete_all
+CartDetail.delete_all
 
 #-----------------------------------------
 # User
@@ -101,18 +101,16 @@ end
 puts "cartテストデータを作成しました！".green
 
 #-----------------------------------------
-# TemporaryOrder
+# CartDetail
 #-----------------------------------------
 3.times do |t|
-  temporary_order = TemporaryOrder.create!(
+  cart_detail = CartDetail.create!(
     food_id: t + 1,
-    restaurant_id: t + 1,
     cart_id: t + 1,
     count: t + 1,
-    active: true
   )
 end
 
-puts "temporary_orderテストデータを作成しました！".green
+puts "cart_detailテストデータを作成しました！".green
 
 
