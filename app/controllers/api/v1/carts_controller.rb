@@ -1,19 +1,44 @@
 class Api::V1::CartsController < ApplicationController
-  def create
-    posted_temporary_orders = TemporaryOrder.where(id: params[:temporary_order_ids])
-    cart = Cart.new(
-      total_price: total_price(posted_temporary_orders),
-    )
-    if cart.save_with_update_temporary_orders!(posted_temporary_orders)
-      render json: {}, status: :no_content
-    else
-      render json: {}, status: :internal_server_error
-    end
-  end
+  # before_action :set_food, only: %i[create]
 
-  private
+  #   def create
+  #     if LineFood.active.other_restaurant(@ordered_food.restaurant.id).exists?
+  #       return render json: {
+  #         existing_restaurant: LineFood.other_restaurant(@ordered_food.restaurant.id).first.restaurant.name,
+  #         new_restaurant: Food.find(params[:food_id]).restaurant.name,
+  #       }, status: :not_acceptable
+  #     end
 
-    def total_price(posted_temporary_orders)
-      posted_temporary_orders.sum { |temporary_order| temporary_order.total_amount } + posted_temporary_orders.first.restaurant.fee
-    end
+  #     set_line_food(@ordered_food)
+
+  #     if @line_food.save
+  #       render json: {
+  #         line_food: @line_food
+  #       }, status: :created
+  #     else
+  #       render json: {}, status: :internal_server_error
+  #     end
+  #   end
+
+  #   private
+
+  #   def set_food
+  #     @ordered_food = Food.find(params[:food_id])
+  #   end
+
+  #   def set_line_food(ordered_food)
+  #     if ordered_food.line_food.present?
+  #       @line_food = ordered_food.line_food
+  #       @line_food.attributes = {
+  #         count: ordered_food.line_food.count + params[:count],
+  #         active: true
+  #       }
+  #     else
+  #       @line_food = ordered_food.build_line_food(
+  #         count: params[:count],
+  #         restaurant: ordered_food.restaurant,
+  #         active: true
+  #       )
+  #     end
+  #   end
 end
