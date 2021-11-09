@@ -1,5 +1,10 @@
-import React from 'react';
+import { Button, ChakraProvider } from '@chakra-ui/react';
+import './App.css';
 
-export default function App() {
-  return <h1>Hello World!</h1>;
+export default function App(): JSX.Element {
+  return (
+    <ChakraProvider>
+      <Button colorScheme="teal">ボタン</Button>
+    </ChakraProvider>
+  );
 }
