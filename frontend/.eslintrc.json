@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es2021": true
@@ -7,18 +8,38 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react/jsx-runtime",
+    // "airbnb",
+    // "airbnb-typescript",
     "prettier"
+    // "prettier/@typescript-eslint"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
-    "sourceType": "module"
+    // "ecmaVersion": 13,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "arrow-body-style": ["warn", "always"],
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-uses-react": 0
   }
+  // "overrides": [
+  //   {
+  //     // enable the rule specifically for TypeScript files
+  //     "files": ["*.ts", "*.tsx"],
+  //     "rules": {
+  //       "@typescript-eslint/explicit-module-boundary-types": ["error"]
+  //     }
+  //   }
+  // ]
 }
