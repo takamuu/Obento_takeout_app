@@ -11,8 +11,8 @@
     "plugin:react/jsx-runtime",
     // "airbnb",
     // "airbnb-typescript",
-    "prettier",
-    "prettier/@typescript-eslint"
+    "prettier"
+    // "prettier/@typescript-eslint"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

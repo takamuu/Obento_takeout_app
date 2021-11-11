@@ -1,40 +1,28 @@
-import { useState } from 'react';
-import { Button, ChakraProvider } from '@chakra-ui/react';
-import axios from 'axios';
+import { BrowserRouter, Link } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 
 import theme from './theme/theme';
-import { Todo } from './Todo';
-
-type TodoType = {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-};
+import { Router } from './router/Router';
 
 export default function App(): JSX.Element {
-  const [todos, setTodos] = useState<Array<TodoType>>([]);
-
-  const onClickFetchData = () => {
-    axios
-      .get<Array<TodoType>>('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => {
-        setTodos(res.data);
-      });
-  };
   return (
     <ChakraProvider theme={theme}>
-      <Button colorScheme="teal" onClick={onClickFetchData}>
-        ボタン
-      </Button>
-      {todos.map((todo, i: number) => (
-        <Todo
-          key={todo.id}
-          title={todo.title}
-          userId={todo.userId}
-          completed={todo.completed}
-        />
-      ))}
+      <BrowserRouter>
+        <div className="App">
+          <Link to="/login">Login</Link>
+          <br />
+          <Link to="/login/user_management">UserManagement</Link>
+          <br />
+          <Link to="/login/setting">Setting</Link>
+          <br />
+          <Link to="/restaurants">Restarants</Link>
+          <br />
+          <Link to="/foods">Foods</Link>
+          <br />
+          <Link to="/cart">Cart</Link>
+        </div>
+        <Router />
+      </BrowserRouter>
     </ChakraProvider>
   );
 }
