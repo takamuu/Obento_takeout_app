@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es5",
     "module": "esnext",
     "lib": ["es2020", "dom"],
     "jsx": "react-jsx",
@@ -8,6 +8,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "baseUrl": "src",
     "esModuleInterop": true,
@@ -19,8 +20,8 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "isolatedModules": false,
-    "noEmit": true
+    "noEmit": true,
+    "isolatedModules": true
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"],
