@@ -1,11 +1,11 @@
 import { memo, VFC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Foods } from 'components/pages/Foods';
 import { Cart } from 'components/pages/Cart';
 import { loginRoutes } from './LoginRoutes';
-import { Restaurants } from 'components/pages/Restaurants';
 import { Page404 } from 'components/pages/Page404';
+import { restaurantsRoutes } from './RestaurantsRoutes';
+import { HeaderLayout } from 'components/templates/HeaderLayout';
 
 export const Router: VFC = memo(() => {
   return (
@@ -28,25 +28,19 @@ export const Router: VFC = memo(() => {
       />
       <Route
         path="/restaurants"
-        render={(props) => {
-          return (
-            <Switch>
-              {console.log(props)}
-              <Restaurants />
-            </Switch>
-          );
-        }}
-      />
-      <Route
-        path="/foods"
-        render={(props) => {
-          return (
-            <Switch>
-              {console.log(props)}
-              <Foods />
-            </Switch>
-          );
-        }}
+        render={({ match: { url } }) => (
+          <Switch>
+            {restaurantsRoutes.map((route) => (
+              <Route
+                key={route.path}
+                exact={route.exact}
+                path={`${url}${route.path}`}
+              >
+                <HeaderLayout>{route.children}</HeaderLayout>
+              </Route>
+            ))}
+          </Switch>
+        )}
       />
       <Route
         path="/Cart"
