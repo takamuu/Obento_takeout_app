@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { restaurantsIndex } from 'url/index';
+import { restaurantsIndexUrl } from 'url/index';
 
 type RestaurantType = {
   id: number;
@@ -21,7 +21,7 @@ type RestaurantType = {
 
 export const fetchRestaurants = () => {
   return axios
-    .get<Array<RestaurantType>>(restaurantsIndex)
+    .get<Array<RestaurantType>>(restaurantsIndexUrl)
     .then((res) => {
       return res.data;
     })
