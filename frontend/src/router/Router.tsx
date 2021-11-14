@@ -42,17 +42,6 @@ export const Router: VFC = memo(() => {
           </Switch>
         )}
       />
-      <Route
-        path="/Cart"
-        render={(props) => {
-          return (
-            <Switch>
-              {console.log(props)}
-              <Cart />
-            </Switch>
-          );
-        }}
-      />
       <Route>
         <Page404 />
       </Route>
