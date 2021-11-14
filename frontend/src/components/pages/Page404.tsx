@@ -9,5 +9,3 @@ export const Page404: VFC = memo(() => {
     </div>
   );
 });
-
-Page404.displayName = 'Page404';

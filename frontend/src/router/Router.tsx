@@ -59,5 +59,3 @@ export const Router: VFC = memo(() => {
     </Switch>
   );
 });
-
-Router.displayName = 'Router';

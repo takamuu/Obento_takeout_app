@@ -1,4 +1,5 @@
-import { memo, VFC } from 'react';
+import { fetchRestaurants } from 'apis/restaurants';
+import { memo, useEffect, VFC } from 'react';
 import { useParams, useLocation } from 'react-router';
 
 type IdType = {
@@ -6,6 +7,11 @@ type IdType = {
 };
 
 export const Foods: VFC = memo(() => {
+  useEffect(() => {
+    fetchRestaurants().then((data) => {
+      console.log(data);
+    });
+  }, []);
   const { restaurantId } = useParams<IdType>();
   const { search } = useLocation();
   const query = new URLSearchParams(search);
@@ -15,8 +21,7 @@ export const Foods: VFC = memo(() => {
       <h1>Foodsページ</h1>
       <p>restaurantIdは {restaurantId}</p>
       <p>クエリパラメーターは{query.get('name')}です</p>
+      {/* <p>{data}</p> */}
     </div>
   );
 });
-
-Foods.displayName = 'Foods';

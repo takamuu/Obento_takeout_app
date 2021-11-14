@@ -32,5 +32,3 @@ export const MenuDrawer: VFC<Props> = memo((props) => {
     </Drawer>
   );
 });
-
-MenuDrawer.displayName = 'MenuDrawer';

@@ -13,5 +13,3 @@ export const Login: VFC = memo(() => {
     </div>
   );
 });
-
-Login.displayName = 'Login';

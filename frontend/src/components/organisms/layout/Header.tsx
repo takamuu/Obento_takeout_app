@@ -49,5 +49,3 @@ export const Header: VFC = memo(() => {
     </>
   );
 });
-
-Header.displayName = 'Header';

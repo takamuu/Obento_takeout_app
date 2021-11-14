@@ -16,5 +16,3 @@ export const HeaderLayout: VFC<Props> = memo((props) => {
     </>
   );
 });
-
-HeaderLayout.displayName = 'HeaderLayout';

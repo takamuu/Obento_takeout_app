@@ -19,5 +19,3 @@ export const MenuIconButton: VFC<Props> = memo((props) => {
     />
   );
 });
-
-MenuIconButton.displayName = 'MenuIconButton';

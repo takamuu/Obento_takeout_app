@@ -19,5 +19,3 @@ export const Restaurants: VFC = memo(() => {
     </div>
   );
 });
-
-Restaurants.displayName = 'Restaurants';
