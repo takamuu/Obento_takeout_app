@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 import MainLogo from 'images/MainLogo.svg';
+import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 
 export const Login: VFC = memo(() => {
   return (
@@ -34,9 +35,7 @@ export const Login: VFC = memo(() => {
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
           />
-          <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
-            ログイン
-          </Button>
+          <PrimaryButton>ログイン</PrimaryButton>
           <Button bg="teal.300" color="white" _hover={{ opacity: 0.8 }}>
             ゲストログイン
           </Button>
