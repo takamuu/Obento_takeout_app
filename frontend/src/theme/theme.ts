@@ -6,9 +6,9 @@ const theme = extendTheme({
       body: {
         backgroundColor: 'white',
         color: 'gray.800',
-        // fontWeight: 'normal',
       },
     },
   },
 });
+
 export default theme;
