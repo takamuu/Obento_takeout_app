@@ -27,11 +27,13 @@
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "import/prefer-default-export": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/prefer-default-export": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
     "arrow-body-style": ["warn", "always"],
     "react/react-in-jsx-scope": 0,
-    "react/jsx-uses-react": 0
+    "react/jsx-uses-react": 0,
+    "react/prop-types": 0,
+    "react/display-name": 0
   }
   // "overrides": [
   //   {
