@@ -1,7 +1,7 @@
+/* eslint-disable arrow-body-style */
 import { memo, VFC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Cart } from 'components/pages/Cart';
 import { loginRoutes } from './LoginRoutes';
 import { Page404 } from 'components/pages/Page404';
 import { restaurantsRoutes } from './RestaurantsRoutes';
