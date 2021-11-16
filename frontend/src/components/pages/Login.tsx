@@ -1,28 +1,33 @@
+/* eslint-disable arrow-body-style */
 import { memo, useCallback, VFC } from 'react';
 import {
   Image,
-  Button,
   Input,
   Box,
   Divider,
   Flex,
-  Heading,
   Stack,
+  HStack,
+  Text,
 } from '@chakra-ui/react';
 
 import MainLogo from 'images/MainLogo.svg';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { GuestButton } from 'components/atoms/button/GuestButton';
+import { NewRegistrationButton } from 'components/atoms/button/NewRegistrationButton';
 import { useHistory } from 'react-router-dom';
 
 export const Login: VFC = memo(() => {
   const history = useHistory();
-  const onClickHome = useCallback(() => history.push('/restaurants'), []);
+  const onClickHome = useCallback(
+    () => history.push('/restaurants'),
+    [history]
+  );
 
   return (
     <Flex align="center" justify="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRaius="md" shadow="md">
-        <Heading as="h1" size="md" textAlign="center">
+        <HStack spacing="12px">
           <Image
             boxSize="60px"
             src={MainLogo}
@@ -30,8 +35,10 @@ export const Login: VFC = memo(() => {
             _hover={{ cursor: 'pointer' }}
             onClick={onClickHome}
           />
-          お弁当テイクアウトアプリ
-        </Heading>
+          <Text fontSize="23px" fontWeight="bold" color="brand">
+            お弁当テイクアウトアプリ
+          </Text>
+        </HStack>
         <Divider borderColor="gray.300" my={4} />
         <Stack spacing={6} py={4} px={10}>
           <Input
@@ -48,6 +55,7 @@ export const Login: VFC = memo(() => {
           />
           <PrimaryButton>ログイン</PrimaryButton>
           <GuestButton>ゲストログイン</GuestButton>
+          <NewRegistrationButton>新規登録</NewRegistrationButton>
         </Stack>
       </Box>
     </Flex>
