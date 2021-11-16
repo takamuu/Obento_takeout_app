@@ -39,7 +39,7 @@ export const Login: VFC = memo(() => {
             お弁当テイクアウトアプリ
           </Text>
         </HStack>
-        <Divider borderColor="gray.300" my={4} />
+        <Divider borderColor="brand" my={4} />
         <Stack spacing={6} py={4} px={10}>
           <Input
             borderColor="gray.300"
