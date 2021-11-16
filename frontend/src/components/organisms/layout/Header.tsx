@@ -14,11 +14,12 @@ export const Header: VFC = memo(() => {
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-  const onClickUserManagement = useCallback(
-    () => history.push('/login/user_management'),
-    []
-  );
-  const onClickSetting = useCallback(() => history.push('/login/setting'), []);
+  // 今回は使用していないが、以降実装予定のコード
+  // const onClickUserManagement = useCallback(
+  //   () => history.push('/login/user_management'),
+  //   []
+  // );
+  // const onClickSetting = useCallback(() => history.push('/login/setting'), []);
 
   return (
     <>
