@@ -5,10 +5,10 @@ type Props = {
   children: ReactNode;
 };
 
-export const GuestButton: VFC<Props> = memo((props) => {
+export const NewRegistrationButton: VFC<Props> = memo((props) => {
   const { children } = props;
   return (
-    <Button bg="blue.400" color="white" _hover={{ opacity: 0.8 }}>
+    <Button bg="teal.500" color="white" _hover={{ opacity: 0.8 }}>
       {children}
     </Button>
   );

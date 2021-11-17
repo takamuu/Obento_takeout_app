@@ -13,10 +13,10 @@ type RestaurantType = {
   city: string;
   block_building: string;
   phone_number: string;
-  update_time: any;
+  update_time: Date;
   image: string;
-  created_at: any;
-  updated_at: any;
+  created_at: Date;
+  updated_at: Date;
 };
 
 export const fetchRestaurants = () => {
