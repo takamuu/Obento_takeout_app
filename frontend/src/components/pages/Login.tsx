@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
 import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
 import {
@@ -16,9 +17,13 @@ import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { GuestButton } from 'components/atoms/button/GuestButton';
 import { NewRegistrationButton } from 'components/atoms/button/NewRegistrationButton';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 
 export const Login: VFC = memo(() => {
+  const { login, loading } = useAuth();
+
   const history = useHistory();
+
   const onClickHome = useCallback(
     () => history.push('/restaurants'),
     [history]
@@ -26,8 +31,11 @@ export const Login: VFC = memo(() => {
 
   // ユーザーID用State
   const [userId, setUserId] = useState('');
+
   const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) =>
     setUserId(e.target.value);
+
+  const onClickLogin = () => login(userId);
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -60,7 +68,7 @@ export const Login: VFC = memo(() => {
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
           />
-          <PrimaryButton>ログイン</PrimaryButton>
+          <PrimaryButton onClick={onClickLogin}>ログイン</PrimaryButton>
           <GuestButton>ゲストログイン</GuestButton>
           <NewRegistrationButton>新規登録</NewRegistrationButton>
         </Stack>
