@@ -68,7 +68,9 @@ export const Login: VFC = memo(() => {
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
           />
-          <PrimaryButton onClick={onClickLogin}>ログイン</PrimaryButton>
+          <PrimaryButton disabled={userId === ''} onClick={onClickLogin}>
+            ログイン
+          </PrimaryButton>
           <GuestButton>ゲストログイン</GuestButton>
           <NewRegistrationButton>新規登録</NewRegistrationButton>
         </Stack>
