@@ -27,5 +27,5 @@ export const useAuth = () => {
     },
     [history]
   );
-  return { login };
+  return { login, loading };
 };
