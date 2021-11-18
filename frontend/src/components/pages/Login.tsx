@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, VFC } from 'react';
+import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
 import {
   Image,
   Input,
@@ -24,6 +24,11 @@ export const Login: VFC = memo(() => {
     [history]
   );
 
+  // ユーザーID用State
+  const [userId, setUserId] = useState('');
+  const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) =>
+    setUserId(e.target.value);
+
   return (
     <Flex align="center" justify="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRaius="md" shadow="md">
@@ -46,6 +51,8 @@ export const Login: VFC = memo(() => {
             placeholder="ユーザーID"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
+            value={userId}
+            onChange={onChangeUserId}
           />
           <Input
             borderColor="gray.300"
