@@ -22,13 +22,21 @@ export const useAuth = () => {
             showMessage({ title: 'ログインしました', status: 'success' });
             history.push('/restaurants');
           } else {
-            alert('ユーザーが見つかりません');
+            showMessage({
+              title: 'ユーザーが見つかりません',
+              status: 'error',
+            });
           }
         })
-        .catch(() => alert('ログインできません'))
+        .catch(() =>
+          showMessage({
+            title: 'ログインできません',
+            status: 'error',
+          })
+        )
         .finally(() => setLoading(false));
     },
-    [history]
+    [history, showMessage]
   );
   return { login, loading };
 };
