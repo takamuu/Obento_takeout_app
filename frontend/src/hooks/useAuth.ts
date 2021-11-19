@@ -17,22 +17,12 @@ export const useAuth = () => {
       setLoading(true);
       axios
         .get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)
-        .then((res) => {
-          if (res.data.id) {
-            showMessage({ title: 'ログインしました', status: 'success' });
-            history.push('/restaurants');
-          } else {
-            showMessage({
-              title: 'ユーザーが見つかりません',
-              status: 'error',
-            });
-          }
+        .then(() => {
+          showMessage({ title: 'ログインしました', status: 'success' });
+          history.push('/restaurants');
         })
         .catch(() =>
-          showMessage({
-            title: 'ログインできません',
-            status: 'error',
-          })
+          showMessage({ title: 'ログインできません', status: 'error' })
         )
         .finally(() => setLoading(false));
     },
