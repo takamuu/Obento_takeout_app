@@ -22,7 +22,11 @@ export const useAuth = () => {
           history.push('/restaurants');
         })
         .catch(() =>
-          showMessage({ title: 'ログインできません', status: 'error' })
+          showMessage({
+            title:
+              'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
+            status: 'error',
+          })
         )
         .finally(() => setLoading(false));
     },
