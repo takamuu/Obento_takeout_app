@@ -7,13 +7,11 @@ import { Spinner } from '@chakra-ui/spinner';
 import { useRestaurants } from 'hooks/useRestaurants';
 import { RestaurantCard } from 'components/organisms/restaurant/RestaurantCard';
 import HappyHour from 'images/HappyHour.jpg';
-// import { Restaurant } from 'types/api/restaurant';
 
 export const Restaurants: VFC = memo(() => {
   const { getRestaurants, restaurants, loading } = useRestaurants();
 
   useEffect(() => getRestaurants(), []);
-  console.log(restaurants);
 
   return (
     <>
@@ -36,25 +34,3 @@ export const Restaurants: VFC = memo(() => {
     </>
   );
 });
-
-// import { memo, useEffect, VFC } from 'react';
-// import { Link } from 'react-router-dom';
-
-// import { fetchRestaurants } from 'apis/restaurants';
-
-// export const Restaurants: VFC = memo(() => {
-//   useEffect(() => {
-//     fetchRestaurants().then((data) => {
-//       console.log(data);
-//     });
-//   }, []);
-//   return (
-//     <div>
-//       <p>HOMEページ = レストラン一覧ページ</p>
-//       <br />
-//       <Link to="/restaurants/100/foods">Foods</Link>
-//       <br />
-//       <Link to="/restaurants/100/foods?name=hogehoge">Query Parameter</Link>
-//     </div>
-//   );
-// });
