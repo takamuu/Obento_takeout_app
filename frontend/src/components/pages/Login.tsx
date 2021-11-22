@@ -69,7 +69,7 @@ export const Login: VFC = memo(() => {
             _hover={{ color: 'gray.600' }}
           />
           <PrimaryButton
-            disabled={userId === ''}
+            disabled={!userId}
             loading={loading}
             onClick={onClickLogin}
           >
