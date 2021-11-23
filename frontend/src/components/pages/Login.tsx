@@ -39,7 +39,7 @@ export const Login: VFC = memo(() => {
 
   return (
     <Flex align="center" justify="center" height="100vh">
-      <Box bg="white" w="sm" p={4} borderRaius="md" shadow="md">
+      <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <HStack spacing="12px">
           <Image
             boxSize="60px"

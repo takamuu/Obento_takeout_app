@@ -5,6 +5,24 @@ Restaurant.delete_all
 Food.delete_all
 CartDetail.delete_all
 
+# User
+USER_NUM = 10
+
+# Restaurant
+RESTAURANT_NUM = 10
+
+# Food
+FOOD_NUM = 12
+
+# Order
+ORDER_NUM = 5
+
+# Cart
+CART_NUM = 5
+
+# CartDetail
+CART_DETAIL_NUM = 5
+
 #-----------------------------------------
 # User
 #-----------------------------------------
@@ -21,7 +39,7 @@ user_params = [
 ]
 User.create!(user_params)
 
-4.times do |n|
+USER_NUM.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@example.com"
   kana = "カナテスト#{n+1}"
@@ -36,12 +54,12 @@ User.create!(user_params)
   )
 end
 
-puts "ユーザーのテストデータを作成しました！".green
+puts "ユーザーのテストデータを作成OK！".green
 
 #-----------------------------------------
 # Restaurant
 #-----------------------------------------
-3.times do |r|
+RESTAURANT_NUM.times do |r|
   restaurant = Restaurant.create!(
     name: "レストラン#{r}",
     description: "美味しいお店",
@@ -55,12 +73,12 @@ puts "ユーザーのテストデータを作成しました！".green
   )
 end
 
-puts "restaurantのテストデータを作成しました！".green
+puts "restaurantのテストデータを作成OK！".green
 
 #-----------------------------------------
 # Food
 #-----------------------------------------
-12.times do |f|
+FOOD_NUM.times do |f|
  food = Food.create!(
    restaurant_id: 1,
    name: "テスト弁当#{f}",
@@ -71,12 +89,12 @@ puts "restaurantのテストデータを作成しました！".green
  )
 end
 
-puts "foodテストデータを作成しました！".green
+puts "foodテストデータを作成OK！".green
 
 #-----------------------------------------
 # Order
 #-----------------------------------------
-3.times do |o|
+ORDER_NUM.times do |o|
  order = Order.create!(
    user_id: 1,
    rceipt_number: "AAAA#{o}",
@@ -86,24 +104,24 @@ puts "foodテストデータを作成しました！".green
  )
 end
 
-puts "orderテストデータを作成しました！".green
+puts "orderテストデータを作成OK！".green
 
 #-----------------------------------------
 # Cart
 #-----------------------------------------
-3.times do |c|
+CART_NUM.times do |c|
   cart = Cart.create!(
     user_id: c + 1,
     total_price: 1500
   )
 end
 
-puts "cartテストデータを作成しました！".green
+puts "cartテストデータを作成OK！".green
 
 #-----------------------------------------
 # CartDetail
 #-----------------------------------------
-3.times do |t|
+CART_DETAIL_NUM.times do |t|
   cart_detail = CartDetail.create!(
     food_id: t + 1,
     cart_id: t + 1,
@@ -111,6 +129,6 @@ puts "cartテストデータを作成しました！".green
   )
 end
 
-puts "cart_detailテストデータを作成しました！".green
+puts "cart_detailテストデータを作成OK！".green
 
 

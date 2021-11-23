@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable arrow-body-style */
 import { memo, useCallback, VFC } from 'react';
 import { Box, Flex, Heading, Link } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/image';
