@@ -25,7 +25,7 @@ export const RestaurantCard: VFC<Props> = memo((props) => {
           w="220px"
           h="250px"
           src={imageUrl}
-          alt="HappyHour"
+          alt={restaurantName}
           m="auto"
         />
         <Text fontSize="lg" fontWeight="bold">
