@@ -12,7 +12,8 @@ export const useFoods = () => {
   const [loading, setLoading] = useState(false);
   const [foods, setFoods] = useState<Array<Food>>([]);
 
-  const getFoods = useCallback((restaurantId) => {
+  const getFoods = useCallback((restaurantId: string) => {
+    setLoading(true);
     axios
       .get<Array<Food>>(foodsIndexUrl(restaurantId))
       .then((res) => {
