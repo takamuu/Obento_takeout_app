@@ -13,6 +13,7 @@ RESTAURANT_NUM = 10
 
 # Food
 FOOD_NUM = 12
+NUMBER_OF_REPEATS = 3
 
 # Order
 ORDER_NUM = 5
@@ -61,7 +62,7 @@ puts "ユーザーのテストデータを作成OK！".green
 #-----------------------------------------
 RESTAURANT_NUM.times do |r|
   restaurant = Restaurant.create!(
-    name: "レストラン#{r}",
+    name: "レストラン#{r + 1}",
     description: "美味しいお店",
     fee: 0.05,
     postal_code: 7000000,
@@ -78,15 +79,17 @@ puts "restaurantのテストデータを作成OK！".green
 #-----------------------------------------
 # Food
 #-----------------------------------------
-FOOD_NUM.times do |f|
- food = Food.create!(
-   restaurant_id: 1,
-   name: "テスト弁当#{f}",
-   food_description: "美味",
-   price: 1000,
-   sales_limit: 20,
-   sales_status: 1
- )
+NUMBER_OF_REPEATS.times do |n|
+  FOOD_NUM.times do |f|
+  food = Food.create!(
+    restaurant_id: n + 1,
+    name: "テスト弁当#{f + 1}",
+    food_description: "美味",
+    price: 1000,
+    sales_limit: 20,
+    sales_status: 1
+  )
+  end
 end
 
 puts "foodテストデータを作成OK！".green
