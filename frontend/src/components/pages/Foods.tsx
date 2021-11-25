@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useEffect, VFC } from 'react';
-import { Box, Center, Wrap, WrapItem } from '@chakra-ui/layout';
+import { Center, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
 
