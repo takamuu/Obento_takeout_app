@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 import { useFoods } from 'hooks/useFoods';
 import { FoodCard } from 'components/organisms/food/FoodCard';
-import 牛タン弁当 from 'images/牛タン弁当.svg';
+import BeefTongue from 'images/BeefTongue.svg';
 
 type IdType = {
   restaurantId: string;
@@ -35,7 +35,7 @@ export const Foods: VFC = memo(() => {
             {foods.map((food) => (
               <WrapItem key={food.id}>
                 <FoodCard
-                  imageUrl={牛タン弁当}
+                  imageUrl={BeefTongue}
                   foodName={food.name}
                   foodDescription={food.food_description}
                   foodPrice={food.price}
