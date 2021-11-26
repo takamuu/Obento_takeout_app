@@ -1,9 +1,9 @@
+CartDetail.delete_all
 Cart.delete_all
 Order.delete_all
 User.delete_all
-Restaurant.delete_all
 Food.delete_all
-CartDetail.delete_all
+Restaurant.delete_all
 
 # User
 USER_NUM = 10
