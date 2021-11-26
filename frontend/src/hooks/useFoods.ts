@@ -21,7 +21,7 @@ export const useFoods = () => {
       })
       .catch(() => {
         showMessage({
-          title: 'フードデータの取得に失敗しました',
+          title: 'データの取得に失敗しました',
           status: 'error',
         });
       })
