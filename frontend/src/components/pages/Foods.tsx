@@ -10,14 +10,10 @@ import { useFoods } from 'hooks/useFoods';
 import { FoodCard } from 'components/organisms/food/FoodCard';
 import BeefTongue from 'images/BeefTongue.svg';
 
-type IdType = {
-  restaurantId: string;
-};
-
 export const Foods: VFC = memo(() => {
   const { getFoods, foods, loading } = useFoods();
 
-  const { restaurantId } = useParams<IdType>();
+  const { restaurantId } = useParams<{ restaurantId: string }>();
 
   useEffect(() => getFoods(restaurantId), []);
 
