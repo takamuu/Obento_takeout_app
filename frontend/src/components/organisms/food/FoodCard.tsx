@@ -1,16 +1,19 @@
+/* eslint-disable arrow-body-style */
 import { Image } from '@chakra-ui/image';
 import { Box, Stack, Text } from '@chakra-ui/layout';
 import { memo, VFC } from 'react';
 
 type Props = {
+  id: number;
   imageUrl: string;
   foodName: string;
   foodDescription: string;
   foodPrice: number;
+  onClick: (id: number) => void;
 };
 
 export const FoodCard: VFC<Props> = memo((props) => {
-  const { imageUrl, foodName, foodDescription, foodPrice } = props;
+  const { id, imageUrl, foodName, foodDescription, foodPrice, onClick } = props;
   return (
     <Box
       w="260px"
@@ -20,6 +23,7 @@ export const FoodCard: VFC<Props> = memo((props) => {
       shadow="md"
       p={4}
       _hover={{ cursor: 'pointer', opacity: 0.8 }}
+      onClick={() => onClick(id)}
     >
       <Stack textAlign="center" />
       <Image src={imageUrl} alt={foodName} />
