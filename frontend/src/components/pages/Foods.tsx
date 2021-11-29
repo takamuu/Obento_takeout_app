@@ -1,5 +1,4 @@
 /* eslint-disable no-constant-condition */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, VFC } from 'react';
 import { Center, Wrap, WrapItem } from '@chakra-ui/layout';
@@ -10,21 +9,26 @@ import { useDisclosure } from '@chakra-ui/hooks';
 import { useFoods } from 'hooks/useFoods';
 import { FoodCard } from 'components/organisms/food/FoodCard';
 import BeefTongue from 'images/BeefTongue.svg';
-import { FoodDetailModal } from 'components/organisms/food/FoodDetailModal';
+import { FoodOrderModal } from 'components/organisms/food/FoodOrderModal';
+import { useSelectFood } from 'hooks/useSelectFood';
 
 export const Foods: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { getFoods, foods, loading } = useFoods();
 
+  const { onSelectFood, selectedFood } = useSelectFood();
+
   const { restaurantId } = useParams<{ restaurantId: string }>();
 
   useEffect(() => getFoods(restaurantId), []);
 
-  const onClickFood = useCallback((id: number) => {
-    console.log(id);
-    onOpen();
-  }, []);
+  const onClickFood = useCallback(
+    (id: number) => {
+      onSelectFood({ id, foods, onOpen });
+    },
+    [foods, onSelectFood, onOpen]
+  );
 
   return (
     <>
@@ -52,7 +56,7 @@ export const Foods: VFC = memo(() => {
           </Wrap>
         </div>
       )}
-      <FoodDetailModal isOpen={isOpen} onClose={onClose} />
+      <FoodOrderModal food={selectedFood} isOpen={isOpen} onClose={onClose} />
     </>
   );
 });
