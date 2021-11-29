@@ -11,13 +11,16 @@ import {
 } from '@chakra-ui/modal';
 import { memo, VFC } from 'react';
 
+import { Food } from 'types/api/food';
+
 type Props = {
+  food: Food | null;
   isOpen: boolean;
   onClose: () => void;
 };
 
-export const FoodDetailModal: VFC<Props> = memo((props) => {
-  const { isOpen, onClose } = props;
+export const FoodOrderModal: VFC<Props> = memo((props) => {
+  const { food, isOpen, onClose } = props;
   return (
     <Modal
       isOpen={isOpen}
@@ -32,12 +35,20 @@ export const FoodDetailModal: VFC<Props> = memo((props) => {
           <ModalBody mx={4}>
             <Stack spacing={4}>
               <FormControl>
-                <FormLabel>商品名</FormLabel>
-                <Input value="テスト" isReadOnly />
+                <FormLabel>画像</FormLabel>
+                <Input value={food?.image} isReadOnly />
               </FormControl>
               <FormControl>
-                <FormLabel>MAIL</FormLabel>
-                <Input value="test@exapmle.com" isReadOnly />
+                <FormLabel>商品名</FormLabel>
+                <Input value={food?.name} isReadOnly />
+              </FormControl>
+              <FormControl>
+                <FormLabel>商品説明</FormLabel>
+                <Input value={food?.food_description} isReadOnly />
+              </FormControl>
+              <FormControl>
+                <FormLabel>金額</FormLabel>
+                <Input value={food?.price} isReadOnly />
               </FormControl>
             </Stack>
           </ModalBody>
