@@ -1,26 +1,44 @@
-import { FormControl, FormLabel } from '@chakra-ui/form-control';
-import { Input } from '@chakra-ui/input';
-import { Stack } from '@chakra-ui/layout';
+/* eslint-disable arrow-body-style */
+import { memo, VFC } from 'react';
+import { FormControl } from '@chakra-ui/form-control';
+import { Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalHeader,
+  ModalFooter,
   ModalOverlay,
 } from '@chakra-ui/modal';
-import { memo, VFC } from 'react';
+import { CountDownButton } from 'components/atoms/button/CountDownButton';
+import { CountUpButton } from 'components/atoms/button/CountUpButton';
+import { OrderButton } from 'components/atoms/button/OrderButton';
 
 import { Food } from 'types/api/food';
+import BeefTongue from 'images/BeefTongue.svg';
+import { Image } from '@chakra-ui/image';
 
 type Props = {
   food: Food | null;
+  countNumber: number;
   isOpen: boolean;
   onClose: () => void;
+  onClickUpCount: () => void;
+  onClickDownCount: () => void;
+  onClickOrder: () => void;
 };
 
 export const FoodOrderModal: VFC<Props> = memo((props) => {
-  const { food, isOpen, onClose } = props;
+  const {
+    food,
+    countNumber,
+    isOpen,
+    onClose,
+    onClickUpCount,
+    onClickDownCount,
+    onClickOrder,
+  } = props;
+
   return (
     <Modal
       isOpen={isOpen}
@@ -29,29 +47,45 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
       motionPreset="slideInBottom"
     >
       <ModalOverlay>
-        <ModalContent bg="white" pb={6}>
-          <ModalHeader>注文</ModalHeader>
+        <ModalContent bg="white">
+          <Image src={BeefTongue} />
           <ModalCloseButton />
-          <ModalBody mx={4}>
-            <Stack spacing={4}>
+          <ModalBody mx={2}>
+            <Stack spacing={2}>
               <FormControl>
-                <FormLabel>画像</FormLabel>
-                <Input value={food?.image} isReadOnly />
+                <Image src={food?.image} />
               </FormControl>
               <FormControl>
-                <FormLabel>商品名</FormLabel>
-                <Input value={food?.name} isReadOnly />
+                <Text fontSize="xl">{food?.name}</Text>
               </FormControl>
               <FormControl>
-                <FormLabel>商品説明</FormLabel>
-                <Input value={food?.food_description} isReadOnly />
+                <Text fontSize="xl">{food?.food_description}</Text>
               </FormControl>
               <FormControl>
-                <FormLabel>金額</FormLabel>
-                <Input value={food?.price} isReadOnly />
+                <Text fontSize="xl">金額 ¥ {food?.price.toLocaleString()}</Text>
               </FormControl>
             </Stack>
           </ModalBody>
+          <ModalFooter>
+            <CountDownButton
+              onClick={() => onClickDownCount()}
+              isDisabled={countNumber <= 1}
+            />
+            <Text fontSize="xl" p={4}>
+              {countNumber}
+            </Text>
+            <CountUpButton
+              onClick={() => onClickUpCount()}
+              isDisabled={countNumber >= 9}
+            />
+            <Spacer />
+            <OrderButton onClick={() => onClickOrder()}>
+              <Text p={2}>{`${countNumber}点をカートに追加 `}</Text>
+              <Text p={2}>{`¥${(
+                countNumber * food?.price
+              ).toLocaleString()}`}</Text>
+            </OrderButton>
+          </ModalFooter>
         </ModalContent>
       </ModalOverlay>
     </Modal>
