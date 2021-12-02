@@ -41,6 +41,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
 
   return (
     <Modal
+      size="lg"
       isOpen={isOpen}
       onClose={onClose}
       autoFocus={false}
@@ -49,7 +50,11 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
       <ModalOverlay>
         <ModalContent bg="white">
           <Image src={BeefTongue} />
-          <ModalCloseButton />
+          <ModalCloseButton
+            bgColor="white"
+            rounded="full"
+            _hover={{ opacity: 0.8 }}
+          />
           <ModalBody mx={2}>
             <Stack spacing={2}>
               <FormControl>
