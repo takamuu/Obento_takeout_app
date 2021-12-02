@@ -34,22 +34,23 @@ rbenv global 2.7.2
 ```zsh
 % cd obento_takeout_app
 ```
-3.Create database, Run migrations and set up the database
+3.Create database
 ```zsh
 % rails db:create
 ```
+4.Run migrations and set up the database
 ```zsh
 % rails db:migrate
 ```
-4.Starting the rails server
+5.Starting the rails server
 ```zsh
 % rails server
 ```
-5.Go into the repository
+6.Go into the repository
 ```zsh
 % cd obento_takeout_app/frontend
 ```
-6.Run the app
+7.Run the app
 ```zsh
 % npm start
 ```
