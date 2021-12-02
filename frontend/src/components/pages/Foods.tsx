@@ -2,7 +2,7 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, useState, VFC } from 'react';
-import { Center, Wrap, WrapItem } from '@chakra-ui/layout';
+import { Center, Heading, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
 import { useDisclosure } from '@chakra-ui/hooks';
@@ -52,9 +52,8 @@ export const Foods: VFC = memo(() => {
           <Spinner />
         </Center>
       ) : (
-        // 挙動確認用のdivタグを追加（Foodモーダル実装時にdivタグとレストランIDは削除）
-        <div>
-          レストラン：{restaurantId}
+        <Wrap>
+          <Heading> レストラン：{restaurantId}</Heading>
           <Wrap p={{ base: 4, md: 10 }} justify="space-around">
             {foods.map((food) => (
               <WrapItem key={food.id}>
@@ -69,7 +68,7 @@ export const Foods: VFC = memo(() => {
               </WrapItem>
             ))}
           </Wrap>
-        </div>
+        </Wrap>
       )}
       <FoodOrderModal
         food={selectedFood}
