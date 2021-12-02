@@ -19,6 +19,7 @@ export const FoodCard: VFC<Props> = memo((props) => {
       w="260px"
       h="260px"
       bg="white"
+      borderRadius="10px"
       shadow="md"
       p={4}
       _hover={{ cursor: 'pointer', opacity: 0.8 }}
