@@ -32,7 +32,9 @@ export const Foods: VFC = memo(() => {
   );
 
   // モーダルの注文個数用ステート
-  const [count, setCount] = useState(1);
+  const INITIAL_COUNT = 1;
+
+  const [count, setCount] = useState(INITIAL_COUNT);
 
   const onClickUpCount = () => setCount(count + 1);
 
@@ -41,7 +43,7 @@ export const Foods: VFC = memo(() => {
   const onClickOrder = () => alert();
 
   const onCloseFoodModal = () => {
-    setCount(1);
+    setCount(INITIAL_COUNT);
     onClose();
   };
 
