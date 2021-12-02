@@ -36,6 +36,9 @@ rbenv global 2.7.2
 ```
 3.Create database, Run migrations and set up the database
 ```zsh
+% rails db:create
+```
+```zsh
 % rails db:migrate
 ```
 4.Starting the rails server
