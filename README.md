@@ -26,32 +26,14 @@ rbenv global 2.7.2
  
 # Usage
  
-1.Clone this repository
 ```zsh
 % git clone https://github.com/takamuu/obento_takeout_app.git
-```
-2.Go into the repository
-```zsh
 % cd obento_takeout_app
-```
-3.Create database
-```zsh
+% bundle install
 % rails db:create
-```
-4.Run migrations and set up the database
-```zsh
 % rails db:migrate
-```
-5.Starting the rails server
-```zsh
 % rails server
-```
-6.Go into the repository
-```zsh
 % cd obento_takeout_app/frontend
-```
-7.Run the app
-```zsh
 % npm start
 ```
  
