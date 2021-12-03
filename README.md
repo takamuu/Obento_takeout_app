@@ -29,17 +29,13 @@ rbenv global 2.7.2
 ```zsh
 % git clone https://github.com/takamuu/obento_takeout_app.git
 % cd obento_takeout_app
+% bundle config set path vendor/bundle --local
 % bundle install
 % rails db:create
 % rails db:migrate
 % rails server
 % cd obento_takeout_app/frontend
 % npm start
-```
-
-※エラーが出る場合は、`bundle install`の前に以下を実行して下さい
-```zsh
-% bundle config set path vendor/bundle --local
 ```
  
 # Author
