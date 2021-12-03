@@ -36,6 +36,11 @@ rbenv global 2.7.2
 % cd obento_takeout_app/frontend
 % npm start
 ```
+
+※エラーが出る場合は、`bundle install`の前に以下を実行して下さい
+```zsh
+% bundle config set path vendor/bundle --local
+```
  
 # Author
  
