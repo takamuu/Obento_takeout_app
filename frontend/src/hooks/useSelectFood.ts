@@ -15,8 +15,8 @@ export const useSelectFood = () => {
 
   const onSelectFood = useCallback((props: Props) => {
     const { selectFoodId, foods, onOpen } = props;
-    const targetFood = foods.find((food) => food.id === selectFoodId);
-    setSelectedFood(targetFood);
+    const getSelectFood = foods.find((food) => food.id === selectFoodId);
+    setSelectedFood(getSelectFood);
     onOpen();
   }, []);
 
