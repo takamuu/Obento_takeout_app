@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { Food } from 'types/api/food';
 
 type Props = {
-  id: number;
+  selectFoodId: number;
   foods: Array<Food>;
   onOpen: () => void;
 };
@@ -14,8 +14,8 @@ export const useSelectFood = () => {
   const [selectedFood, setSelectedFood] = useState<Food | null>(null);
 
   const onSelectFood = useCallback((props: Props) => {
-    const { id, foods, onOpen } = props;
-    const targetFood = foods.find((food) => food.id === id);
+    const { selectFoodId, foods, onOpen } = props;
+    const targetFood = foods.find((food) => food.id === selectFoodId);
     setSelectedFood(targetFood);
     onOpen();
   }, []);

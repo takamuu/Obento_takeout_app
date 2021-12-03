@@ -25,8 +25,8 @@ export const Foods: VFC = memo(() => {
   useEffect(() => getFoods(restaurantId), []);
 
   const onClickFood = useCallback(
-    (id: number) => {
-      onSelectFood({ id, foods, onOpen });
+    (selectFoodId: number) => {
+      onSelectFood({ selectFoodId, foods, onOpen });
     },
     [foods, onSelectFood, onOpen]
   );
