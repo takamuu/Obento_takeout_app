@@ -34,11 +34,9 @@ rbenv global 2.7.2
 % rails db:create
 % rails db:migrate
 % rails server
-```
-
-```zsh
-% npm install
+２つ目のターミナルを起動
 % cd obento_takeout_app/frontend
+% npm install
 % npm start
 ```
  
