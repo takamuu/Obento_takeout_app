@@ -33,6 +33,7 @@ rbenv global 2.7.2
 % bundle install
 % rails db:create
 % rails db:migrate
+% rails db:seed
 % rails server
 ## ２つ目のターミナルを起動
 % cd obento_takeout_app/frontend
