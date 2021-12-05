@@ -5,9 +5,9 @@ Rails.application.routes.draw do
       resources :restaurants do
         resources :foods, only: %i[index]
       end
-      resources :temporary_orders, only: %i[index create]
-      put 'temporary_orders/replace', to: 'temporary_orders#replace'
-      resources :carts, only: %i[create]
+      resources :carts, only: %i[index create]
+      put 'carts/replace', to: 'carts#replace'
+      resources :orders, only: %i[create]
     end
   end
 end
