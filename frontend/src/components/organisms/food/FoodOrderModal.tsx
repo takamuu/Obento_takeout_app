@@ -25,7 +25,7 @@ type Props = {
   onClose: () => void;
   onClickUpCount: () => void;
   onClickDownCount: () => void;
-  onClickOrder: () => void;
+  onClickCart: () => void;
 };
 
 export const FoodOrderModal: VFC<Props> = memo((props) => {
@@ -36,7 +36,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     onClose,
     onClickUpCount,
     onClickDownCount,
-    onClickOrder,
+    onClickCart,
   } = props;
 
   return (
@@ -84,7 +84,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
               isDisabled={countNumber >= 9}
             />
             <Spacer />
-            <CartButton onClick={() => onClickOrder()}>
+            <CartButton onClick={() => onClickCart()}>
               <Text p={2}>{`${countNumber}点をカートに追加 `}</Text>
               <Text p={2}>{`¥${(
                 countNumber * food?.price

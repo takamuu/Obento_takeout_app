@@ -40,7 +40,7 @@ export const Foods: VFC = memo(() => {
 
   const onClickDownCount = () => setCount(count - 1);
 
-  const onClickOrder = () => alert();
+  const onClickCart = () => alert();
 
   const onCloseFoodModal = () => {
     setCount(INITIAL_COUNT);
@@ -79,7 +79,7 @@ export const Foods: VFC = memo(() => {
         onClose={onCloseFoodModal}
         onClickUpCount={onClickUpCount}
         onClickDownCount={onClickDownCount}
-        onClickOrder={onClickOrder}
+        onClickCart={onClickCart}
       />
     </>
   );
