@@ -2,6 +2,7 @@ class Cart < ApplicationRecord
   belongs_to :user
   has_many :cart_details, dependent: :destroy
   has_many :foods, through: :cart_details
+  has_many :cart_details_foods, through: :cart_details, source: :food
 
   validates :user_id, uniqueness: true
   validates :total_price, presence: true, numericality: { greater_than: 0 }
