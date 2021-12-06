@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/modal';
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
-import { OrderButton } from 'components/atoms/button/OrderButton';
+import { CartButton } from 'components/atoms/button/CartButton';
 
 import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
@@ -84,12 +84,12 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
               isDisabled={countNumber >= 9}
             />
             <Spacer />
-            <OrderButton onClick={() => onClickOrder()}>
+            <CartButton onClick={() => onClickOrder()}>
               <Text p={2}>{`${countNumber}点をカートに追加 `}</Text>
               <Text p={2}>{`¥${(
                 countNumber * food?.price
               ).toLocaleString()}`}</Text>
-            </OrderButton>
+            </CartButton>
           </ModalFooter>
         </ModalContent>
       </ModalOverlay>
