@@ -5,8 +5,8 @@ Rails.application.routes.draw do
       resources :restaurants do
         resources :foods, only: %i[index]
       end
-      resources :carts, only: %i[index create]
-      put 'carts/replace', to: 'carts#replace'
+      resources :cart, only: %i[index create]
+      put 'cart/replace', to: 'cart#replace'
       resources :orders, only: %i[create]
     end
   end
