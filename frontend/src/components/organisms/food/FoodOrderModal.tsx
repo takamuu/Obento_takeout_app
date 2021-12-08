@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, VFC } from 'react';
+import { memo, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
 import { Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
@@ -12,38 +12,38 @@ import {
 } from '@chakra-ui/modal';
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
-import { CartButton } from 'components/atoms/button/CartButton';
+import { CartButton } from 'components/atoms/button/OrderButton';
 
 import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
 
 type Props = {
-  food: Food | null;
-  countNumber: number;
+  food: Food;
   isOpen: boolean;
   onClose: () => void;
-  onClickUpCount: () => void;
-  onClickDownCount: () => void;
-  onClickCart: () => void;
+  onClickCart: (countNumber: number) => void;
 };
 
 export const FoodOrderModal: VFC<Props> = memo((props) => {
-  const {
-    food,
-    countNumber,
-    isOpen,
-    onClose,
-    onClickUpCount,
-    onClickDownCount,
-    onClickCart,
-  } = props;
+  const { food, isOpen, onClose, onClickCart } = props;
+
+  const [count, setCount] = useState(1);
+
+  const onClickUpCount = () => setCount(count + 1);
+
+  const onClickDownCount = () => setCount(count - 1);
+
+  const onCloseModal = () => {
+    setCount(1);
+    onClose();
+  };
 
   return (
     <Modal
       size="lg"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={onCloseModal}
       autoFocus={false}
       motionPreset="slideInBottom"
     >
@@ -74,21 +74,24 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
           <ModalFooter>
             <CountDownButton
               onClick={() => onClickDownCount()}
-              isDisabled={countNumber <= 1}
+              isDisabled={count <= 1}
             />
             <Text fontSize="xl" p={4}>
-              {countNumber}
+              {count}
             </Text>
             <CountUpButton
               onClick={() => onClickUpCount()}
-              isDisabled={countNumber >= 9}
+              isDisabled={count >= 9}
             />
             <Spacer />
-            <CartButton onClick={() => onClickCart()}>
-              <Text p={2}>{`${countNumber}点をカートに追加 `}</Text>
-              <Text p={2}>{`¥${(
-                countNumber * food?.price
-              ).toLocaleString()}`}</Text>
+            <CartButton
+              onClick={() => {
+                onClickCart(count);
+                onCloseModal();
+              }}
+            >
+              <Text p={2}>{`${count}点をカートに追加 `}</Text>
+              <Text p={2}>{`¥${(count * food?.price).toLocaleString()}`}</Text>
             </CartButton>
           </ModalFooter>
         </ModalContent>

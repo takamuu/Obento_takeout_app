@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-condition */
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, useEffect, useState, VFC } from 'react';
+import { memo, useCallback, useEffect, VFC } from 'react';
 import { Center, Heading, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
@@ -31,21 +31,16 @@ export const Foods: VFC = memo(() => {
     [foods, onSelectFood, onOpen]
   );
 
-  // モーダルの注文個数用ステート
-  const INITIAL_COUNT = 1;
-
-  const [count, setCount] = useState(INITIAL_COUNT);
-
-  const onClickUpCount = () => setCount(count + 1);
-
-  const onClickDownCount = () => setCount(count - 1);
-
-  const onClickCart = () => alert();
-
   const onCloseFoodModal = () => {
-    setCount(INITIAL_COUNT);
     onClose();
   };
+
+  const onClickCart = useCallback(
+    (countNumber: number) => {
+      alert(`${selectedFood.name}： ${countNumber}個`);
+    },
+    [selectedFood]
+  );
 
   return (
     <>
@@ -74,11 +69,8 @@ export const Foods: VFC = memo(() => {
       )}
       <FoodOrderModal
         food={selectedFood}
-        countNumber={count}
         isOpen={isOpen}
         onClose={onCloseFoodModal}
-        onClickUpCount={onClickUpCount}
-        onClickDownCount={onClickDownCount}
         onClickCart={onClickCart}
       />
     </>
