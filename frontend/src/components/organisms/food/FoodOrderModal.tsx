@@ -12,21 +12,22 @@ import {
 } from '@chakra-ui/modal';
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
-import { CartButton } from 'components/atoms/button/OrderButton';
+import { CartButton } from 'components/atoms/button/CartButton';
 
 import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
+import { useCart } from 'hooks/useCart';
 
 type Props = {
   food: Food;
   isOpen: boolean;
   onClose: () => void;
-  onClickCart: (countNumber: number) => void;
+  // onClickCart: (countNumber: number) => void;
 };
 
 export const FoodOrderModal: VFC<Props> = memo((props) => {
-  const { food, isOpen, onClose, onClickCart } = props;
+  const { food, isOpen, onClose } = props;
 
   const [count, setCount] = useState(1);
 
@@ -38,6 +39,10 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     setCount(1);
     onClose();
   };
+
+  const { postCart, cart } = useCart();
+
+  const onClickCart = () => postCart({ food: food, count: count });
 
   return (
     <Modal
@@ -86,7 +91,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
             <Spacer />
             <CartButton
               onClick={() => {
-                onClickCart(count);
+                onClickCart();
                 onCloseModal();
               }}
             >
