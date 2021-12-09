@@ -40,7 +40,12 @@ export const Header: VFC = memo(() => {
           _hover={{ cursor: 'pointer' }}
           onClick={onClickHome}
         >
-          <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }}>
+          <MenuIconButton onOpen={onOpen} />
+          <Heading
+            paddingLeft={4}
+            as="h1"
+            fontSize={{ base: '2xl', md: '3xl' }}
+          >
             <Image boxSize="60px" src={MainLogo} alt="MainLogo" />
           </Heading>
         </Flex>
@@ -62,8 +67,10 @@ export const Header: VFC = memo(() => {
           <Box pr={4}>
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>
+          <Box>
+            <Image />
+          </Box>
         </Flex>
-        <MenuIconButton onOpen={onOpen} />
       </Flex>
       <MenuDrawer
         onClose={onClose}
