@@ -18,8 +18,9 @@ class Api::V1::CartsController < ApplicationController
   end
 
   def create
-    all_food_in_cart = User.first.cart.foods
-    if @ordered_food.restaurant_id != all_food_in_cart.first
+    # 暫定的にuserをid:1に限定（ログイン機能実装時に、User判定ロジックを追加）
+    all_food_in_cart = User.find_by(id:1).cart.foods
+    if @ordered_food.restaurant_id != all_food_in_cart.first.restaurant_id
       return render json: {
         existing_restaurant: all_food_in_cart.first.restaurant.name,
         new_restaurant: Food.find(params[:food_id]).restaurant.name,
@@ -28,9 +29,9 @@ class Api::V1::CartsController < ApplicationController
 
     set_cart(@ordered_food)
 
-    if @cart.save
+    if @cart_details.save
       render json: {
-        cart: @cart
+        cart: @cart_details
       }, status: :created
     else
       render json: {}, status: :internal_server_error
@@ -44,17 +45,15 @@ class Api::V1::CartsController < ApplicationController
     end
 
     def set_cart(ordered_food)
-      if ordered_food.cart.present?
-        @cart = ordered_food.cart
-        @cart.attributes = {
-          count: ordered_food.cart.count + params[:count],
-          active: true
+      if ordered_food.cart_details.present?
+        @cart_details = ordered_food.cart_details.first
+        @cart_details.attributes = {
+          count: ordered_food.cart_details.first.count + params[:count]
         }
       else
-        @cart = ordered_food.build_cart(
+        @cart_details = ordered_food.build_cart(
           count: params[:count],
           restaurant: ordered_food.restaurant,
-          active: true
         )
       end
     end
