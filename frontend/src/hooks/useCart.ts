@@ -1,55 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import axios from 'axios';
 import { useCallback, useState } from 'react';
-import { useParams } from 'react-router';
-
 import { Cart } from 'types/api/cart';
-import { Food } from 'types/api/food';
-import { cartsPostUrl, cartsReplaceUrl } from 'url/index';
 
-export const useCart = () => {
+import { cartsPostUrl } from 'url/index';
+import { useMessage } from './useMessage';
+
+export const useCarts = () => {
+  const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
-  const [cart, setCart] = useState<Array<Cart>>([]);
+  const [carts, setCarts] = useState<Array<Cart>>([]);
 
-  const postCart = useCallback((params) => {
-    console.log(params);
-    console.log(params.food.restaurant_id);
+  const getCarts = useCallback(() => {
     setLoading(true);
     axios
-      .post<Array<Cart>>(cartsPostUrl, {
-        food_id: params.food.id,
-        restaurant_id: params.food.restaurant_id,
-        count: params.count,
-      })
+      .get<Array<Cart>>(cartsPostUrl)
       .then((res) => {
-        setCart(res.data);
-        console.log(res.data);
+        setCarts(res.data);
       })
-      .catch((e) => {
-        throw e;
-        console.log(e);
+      .catch(() => {
+        showMessage({
+          title: 'データの取得に失敗しました',
+          status: 'error',
+        });
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  return { postCart, loading, cart };
+  return { getCarts, loading, carts };
 };
-// const replaceCart = useCallback((params) => {
-//   setLoading(true);
-//   axios
-//     .put(cartReplaceUrl, {
-//       food_id: params.foodId,
-//       countNumber: params.count,
-//     })
-//     .then((res) => {
-//       res.data;
-//     })
-//     .catch((e) => {
-//       throw e;
-//     })
-//     .finally(() => {
-//       setLoading(false);
-//     });
-// }, []);
