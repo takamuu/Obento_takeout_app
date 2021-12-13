@@ -1,44 +1,53 @@
 class Api::V1::CartsController < ApplicationController
-  # before_action :set_food, only: %i[create]
+  before_action :set_food, only: %i[create]
 
-  #   def create
-  #     if LineFood.active.other_restaurant(@ordered_food.restaurant.id).exists?
-  #       return render json: {
-  #         existing_restaurant: LineFood.other_restaurant(@ordered_food.restaurant.id).first.restaurant.name,
-  #         new_restaurant: Food.find(params[:food_id]).restaurant.name,
-  #       }, status: :not_acceptable
-  #     end
+  def index
+    carts = Cart.find_by(user_id:1)
+    if carts.present?
+      render json: [
+        cart_ids: carts.id,
+        restaurant: carts.cart_details_foods.first.restaurant,
+        foods: carts.cart_details_foods,
+        total_price: carts.total_price,
+      ], status: :ok
+    else
+      render json: [], status: :no_content
+    end
+  end
 
-  #     set_line_food(@ordered_food)
+  def create
+    set_cart(@ordered_food)
+  end
 
-  #     if @line_food.save
-  #       render json: {
-  #         line_food: @line_food
-  #       }, status: :created
-  #     else
-  #       render json: {}, status: :internal_server_error
-  #     end
-  #   end
+    private
 
-  #   private
+    def set_food
+      @ordered_food = Food.find(params[:food_id])
+    end
 
-  #   def set_food
-  #     @ordered_food = Food.find(params[:food_id])
-  #   end
+    def set_cart(ordered_food)
+      # 暫定ログインユーザー
+      test_user = User.first
+      if test_user.cart.blank?
+        # カートを作成
+        test_user.cart.create(total_price: @ordered_food.price * params[:count])
+      end
+      # カート詳細情報を作成
+      test_user.cart.cart_details.create(
+        food_id: params[:food_id],
+        count: params[:count]
+      )
+    end
 
-  #   def set_line_food(ordered_food)
-  #     if ordered_food.line_food.present?
-  #       @line_food = ordered_food.line_food
-  #       @line_food.attributes = {
-  #         count: ordered_food.line_food.count + params[:count],
-  #         active: true
-  #       }
-  #     else
-  #       @line_food = ordered_food.build_line_food(
-  #         count: params[:count],
-  #         restaurant: ordered_food.restaurant,
-  #         active: true
-  #       )
-  #     end
-  #   end
+    # todo: 更新メソッド時に以下を使用
+    #   ordered_food.cart_details.first
+    #   @cart_details.attributes = {
+    #     count: ordered_food.cart_details.first.count + params[:count]
+    #   }
+    # else
+    #  ordered_food.new(
+    #   count: params[:count],
+    #   restaurant: ordered_food.restaurant,
+    # )
+    # end
 end

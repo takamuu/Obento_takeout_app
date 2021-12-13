@@ -14,48 +14,45 @@ import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
 import { CartButton } from 'components/atoms/button/CartButton';
 
-import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
-import { usePostCart } from 'hooks/usePostCart';
 import { Cart } from 'types/api/cart';
-import { CartModal } from '../cart/CartModal';
 import { useDisclosure } from '@chakra-ui/hooks';
+import { usePostCart } from 'hooks/usePostCart';
 
 type Props = {
-  food: Food;
+  // cart: Cart;
   isOpen: boolean;
   onClose: () => void;
-  // onClickCart: (countNumber: number) => void;
 };
 
-export const FoodOrderModal: VFC<Props> = memo((props) => {
-  const { food, isOpen, onClose } = props;
+export const CartModal: VFC<Props> = memo((props) => {
+  const { isOpen, onClose } = props;
 
-  const [count, setCount] = useState(1);
+  const [carts, setCarts] = useState<Array<Cart>>([]);
+  // const [count, setCount] = useState(1);
 
-  const onClickUpCount = () => setCount(count + 1);
+  // const onClickUpCount = () => setCount(count + 1);
 
-  const onClickDownCount = () => setCount(count - 1);
+  // const onClickDownCount = () => setCount(count - 1);
 
   const onCloseModal = () => {
-    setCount(1);
     onClose();
   };
 
-  const { postCart } = usePostCart();
-
-  const onClickCart = useCallback((food) => {
-    // console.log(food);
-    console.log(food);
-    postCart({ food: food, count: count });
-    // isOpen();
-  }, []);
+  // const { postCart } = usePostCart();
+  // // const { onOpen } = useDisclosure();
+  // const onClickCart = useCallback(
+  //   () =>
+  //     postCart({ food: food, count: count })
+  //     // onOpen(),
+  //   []
+  // );
 
   return (
     <Modal
       size="lg"
-      isOpen={isOpen}
+      isOpen={false}
       onClose={onCloseModal}
       autoFocus={false}
       motionPreset="slideInBottom"
@@ -71,20 +68,17 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
           <ModalBody mx={2}>
             <Stack spacing={2}>
               <FormControl>
-                <Image src={food?.image} />
+                <Text fontSize="xl">test</Text>
               </FormControl>
-              <FormControl>
-                <Text fontSize="xl">{food?.name}</Text>
-              </FormControl>
-              <FormControl>
+              {/* <FormControl>
                 <Text fontSize="xl">{food?.food_description}</Text>
               </FormControl>
               <FormControl>
                 <Text fontSize="xl">金額 ¥ {food?.price.toLocaleString()}</Text>
-              </FormControl>
+              </FormControl> */}
             </Stack>
           </ModalBody>
-          <ModalFooter>
+          {/* <ModalFooter>
             <CountDownButton
               onClick={() => onClickDownCount()}
               isDisabled={count <= 1}
@@ -99,15 +93,14 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
             <Spacer />
             <CartButton
               onClick={() => {
-                onClickCart(food);
+                onClickCart();
                 onCloseModal();
               }}
             >
               <Text p={2}>{`${count}点をカートに追加 `}</Text>
               <Text p={2}>{`¥${(count * food?.price).toLocaleString()}`}</Text>
             </CartButton>
-            {/* <CartModal isOpen={isOpen} /> */}
-          </ModalFooter>
+          </ModalFooter> */}
         </ModalContent>
       </ModalOverlay>
     </Modal>

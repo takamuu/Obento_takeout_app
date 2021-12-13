@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 import { MenuIconButton } from 'components/atoms/button/MenuIconButton';
 import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
+import CartIcon from 'images/CartIcon.svg';
 
 export const Header: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,6 +17,7 @@ export const Header: VFC = memo(() => {
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
+  // const onClickCart = useCallback(() =>)
   // 今回は使用していないが、以降実装予定のコード
   // const onClickUserManagement = useCallback(
   //   () => history.push('/login/user_management'),
@@ -40,7 +42,12 @@ export const Header: VFC = memo(() => {
           _hover={{ cursor: 'pointer' }}
           onClick={onClickHome}
         >
-          <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }}>
+          <MenuIconButton onOpen={onOpen} />
+          <Heading
+            paddingLeft={4}
+            as="h1"
+            fontSize={{ base: '2xl', md: '3xl' }}
+          >
             <Image boxSize="60px" src={MainLogo} alt="MainLogo" />
           </Heading>
         </Flex>
@@ -63,7 +70,9 @@ export const Header: VFC = memo(() => {
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>
         </Flex>
-        <MenuIconButton onOpen={onOpen} />
+        <Box>
+          <Image boxSize="40px" src={CartIcon} alt="CartIcon" />
+        </Box>
       </Flex>
       <MenuDrawer
         onClose={onClose}

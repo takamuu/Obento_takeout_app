@@ -8,7 +8,7 @@ type Props = {
   onClick: () => void;
 };
 
-export const OrderButton: VFC<Props> = memo((props) => {
+export const CartButton: VFC<Props> = memo((props) => {
   const { children, disabled = false, loading = false, onClick } = props;
   return (
     <Button
