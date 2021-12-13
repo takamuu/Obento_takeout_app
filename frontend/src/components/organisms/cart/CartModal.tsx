@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
-import { Spacer, Stack, Text } from '@chakra-ui/layout';
+import { Box, Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
   Modal,
   ModalBody,
@@ -19,16 +19,17 @@ import { Image } from '@chakra-ui/image';
 import { Cart } from 'types/api/cart';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { usePostCart } from 'hooks/usePostCart';
+import CartIcon from 'images/CartIcon.svg';
 
 type Props = {
   // cart: Cart;
-  isOpen: boolean;
-  onClose: () => void;
+  // isOpen: boolean;
+  // onClose: () => void;
 };
 
-export const CartModal: VFC<Props> = memo((props) => {
-  const { isOpen, onClose } = props;
-
+export const CartModal: VFC<Props> = memo(() => {
+  // const { onClickCart } = props;
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [carts, setCarts] = useState<Array<Cart>>([]);
   // const [count, setCount] = useState(1);
 
@@ -41,43 +42,47 @@ export const CartModal: VFC<Props> = memo((props) => {
   };
 
   // const { postCart } = usePostCart();
-  // const onClickCart = useCallback(
-  //   () =>
-  //     postCart({ food: food, count: count })
-  //     // onOpen(),
-  //   []
-  // );
+  const onClickCart = useCallback(
+    () =>
+      //     postCart({ food: food, count: count })
+      onOpen(),
+    []
+  );
 
   return (
-    <Modal
-      size="lg"
-      isOpen={isOpen}
-      onClose={onCloseModal}
-      autoFocus={false}
-      motionPreset="slideInBottom"
-    >
-      <ModalOverlay>
-        <ModalContent bg="white">
-          {/* <Image src={BeefTongue} /> */}
-          <ModalCloseButton
-            bgColor="white"
-            rounded="full"
-            _hover={{ opacity: 0.8 }}
-          />
-          <ModalBody mx={2}>
-            <Stack spacing={2}>
-              <FormControl>
-                <Text fontSize="xl">test Cart Modal</Text>
-              </FormControl>
-              {/* <FormControl>
+    <>
+      <Box onClick={onOpen}>
+        <Image boxSize="40px" src={CartIcon} alt="CartIcon" />
+      </Box>
+      <Modal
+        size="lg"
+        isOpen={isOpen}
+        onClose={onCloseModal}
+        autoFocus={false}
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay>
+          <ModalContent bg="white">
+            {/* <Image src={BeefTongue} /> */}
+            <ModalCloseButton
+              bgColor="white"
+              rounded="full"
+              _hover={{ opacity: 0.8 }}
+            />
+            <ModalBody mx={2}>
+              <Stack spacing={2}>
+                <FormControl>
+                  <Text fontSize="xl">test Cart Modal</Text>
+                </FormControl>
+                {/* <FormControl>
                 <Text fontSize="xl">{food?.food_description}</Text>
               </FormControl>
               <FormControl>
                 <Text fontSize="xl">金額 ¥ {food?.price.toLocaleString()}</Text>
               </FormControl> */}
-            </Stack>
-          </ModalBody>
-          {/* <ModalFooter>
+              </Stack>
+            </ModalBody>
+            {/* <ModalFooter>
             <CountDownButton
               onClick={() => onClickDownCount()}
               isDisabled={count <= 1}
@@ -100,8 +105,9 @@ export const CartModal: VFC<Props> = memo((props) => {
               <Text p={2}>{`¥${(count * food?.price).toLocaleString()}`}</Text>
             </CartButton>
           </ModalFooter> */}
-        </ModalContent>
-      </ModalOverlay>
-    </Modal>
+          </ModalContent>
+        </ModalOverlay>
+      </Modal>
+    </>
   );
 });

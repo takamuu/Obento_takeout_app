@@ -20,10 +20,7 @@ export const Header: VFC = memo(() => {
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
 
-  const onClickCart = useCallback(
-    () => history.push('/restaurants/cart/1'),
-    []
-  );
+  // const onClickCart = useCallback(() => onOpen(), []);
   // 今回は使用していないが、以降実装予定のコード
   // const onClickUserManagement = useCallback(
   //   () => history.push('/login/user_management'),
@@ -76,11 +73,8 @@ export const Header: VFC = memo(() => {
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>
         </Flex>
-        <Box
-          _hover={{ opacity: '0.8', cursor: 'pointer' }}
-          onClick={onClickCart}
-        >
-          <Image boxSize="40px" src={CartIcon} alt="CartIcon" />
+        <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
+          <CartModal />
         </Box>
       </Flex>
       <MenuDrawer
@@ -89,7 +83,6 @@ export const Header: VFC = memo(() => {
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
       />
-      {/* <CartModal isOpen={isOpen} onClose={onClose} /> */}
     </>
   );
 });
