@@ -12,10 +12,6 @@ import { FoodCard } from 'components/organisms/food/FoodCard';
 import BeefTongue from 'images/BeefTongue.svg';
 import { FoodOrderModal } from 'components/organisms/food/FoodOrderModal';
 import { useSelectFood } from 'hooks/useSelectFood';
-import { useCart } from 'hooks/useCart';
-import { Cart } from 'types/api/cart';
-import axios from 'axios';
-import { cartsPostUrl } from 'url/index';
 
 export const Foods: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,12 +34,6 @@ export const Foods: VFC = memo(() => {
   const onCloseFoodModal = () => {
     onClose();
   };
-
-  //     alert(`${selectedFood.name}： ${countNumber}個`);
-  //   },
-  //   [selectedFood]
-  // );
-  // setLoading(true);
 
   return (
     <>
