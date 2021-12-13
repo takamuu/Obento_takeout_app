@@ -12,6 +12,7 @@ export const usePostCart = () => {
   // const useHistory()
 
   const postCart = useCallback((params) => {
+    console.log(params);
     setLoading(true);
     axios
       .post<Array<Cart>>(cartsPostUrl, {

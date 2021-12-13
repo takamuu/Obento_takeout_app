@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, useState, VFC } from 'react';
+import { memo, useCallback, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
 import { Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
@@ -17,7 +17,10 @@ import { CartButton } from 'components/atoms/button/CartButton';
 import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
-import { useCart } from 'hooks/useCart';
+import { usePostCart } from 'hooks/usePostCart';
+import { Cart } from 'types/api/cart';
+import { CartModal } from '../cart/CartModal';
+import { useDisclosure } from '@chakra-ui/hooks';
 
 type Props = {
   food: Food;
@@ -40,9 +43,14 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     onClose();
   };
 
-  const { postCart, cart } = useCart();
+  const { postCart } = usePostCart();
 
-  const onClickCart = () => postCart({ food: food, count: count });
+  const onClickCart = useCallback((food) => {
+    // console.log(food);
+    console.log(food);
+    postCart({ food: food, count: count });
+    // isOpen();
+  }, []);
 
   return (
     <Modal
@@ -91,13 +99,14 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
             <Spacer />
             <CartButton
               onClick={() => {
-                onClickCart();
+                onClickCart(food);
                 onCloseModal();
               }}
             >
               <Text p={2}>{`${count}点をカートに追加 `}</Text>
               <Text p={2}>{`¥${(count * food?.price).toLocaleString()}`}</Text>
             </CartButton>
+            {/* <CartModal isOpen={isOpen} /> */}
           </ModalFooter>
         </ModalContent>
       </ModalOverlay>
