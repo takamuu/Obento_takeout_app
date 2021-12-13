@@ -10,6 +10,8 @@ import { MenuIconButton } from 'components/atoms/button/MenuIconButton';
 import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
 import CartIcon from 'images/CartIcon.svg';
+import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/modal';
+import { CartModal } from '../cart/CartModal';
 
 export const Header: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,7 +19,11 @@ export const Header: VFC = memo(() => {
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-  const onClickCart = useCallback(() => alert(), []);
+
+  const onClickCart = useCallback(
+    () => history.push('/restaurants/cart/1'),
+    []
+  );
   // 今回は使用していないが、以降実装予定のコード
   // const onClickUserManagement = useCallback(
   //   () => history.push('/login/user_management'),
@@ -83,6 +89,7 @@ export const Header: VFC = memo(() => {
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
       />
+      {/* <CartModal isOpen={isOpen} onClose={onClose} /> */}
     </>
   );
 });

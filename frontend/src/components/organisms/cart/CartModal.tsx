@@ -41,7 +41,6 @@ export const CartModal: VFC<Props> = memo((props) => {
   };
 
   // const { postCart } = usePostCart();
-  // // const { onOpen } = useDisclosure();
   // const onClickCart = useCallback(
   //   () =>
   //     postCart({ food: food, count: count })
@@ -52,14 +51,14 @@ export const CartModal: VFC<Props> = memo((props) => {
   return (
     <Modal
       size="lg"
-      isOpen={false}
+      isOpen={isOpen}
       onClose={onCloseModal}
       autoFocus={false}
       motionPreset="slideInBottom"
     >
       <ModalOverlay>
         <ModalContent bg="white">
-          <Image src={BeefTongue} />
+          {/* <Image src={BeefTongue} /> */}
           <ModalCloseButton
             bgColor="white"
             rounded="full"
@@ -68,7 +67,7 @@ export const CartModal: VFC<Props> = memo((props) => {
           <ModalBody mx={2}>
             <Stack spacing={2}>
               <FormControl>
-                <Text fontSize="xl">test</Text>
+                <Text fontSize="xl">test Cart Modal</Text>
               </FormControl>
               {/* <FormControl>
                 <Text fontSize="xl">{food?.food_description}</Text>
