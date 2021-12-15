@@ -14,7 +14,18 @@ import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/modal';
 import { CartModal } from '../cart/CartModal';
 
 export const Header: VFC = memo(() => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenMenuDrawer,
+    onOpen: onOpenMenuDrawer,
+    onClose: onCloseMenuDrawer,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenCartModal,
+    onOpen: onOpenCartModal,
+    onClose: onCloseCartModal,
+  } = useDisclosure();
+
   const history = useHistory();
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
@@ -39,7 +50,7 @@ export const Header: VFC = memo(() => {
         padding={{ base: 3, md: 5 }}
       >
         <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }}>
-          <MenuIconButton onOpen={onOpen} />
+          <MenuIconButton onOpen={onOpenMenuDrawer} />
           <Heading
             paddingLeft={4}
             as="h1"
@@ -69,14 +80,24 @@ export const Header: VFC = memo(() => {
           </Box>
         </Flex>
         <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
-          <CartModal />
+          <Image
+            boxSize="40px"
+            src={CartIcon}
+            alt="CartIcon"
+            onClick={onOpenCartModal}
+          />
         </Box>
       </Flex>
       <MenuDrawer
-        onClose={onClose}
-        isOpen={isOpen}
+        onClose={onCloseMenuDrawer}
+        isOpen={isOpenMenuDrawer}
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
+      />
+      <CartModal
+        onClose={onCloseCartModal}
+        isOpen={isOpenCartModal}
+        onOpen={onOpenCartModal}
       />
     </>
   );
