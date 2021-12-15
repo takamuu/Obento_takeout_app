@@ -38,18 +38,13 @@ export const Header: VFC = memo(() => {
         justify="space-between"
         padding={{ base: 3, md: 5 }}
       >
-        <Flex
-          align="center"
-          as="a"
-          mr={8}
-          _hover={{ cursor: 'pointer' }}
-          onClick={onClickHome}
-        >
+        <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }}>
           <MenuIconButton onOpen={onOpen} />
           <Heading
             paddingLeft={4}
             as="h1"
             fontSize={{ base: '2xl', md: '3xl' }}
+            onClick={onClickHome}
           >
             <Image boxSize="60px" src={MainLogo} alt="MainLogo" />
           </Heading>
