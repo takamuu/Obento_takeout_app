@@ -10,8 +10,6 @@ import { MenuIconButton } from 'components/atoms/button/MenuIconButton';
 import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
 import CartIcon from 'images/CartIcon.svg';
-import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/modal';
-import { CartModal } from '../cart/CartModal';
 
 export const Header: VFC = memo(() => {
   const {
@@ -20,18 +18,19 @@ export const Header: VFC = memo(() => {
     onClose: onCloseMenuDrawer,
   } = useDisclosure();
 
-  const {
-    isOpen: isOpenCartModal,
-    onOpen: onOpenCartModal,
-    onClose: onCloseCartModal,
-  } = useDisclosure();
+  // todo: cartModal実装時に使用
+  // const {
+  //   isOpen: isOpenCartModal,
+  //   onOpen: onOpenCartModal,
+  //   onClose: onCloseCartModal,
+  // } = useDisclosure();
 
   const history = useHistory();
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
 
-  // const onClickCart = useCallback(() => onOpen(), []);
+  const onClickCart = useCallback(() => history.push('/restaurants/cart'), []);
   // 今回は使用していないが、以降実装予定のコード
   // const onClickUserManagement = useCallback(
   //   () => history.push('/login/user_management'),
@@ -84,7 +83,7 @@ export const Header: VFC = memo(() => {
             boxSize="40px"
             src={CartIcon}
             alt="CartIcon"
-            onClick={onOpenCartModal}
+            onClick={onClickCart}
           />
         </Box>
       </Flex>
@@ -94,11 +93,11 @@ export const Header: VFC = memo(() => {
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
       />
-      <CartModal
-        onClose={onCloseCartModal}
-        isOpen={isOpenCartModal}
+      {/* <CartModal
+        onCloseCartModal={onCloseCartModal}
+        isOpenCartModal={isOpenCartModal}
         onOpen={onOpenCartModal}
-      />
+      /> */}
     </>
   );
 });
