@@ -1,35 +1,28 @@
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, useState, VFC } from 'react';
+import { memo, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
-import { Box, Spacer, Stack, Text } from '@chakra-ui/layout';
+import { Stack, Text } from '@chakra-ui/layout';
 import {
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalOverlay,
 } from '@chakra-ui/modal';
-import { CountDownButton } from 'components/atoms/button/CountDownButton';
-import { CountUpButton } from 'components/atoms/button/CountUpButton';
-import { CartButton } from 'components/atoms/button/CartButton';
 
-import BeefTongue from 'images/BeefTongue.svg';
-import { Image } from '@chakra-ui/image';
 import { Cart } from 'types/api/cart';
-import { useDisclosure } from '@chakra-ui/hooks';
-import { usePostCart } from 'hooks/usePostCart';
-import CartIcon from 'images/CartIcon.svg';
 
 type Props = {
   // cart: Cart;
-  // isOpen: boolean;
-  // onClose: () => void;
+  isOpenCartModal: boolean;
+  // onOpen: () => void;
+  onCloseCartModal: () => void;
+  // onClickCart: () => void;
 };
 
-export const CartModal: VFC<Props> = memo(() => {
-  // const { onClickCart } = props;
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export const CartModal: VFC<Props> = memo((props) => {
+  const { isOpenCartModal, onCloseCartModal } = props;
+  // const { onOpen } = useDisclosure();
   const [carts, setCarts] = useState<Array<Cart>>([]);
   // const [count, setCount] = useState(1);
 
@@ -38,26 +31,23 @@ export const CartModal: VFC<Props> = memo(() => {
   // const onClickDownCount = () => setCount(count - 1);
 
   const onCloseModal = () => {
-    onClose();
+    onCloseCartModal();
   };
 
   // const { postCart } = usePostCart();
-  const onClickCart = useCallback(
-    () =>
-      //     postCart({ food: food, count: count })
-      onOpen(),
-    []
-  );
+  // const onClickCart = useCallback(
+  // () =>
+  //     postCart({ food: food, count: count })
+  // onOpen(),
+  //   []
+  // );
 
   return (
     <>
-      <Box onClick={onOpen}>
-        <Image boxSize="40px" src={CartIcon} alt="CartIcon" />
-      </Box>
       <Modal
         size="lg"
-        isOpen={isOpen}
-        onClose={onCloseModal}
+        isOpen={isOpenCartModal}
+        onClose={onCloseCartModal}
         autoFocus={false}
         motionPreset="slideInBottom"
       >
