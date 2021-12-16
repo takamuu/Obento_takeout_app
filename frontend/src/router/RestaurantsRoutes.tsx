@@ -15,7 +15,7 @@ export const restaurantsRoutes = [
     children: <Foods />,
   },
   {
-    path: '/cart/:userId',
+    path: '/cart',
     exact: false,
     children: <Cart />,
   },
