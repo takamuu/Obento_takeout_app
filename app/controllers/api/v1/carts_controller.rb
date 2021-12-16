@@ -3,15 +3,20 @@ class Api::V1::CartsController < ApplicationController
   before_action :test_user
 
   def index
-    binding.pry
-    carts = Cart.find_by(user_id: @test_user.id)
-    if carts.present?
-      render json: [
-        cart_ids: carts.id,
-        restaurant: carts.cart_details_foods.first.restaurant,
-        foods: carts.cart_details_foods,
-        total_price: carts.total_price,
-      ], status: :ok
+    # binding.pry
+    cart = Cart.find_by(user_id: @test_user.id)
+    if cart.present?
+      necessary_info = []
+      hash_info = {}
+      cart.cart_details.each do |info|
+        hash_info['name'] = info.food.name
+        hash_info['count'] = info.count
+        hash_info['price'] = info.food.price
+        necessary_info.push(hash_info)
+        hash_info = {}
+      end
+      render json:
+        necessary_info, status: :ok
     else
       render json: [], status: :no_content
     end
