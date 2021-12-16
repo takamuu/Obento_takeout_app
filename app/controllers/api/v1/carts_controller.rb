@@ -6,17 +6,17 @@ class Api::V1::CartsController < ApplicationController
     # binding.pry
     cart = Cart.find_by(user_id: @test_user.id)
     if cart.present?
-      necessary_info = []
-      hash_info = {}
+      cart_info = []
+      cart_hash = {}
       cart.cart_details.each do |info|
-        hash_info['name'] = info.food.name
-        hash_info['count'] = info.count
-        hash_info['price'] = info.food.price
-        necessary_info.push(hash_info)
-        hash_info = {}
+        cart_hash['name'] = info.food.name
+        cart_hash['count'] = info.count
+        cart_hash['price'] = info.food.price
+        cart_info.push(cart_hash)
+        cart_hash = {}
       end
       render json:
-        necessary_info, status: :ok
+        cart_info, status: :ok
     else
       render json: [], status: :no_content
     end
