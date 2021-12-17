@@ -18,7 +18,7 @@ export const Cart: VFC = memo(() => {
         </Center>
       ) : (
         <Wrap>
-          <Heading> ユーザー： のカートです</Heading>
+          <Heading p={4}>カートページ</Heading>
           <Wrap p={{ base: 4, md: 10 }} justify="space-around">
             {carts.map((cart) => (
               <WrapItem key={cart.id}>
