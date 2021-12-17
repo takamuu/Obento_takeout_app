@@ -24,11 +24,9 @@ export const CartCard: VFC<Props> = memo((props) => {
         <Text fontSize="2xl" fontWeight="bold">
           {foodName}
         </Text>
-        {/* <Spacer /> */}
         <Text fontSize="2xl" fontWeight="bold">
           {count} 個
         </Text>
-        {/* <Spacer /> */}
         <Text fontSize="2xl" fontWeight="bold">
           ¥ {(price * count).toLocaleString()}
         </Text>
