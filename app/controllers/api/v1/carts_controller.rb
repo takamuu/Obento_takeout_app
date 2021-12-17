@@ -72,7 +72,6 @@ class Api::V1::CartsController < ApplicationController
         users_cart.attributes = {
           total_price: total_price 
         }
-        # binding.pry
         if cart_details.save && users_cart.save
           render json: cart_details, status: :created
         else
