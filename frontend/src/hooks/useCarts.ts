@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { useDisclosure } from '@chakra-ui/hooks';
 import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { Cart } from 'types/api/cart';
