@@ -29,11 +29,10 @@ class Cart < ApplicationRecord
   # end
   
   # todo: カートindexを実装時に検討
-  # def render_cart_details 
-  #   if @cart_details.save
-  #     render json: {
-  #       cart: @cart_details
-  #     }, status: :created
+  # def render_cart_details(cart_details) 
+  #   if cart_details.save
+  #     render json: 
+  #       cart_details, status: :created
   #   else
   #     render json: {}, status: :internal_server_error
   #   end

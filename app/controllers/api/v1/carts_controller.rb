@@ -3,7 +3,6 @@ class Api::V1::CartsController < ApplicationController
   before_action :test_user
 
   def index
-    # binding.pry
     cart = Cart.find_by(user_id: @test_user.id)
     if cart.present?
       cart_info = []
@@ -52,8 +51,9 @@ class Api::V1::CartsController < ApplicationController
         # カート詳細のフード注文個数を更新
         users_cart = @test_user.cart
         cart_details = CartDetail.find_by(food_id: ordered_food.id, cart_id: users_cart.id)
+            # binding.pry
         cart_details.attributes = {
-          count: ordered_food.cart_details.first.count + params[:count]
+          count: cart_details.count + params[:count]
         }
         # カートの注文合計金額を更新
         all_details_of_cart = CartDetail.where(cart_id: users_cart.id)
@@ -64,6 +64,12 @@ class Api::V1::CartsController < ApplicationController
         users_cart.attributes = {
           total_price: total_price 
         }
+        # binding.pry
+        if cart_details.save && users_cart.save
+          render json: cart_details, status: :created
+        else
+          render json: {}, status: :internal_server_error
+        end
       end
      
     end
