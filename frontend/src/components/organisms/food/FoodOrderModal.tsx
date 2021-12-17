@@ -18,8 +18,6 @@ import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
 import { usePostCart } from 'hooks/usePostCart';
-import { CartModal } from '../cart/CartModal';
-import { useDisclosure } from '@chakra-ui/hooks';
 
 type Props = {
   food: Food;

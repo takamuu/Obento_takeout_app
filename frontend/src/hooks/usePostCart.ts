@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import axios from 'axios';
 import { useCallback, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import { Cart } from 'types/api/cart';
 import { cartsPostUrl } from 'url/index';
@@ -8,6 +9,7 @@ import { cartsPostUrl } from 'url/index';
 export const usePostCart = () => {
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<Cart>>();
+  const history = useHistory();
 
   const postCart = useCallback((params) => {
     console.log(params);
@@ -20,6 +22,7 @@ export const usePostCart = () => {
       })
       .then((res) => {
         setCarts(res.data);
+        history.push(`/restaurants/cart`);
         console.log(res.data);
       })
       .catch((e) => {
