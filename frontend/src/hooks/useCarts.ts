@@ -5,23 +5,21 @@ import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { Cart } from 'types/api/cart';
 
-import { cartsPostUrl } from 'url/index';
+import { cartsIndexUrl } from 'url/index';
 import { useMessage } from './useMessage';
 
 export const useCarts = () => {
   const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<Cart>>([]);
-  const { onOpen } = useDisclosure();
 
   const getCarts = useCallback(() => {
     setLoading(true);
     axios
-      .get<Array<Cart>>(cartsPostUrl)
+      .get<Array<Cart>>(cartsIndexUrl())
       .then((res) => {
         console.log(res.data);
         setCarts(res.data);
-        onOpen();
       })
       .catch(() => {
         showMessage({
@@ -34,5 +32,5 @@ export const useCarts = () => {
       });
   }, []);
 
-  return { getCarts, loading, carts, onOpen };
+  return { getCarts, loading, carts };
 };
