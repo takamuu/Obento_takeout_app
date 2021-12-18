@@ -16,7 +16,7 @@ export const usePostCart = () => {
     console.log(params);
     setLoading(true);
     axios
-      .post<Array<Cart>>(cartsPostUrl(), {
+      .post<Array<Cart>>(cartsPostUrl, {
         food_id: params.food.id,
         restaurant_id: params.food.restaurant_id,
         count: params.count,
