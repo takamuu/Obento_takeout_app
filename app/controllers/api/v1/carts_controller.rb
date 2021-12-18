@@ -5,17 +5,8 @@ class Api::V1::CartsController < ApplicationController
   def index
     cart = @test_user.cart
     if cart.present?
-      cart_info = []
-      cart_hash = {}
-      cart.cart_details.each do |info|
-        cart_hash['name'] = info.food.name
-        cart_hash['count'] = info.count
-        cart_hash['price'] = info.food.price
-        cart_info.push(cart_hash)
-        cart_hash = {}
-      end
-      render json:
-        cart_info, status: :ok
+      cart_info = Cart.get_cart_info(cart)
+      render json: cart_info, status: :ok
     else
       render json: [], status: :no_content
     end

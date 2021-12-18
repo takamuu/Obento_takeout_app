@@ -17,6 +17,20 @@ class Cart < ApplicationRecord
     end
   end
 
+  # カート表示情報を作成
+  def self.get_cart_info(cart)
+    cart_info = []
+    cart_hash = {}
+    cart.cart_details.each do |info|
+      cart_hash['name'] = info.food.name
+      cart_hash['count'] = info.count
+      cart_hash['price'] = info.food.price
+      cart_info.push(cart_hash)
+      cart_hash = {}
+    end
+    return cart_info
+  end
+
   # def restaurant_duplicate_check
   #  暫定的にuserをid:1に限定（ログイン機能実装時に、User判定ロジックを追加）
   #  all_food_in_cart = User.find_by(id:1).cart.foods
