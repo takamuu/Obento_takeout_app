@@ -3,7 +3,7 @@ class Api::V1::CartsController < ApplicationController
   before_action :test_user
 
   def index
-    cart = Cart.find_by(user_id: @test_user.id)
+    cart = @test_user.cart
     if cart.present?
       cart_info = []
       cart_hash = {}
