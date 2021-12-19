@@ -21,15 +21,21 @@ export const Cart: VFC = memo(() => {
         <Wrap>
           <Heading p={4}>カートページ</Heading>
           <Wrap p={{ base: 4, md: 10 }} justify="space-around">
-            {carts.map((cart) => (
-              <WrapItem key={cart.id}>
-                <CartCard
-                  foodName={cart.name}
-                  count={cart.count}
-                  price={cart.price}
-                />
-              </WrapItem>
-            ))}
+            {!carts ? (
+              <p>カートはありません</p>
+            ) : (
+              <>
+                {carts.map((cart) => (
+                  <WrapItem key={cart.id}>
+                    <CartCard
+                      foodName={cart.name}
+                      count={cart.count}
+                      price={cart.price}
+                    />
+                  </WrapItem>
+                ))}
+              </>
+            )}
           </Wrap>
         </Wrap>
       )}
