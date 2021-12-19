@@ -18,10 +18,10 @@ class Cart < ApplicationRecord
   end
 
   # カート表示情報を作成
-  def self.get_cart_info(cart)
+  def get_cart_info
     cart_info = []
     cart_hash = {}
-    cart.cart_details.each do |info|
+    self.cart_details.each do |info|
       cart_hash['name'] = info.food.name
       cart_hash['count'] = info.count
       cart_hash['price'] = info.food.price
@@ -29,6 +29,11 @@ class Cart < ApplicationRecord
       cart_hash = {}
     end
     return cart_info
+  end
+
+
+  def self.create_cart(user, ordered_food, count)
+    self.create(user_id: user.id, total_price: ordered_food.price * count)
   end
 
   # def restaurant_duplicate_check
@@ -50,5 +55,6 @@ class Cart < ApplicationRecord
   #   else
   #     render json: {}, status: :internal_server_error
   #   end
+  # end
   # end
 end

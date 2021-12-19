@@ -5,7 +5,7 @@ class Api::V1::CartsController < ApplicationController
   def index
     cart = @test_user.cart
     if cart.present?
-      cart_info = Cart.get_cart_info(cart)
+      cart_info = cart.get_cart_info
       render json: cart_info, status: :ok
     else
       render json: [], status: :no_content
@@ -31,12 +31,12 @@ class Api::V1::CartsController < ApplicationController
       # ユーザーのカートがない場合
       if @test_user.cart.blank?
         # カートを作成
-        @test_user.cart.create(total_price: @ordered_food.price * params[:count])
+        Cart.create_cart(@test_user, ordered_food, params[:count])
         # カート詳細情報を作成
         @test_user.cart.cart_details.create(
-        food_id: params[:food_id],
-        count: params[:count]
-      )
+          food_id: params[:food_id],
+          count: params[:count]
+        )
       else
       # ユーザーのカートがある場合
         # カート詳細のフード注文個数を更新
