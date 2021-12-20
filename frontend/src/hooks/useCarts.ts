@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { Cart } from 'types/api/cart';
 
-import { cartsPostUrl } from 'url/index';
+import { cartsIndexUrl } from 'url/index';
 import { useMessage } from './useMessage';
 
 export const useCarts = () => {
@@ -15,8 +15,9 @@ export const useCarts = () => {
   const getCarts = useCallback(() => {
     setLoading(true);
     axios
-      .get<Array<Cart>>(cartsPostUrl)
+      .get<Array<Cart>>(cartsIndexUrl())
       .then((res) => {
+        console.log(res.data);
         setCarts(res.data);
       })
       .catch(() => {

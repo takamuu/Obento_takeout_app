@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
@@ -18,9 +19,6 @@ import { Food } from 'types/api/food';
 import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
 import { usePostCart } from 'hooks/usePostCart';
-import { Cart } from 'types/api/cart';
-import { CartModal } from '../cart/CartModal';
-import { useDisclosure } from '@chakra-ui/hooks';
 
 type Props = {
   food: Food;
@@ -45,11 +43,16 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
 
   const { postCart } = usePostCart();
 
-  const onClickCart = useCallback((food) => {
-    // console.log(food);
-    console.log(food);
+  // const {
+  //   isOpen: isOpenCartModal,
+  //   onOpen: onOpenCartModal,
+  //   onClose: onCloseCartModal,
+  // } = useDisclosure();
+
+  const onClickCart = useCallback(({ food, count }) => {
     postCart({ food: food, count: count });
-    // isOpen();
+    onCloseModal();
+    // onOpenCartModal();
   }, []);
 
   return (
@@ -97,16 +100,14 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
               isDisabled={count >= 9}
             />
             <Spacer />
-            <CartButton
-              onClick={() => {
-                onClickCart(food);
-                onCloseModal();
-              }}
-            >
+            <CartButton onClick={() => onClickCart({ food, count })}>
               <Text p={2}>{`${count}点をカートに追加 `}</Text>
               <Text p={2}>{`¥${(count * food?.price).toLocaleString()}`}</Text>
             </CartButton>
-            {/* <CartModal isOpen={isOpen} /> */}
+            {/* <CartModal
+              isOpenCartModal={isOpenCartModal}
+              onCloseCartModal={onCloseCartModal}
+            /> */}
           </ModalFooter>
         </ModalContent>
       </ModalOverlay>

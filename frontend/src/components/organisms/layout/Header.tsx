@@ -12,12 +12,25 @@ import MainLogo from 'images/MainLogo.svg';
 import CartIcon from 'images/CartIcon.svg';
 
 export const Header: VFC = memo(() => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenMenuDrawer,
+    onOpen: onOpenMenuDrawer,
+    onClose: onCloseMenuDrawer,
+  } = useDisclosure();
+
+  // todo: cartModal実装時に使用
+  // const {
+  //   isOpen: isOpenCartModal,
+  //   onOpen: onOpenCartModal,
+  //   onClose: onCloseCartModal,
+  // } = useDisclosure();
+
   const history = useHistory();
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-  // const onClickCart = useCallback(() =>)
+
+  const onClickCart = useCallback(() => history.push('/restaurants/cart'), []);
   // 今回は使用していないが、以降実装予定のコード
   // const onClickUserManagement = useCallback(
   //   () => history.push('/login/user_management'),
@@ -35,18 +48,13 @@ export const Header: VFC = memo(() => {
         justify="space-between"
         padding={{ base: 3, md: 5 }}
       >
-        <Flex
-          align="center"
-          as="a"
-          mr={8}
-          _hover={{ cursor: 'pointer' }}
-          onClick={onClickHome}
-        >
-          <MenuIconButton onOpen={onOpen} />
+        <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }}>
+          <MenuIconButton onOpen={onOpenMenuDrawer} />
           <Heading
             paddingLeft={4}
             as="h1"
             fontSize={{ base: '2xl', md: '3xl' }}
+            onClick={onClickHome}
           >
             <Image boxSize="60px" src={MainLogo} alt="MainLogo" />
           </Heading>
@@ -70,16 +78,26 @@ export const Header: VFC = memo(() => {
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>
         </Flex>
-        <Box>
-          <Image boxSize="40px" src={CartIcon} alt="CartIcon" />
+        <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
+          <Image
+            boxSize="40px"
+            src={CartIcon}
+            alt="CartIcon"
+            onClick={onClickCart}
+          />
         </Box>
       </Flex>
       <MenuDrawer
-        onClose={onClose}
-        isOpen={isOpen}
+        onClose={onCloseMenuDrawer}
+        isOpen={isOpenMenuDrawer}
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
       />
+      {/* <CartModal
+        onCloseCartModal={onCloseCartModal}
+        isOpenCartModal={isOpenCartModal}
+        onOpen={onOpenCartModal}
+      /> */}
     </>
   );
 });

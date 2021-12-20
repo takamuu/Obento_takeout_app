@@ -17,6 +17,25 @@ class Cart < ApplicationRecord
     end
   end
 
+  # カート表示情報を作成
+  def get_cart_info
+    cart_info = []
+    cart_hash = {}
+    self.cart_details.each do |info|
+      cart_hash['name'] = info.food.name
+      cart_hash['count'] = info.count
+      cart_hash['price'] = info.food.price
+      cart_info.push(cart_hash)
+      cart_hash = {}
+    end
+    return cart_info
+  end
+
+
+  def self.create_cart(user, ordered_food, count)
+    self.create(user_id: user.id, total_price: ordered_food.price * count)
+  end
+
   # def restaurant_duplicate_check
   #  暫定的にuserをid:1に限定（ログイン機能実装時に、User判定ロジックを追加）
   #  all_food_in_cart = User.find_by(id:1).cart.foods
@@ -29,13 +48,13 @@ class Cart < ApplicationRecord
   # end
   
   # todo: カートindexを実装時に検討
-  # def render_cart_details 
-  #   if @cart_details.save
-  #     render json: {
-  #       cart: @cart_details
-  #     }, status: :created
+  # def render_cart_details(cart_details) 
+  #   if cart_details.save
+  #     render json: 
+  #       cart_details, status: :created
   #   else
   #     render json: {}, status: :internal_server_error
   #   end
+  # end
   # end
 end

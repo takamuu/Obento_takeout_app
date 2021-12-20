@@ -8,6 +8,9 @@ export const foodsIndexUrl = (restaurantId: string) =>
 
 export const cartsPostUrl = `${DEFAULT_API_LOCALHOST}/carts`;
 
+// todo: ユーザーIDを判定してindexを取得する際に、下記を使用
+export const cartsIndexUrl = () => `${DEFAULT_API_LOCALHOST}/carts`;
+
 export const cartsReplaceUrl = `${DEFAULT_API_LOCALHOST}/carts/replace`;
 
 export const orders = `${DEFAULT_API_LOCALHOST}/orders`;
