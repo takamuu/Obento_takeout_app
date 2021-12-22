@@ -22,6 +22,7 @@ gem 'active_model_serializers', '~> 0.10.0' # シリアライザー
 gem 'rails-i18n', '~> 6.0.0' # 日本語化
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rack-cors'
+gem 'foreman'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
