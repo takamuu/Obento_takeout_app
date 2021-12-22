@@ -80,7 +80,9 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: obento_takeout_app_production
   username: obento_takeout_app
   password: <%= ENV['OBENTO_TAKEOUT_APP_DATABASE_PASSWORD'] %>
