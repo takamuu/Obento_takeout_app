@@ -23,12 +23,12 @@ gem 'rails-i18n', '~> 6.0.0' # 日本語化
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rack-cors'
 gem 'foreman'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'       # Rails用のテストフレームワーク 
   gem 'factory_bot_rails' # モデルに関するテストデータ作成用
-  gem 'faker'             # ダミーデータの生成
   gem 'pry-byebug'        # デバッグ用
   gem 'pry-doc'           # デバッグ用
   gem 'pry-rails'
@@ -39,9 +39,9 @@ group :development do
   gem 'spring'
 end
 
-group :production do
-  gem 'pg', '~> 1.1'
-end
+# group :production do
+#   gem 'pg', '~> 1.1'
+# end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
