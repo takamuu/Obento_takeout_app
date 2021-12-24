@@ -30,8 +30,5 @@
   "bugs": {
     "url": "https://github.com/takamuu/obento_takeout_app/issues"
   },
-  "homepage": "https://github.com/takamuu/obento_takeout_app#readme",
-  "dependencies": {
-    "typescript": "^4.5.4"
-  }
+  "homepage": "https://github.com/takamuu/obento_takeout_app#readme"
 }
