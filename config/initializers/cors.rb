@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3001', 'https://obento-takeout-app.herokuapp.com/api'
+    origins 'http://localhost:3001', 'https://obento-takeout-app.herokuapp.com'
 
     resource '*',
       headers: :any,
