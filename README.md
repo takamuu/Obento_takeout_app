@@ -31,7 +31,7 @@ rbenv global 3.0.3
 
 # URL
 
-- https://obento-takeout-app.herokuapp.com/restaurants
+- 本番環境（Production): https://obento-takeout-app.herokuapp.com/restaurants
 
 # Usage
 
