@@ -1,20 +1,28 @@
----
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+## 実装の目的と概要
 
----
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## 実装内容(技術的な点を記載)
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## 重点的に見てほしいところ(不安なところ)
+ 
+ 
+## スクリーンショット（画面レイアウトを変更した場合）
+### 画面名
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+
+## 参考資料
+
+
+## チェックリスト
+
+- [ ] ローカル環境での動作確認をしたか（影響し得る範囲も含めて）
+- [ ] ローカル環境でrspecを実行してfailure, errorが出力されていないか(pendingはOK)
+```
+rspec spec/models
+rspec spec/requests
+```
+- [ ] rubocopを実行して警告が出力されていないか
+- [ ] GitHub で ファイル差分（Files changed）を確認し、内容が合っているか。不要なファイルに差分がでていないか
+
+## 備考（実装していないことなど）
