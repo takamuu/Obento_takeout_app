@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
   validates :name,         presence: true
   validates :kana,         presence: true
   validates :email,        presence: true, uniqueness: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
-  validates :password,     presence: true
+  # validates :password,     presence: true
   validates :phone_number, presence: true
-  validates :status,       presence: true
+  # validates :status,       presence: true
 
   enum status: {
     active: 0,
