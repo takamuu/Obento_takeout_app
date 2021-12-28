@@ -1,0 +1,33 @@
+inherit_from:
+  - config/rubocop/rubocop.yml
+  - config/rubocop/rails.yml
+  - config/rubocop/rspec.yml
+  - .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.0.3
+  NewCops: enable
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
+# 配列の改行が見づらくなるので、EnforcedStyle: with_fixed_indentationを適用する
+Layout/ArrayAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Metrics/ClassLength:
+  Enabled: false
+
+# taskのモデルスペックで発生するエラーを回避
+Rails/SaveBang:
+  Enabled: false
+
+# スペックでネストの最大回数を緩和（4→5)
+RSpec/NestedGroups:
+  Max: 5
