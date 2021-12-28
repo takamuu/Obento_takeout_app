@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Sessions", type: :request do
   let(:current_user) { create(:user) }
@@ -10,7 +10,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
     before { @user = create(:user) }
 
     context "ユーザーのemailとpasswordが一致している時" do
-      let(:params) {{ email: @user.email, password: @user.password }}
+      let(:params) { { email: @user.email, password: @user.password } }
       it "ログインできること" do
         subject
         expect(response).to have_http_status(:ok)
@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
     end
 
     context "ユーザーemailとpasswordが一致しない時" do
-      let(:params) {{ email: @user.email, password: "password" }}
+      let(:params) { { email: @user.email, password: "password" } }
       it "エラーが発生する" do
         subject
         expect(response).to have_http_status(:unauthorized)

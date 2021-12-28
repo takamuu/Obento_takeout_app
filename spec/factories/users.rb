@@ -7,6 +7,5 @@ FactoryBot.define do
     nickname { "test" }
     phone_number { "000-0000-0000" }
     status { 1 }
-
   end
 end

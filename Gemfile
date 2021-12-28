@@ -38,6 +38,7 @@ end
 
 group :development do
   gem "listen", "~> 3.3"
+  gem "pre-commit", require: false
   gem "spring"
 end
 

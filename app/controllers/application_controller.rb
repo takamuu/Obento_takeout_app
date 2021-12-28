@@ -5,10 +5,10 @@ class ApplicationController < ActionController::API
   # helper_method :current_user, :user_signed_in?
 
   include ActionController::MimeResponds
-  
+
   def fallback_index_html
-      respond_to do |format|
-          format.html { render body: Rails.root.join('public/index.html').read }
-      end
+    respond_to do |format|
+      format.html { render body: Rails.root.join("public/index.html").read }
+    end
   end
 end

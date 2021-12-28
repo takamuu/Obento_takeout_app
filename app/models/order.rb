@@ -8,9 +8,9 @@ class Order < ApplicationRecord
   validates :consumption_tax, presence: true
   validates :progress_status, presence: true
 
-  enum progress_status: { 
+  enum progress_status: {
     orde: 0,
     complete: 1,
-    delivered: 2,
+    delivered: 2
   }
 end
