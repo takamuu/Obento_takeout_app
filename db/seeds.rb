@@ -35,8 +35,8 @@ user_params = [
     kana: "カナテスト",
     phone_number: "000-0000-0000",
     status: 0,
-    stripe_id: "12345"
-  }
+    stripe_id: "12345",
+  },
 ]
 User.create!(user_params)
 
@@ -51,7 +51,7 @@ USER_NUM.times do |n|
     password: "password",
     phone_number: "000-0000-000#{n + 1}",
     status: 0,
-    stripe_id: "00000"
+    stripe_id: "00000",
   )
 end
 
@@ -70,7 +70,7 @@ RESTAURANT_NUM.times do |r|
     city: "岡山市北区",
     block_building: "１",
     phone_number: "090-1111-2222",
-    update_time: "15:00:00"
+    update_time: "15:00:00",
   )
 end
 
@@ -87,7 +87,7 @@ NUMBER_OF_REPEATS.times do |n|
       food_description: "美味",
       price: 1000,
       sales_limit: 20,
-      sales_status: 1
+      sales_status: 1,
     )
   end
 end
@@ -103,7 +103,7 @@ ORDER_NUM.times do |o|
     rceipt_number: "AAAA#{o}",
     total_price: 3000,
     consumption_tax: 300,
-    progress_status: 0
+    progress_status: 0,
   )
 end
 
@@ -115,7 +115,7 @@ Rails.logger.debug "orderテストデータを作成OK！".green
 CART_NUM.times do |c|
   cart = Cart.create!(
     user_id: c + 1,
-    total_price: 1500
+    total_price: 1500,
   )
 end
 
@@ -128,7 +128,7 @@ CART_DETAIL_NUM.times do |t|
   cart_detail = CartDetail.create!(
     food_id: t + 1,
     cart_id: t + 1,
-    count: t + 1
+    count: t + 1,
   )
 end
 

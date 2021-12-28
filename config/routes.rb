@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       mount_devise_token_auth_for "User", at: "auth", controllers: {
-        registrations: "api/v1/auth/registrations"
+        registrations: "api/v1/auth/registrations",
       }
 
       namespace :auth do
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "*path", to: "application#fallback_index_html", constraints: lambda { |request|
+  get "*path", to: "application#fallback_index_html", constraints: ->(request) {
     !request.xhr? && request.format.html?
   }
 end

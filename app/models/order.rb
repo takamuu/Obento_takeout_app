@@ -11,6 +11,6 @@ class Order < ApplicationRecord
   enum progress_status: {
     orde: 0,
     complete: 1,
-    delivered: 2
+    delivered: 2,
   }
 end

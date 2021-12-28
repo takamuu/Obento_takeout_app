@@ -7,6 +7,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
   # サインイン
   describe "POST /api/v1/auth/sign_in" do
     subject { post(api_v1_user_session_path, params: params) }
+
     before { @user = create(:user) }
 
     context "ユーザーのemailとpasswordが一致している時" do

@@ -13,6 +13,6 @@ class Food < ApplicationRecord
 
   enum sales_status: {
     on_sales: 1,
-    sold_out: 2
+    sold_out: 2,
   }
 end

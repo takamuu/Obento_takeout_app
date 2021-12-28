@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.3"
 
@@ -34,6 +34,7 @@ group :development, :test do
   gem "rspec-rails"       # Rails用のテストフレームワーク
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do
