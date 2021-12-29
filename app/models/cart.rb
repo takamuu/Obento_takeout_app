@@ -11,9 +11,9 @@ class Cart < ApplicationRecord
   def save_with_update_temporary_orders!(temporary_orders)
     ActiveRecord::Base.transaction do
       temporary_orders.each do |temporary_order|
-        temporary_order.update_attributes!(active: false, order: self)
+        temporary_order.update!(active: false, order: self)
       end
-      self.save!
+      save!
     end
   end
 
@@ -21,19 +21,18 @@ class Cart < ApplicationRecord
   def get_cart_info
     cart_info = []
     cart_hash = {}
-    self.cart_details.each do |info|
-      cart_hash['name'] = info.food.name
-      cart_hash['count'] = info.count
-      cart_hash['price'] = info.food.price
+    cart_details.each do |info|
+      cart_hash["name"] = info.food.name
+      cart_hash["count"] = info.count
+      cart_hash["price"] = info.food.price
       cart_info.push(cart_hash)
       cart_hash = {}
     end
-    return cart_info
+    cart_info
   end
 
-
   def self.create_cart(user, ordered_food, count)
-    self.create(user_id: user.id, total_price: ordered_food.price * count)
+    create(user_id: user.id, total_price: ordered_food.price * count)
   end
 
   # def restaurant_duplicate_check
@@ -46,11 +45,11 @@ class Cart < ApplicationRecord
   #    }, status: :not_acceptable
   #  end
   # end
-  
-  # todo: カートindexを実装時に検討
-  # def render_cart_details(cart_details) 
+
+  # TODO: カートindexを実装時に検討
+  # def render_cart_details(cart_details)
   #   if cart_details.save
-  #     render json: 
+  #     render json:
   #       cart_details, status: :created
   #   else
   #     render json: {}, status: :internal_server_error

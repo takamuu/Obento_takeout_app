@@ -35,27 +35,27 @@ user_params = [
     kana: "カナテスト",
     phone_number: "000-0000-0000",
     status: 0,
-    stripe_id: "12345"
-  }
+    stripe_id: "12345",
+  },
 ]
 User.create!(user_params)
 
 USER_NUM.times do |n|
   name = Faker::Name.name
-  email = "example-#{n+1}@example.com"
-  kana = "カナテスト#{n+1}"
+  email = "example-#{n + 1}@example.com"
+  kana = "カナテスト#{n + 1}"
   User.create!(
     name: name,
     email: email,
     kana: kana,
     password: "password",
-    phone_number: "000-0000-000#{n+1}",
+    phone_number: "000-0000-000#{n + 1}",
     status: 0,
-    stripe_id: "00000"
+    stripe_id: "00000",
   )
 end
 
-puts "ユーザーのテストデータを作成OK！".green
+Rails.logger.debug "ユーザーのテストデータを作成OK！".green
 
 #-----------------------------------------
 # Restaurant
@@ -65,49 +65,49 @@ RESTAURANT_NUM.times do |r|
     name: "レストラン#{r + 1}",
     description: "美味しいお店",
     fee: 0.05,
-    postal_code: 7000000,
+    postal_code: 7_000_000,
     prefecture: "岡山県",
     city: "岡山市北区",
     block_building: "１",
     phone_number: "090-1111-2222",
-    update_time: "15:00:00"
+    update_time: "15:00:00",
   )
 end
 
-puts "restaurantのテストデータを作成OK！".green
+Rails.logger.debug "restaurantのテストデータを作成OK！".green
 
 #-----------------------------------------
 # Food
 #-----------------------------------------
 NUMBER_OF_REPEATS.times do |n|
   FOOD_NUM.times do |f|
-  food = Food.create!(
-    restaurant_id: n + 1,
-    name: "テスト弁当#{f + 1}",
-    food_description: "美味",
-    price: 1000,
-    sales_limit: 20,
-    sales_status: 1
-  )
+    food = Food.create!(
+      restaurant_id: n + 1,
+      name: "テスト弁当#{f + 1}",
+      food_description: "美味",
+      price: 1000,
+      sales_limit: 20,
+      sales_status: 1,
+    )
   end
 end
 
-puts "foodテストデータを作成OK！".green
+Rails.logger.debug "foodテストデータを作成OK！".green
 
 #-----------------------------------------
 # Order
 #-----------------------------------------
 ORDER_NUM.times do |o|
- order = Order.create!(
-   user_id: 1,
-   rceipt_number: "AAAA#{o}",
-   total_price: 3000,
-   consumption_tax: 300,
-   progress_status: 0
- )
+  order = Order.create!(
+    user_id: 1,
+    rceipt_number: "AAAA#{o}",
+    total_price: 3000,
+    consumption_tax: 300,
+    progress_status: 0,
+  )
 end
 
-puts "orderテストデータを作成OK！".green
+Rails.logger.debug "orderテストデータを作成OK！".green
 
 #-----------------------------------------
 # Cart
@@ -115,11 +115,11 @@ puts "orderテストデータを作成OK！".green
 CART_NUM.times do |c|
   cart = Cart.create!(
     user_id: c + 1,
-    total_price: 1500
+    total_price: 1500,
   )
 end
 
-puts "cartテストデータを作成OK！".green
+Rails.logger.debug "cartテストデータを作成OK！".green
 
 #-----------------------------------------
 # CartDetail
@@ -132,6 +132,4 @@ CART_DETAIL_NUM.times do |t|
   )
 end
 
-puts "cart_detailテストデータを作成OK！".green
-
-
+Rails.logger.debug "cart_detailテストデータを作成OK！".green

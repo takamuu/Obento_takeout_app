@@ -9,5 +9,4 @@ class Restaurant < ApplicationRecord
   validates :block_building, presence: true
   validates :phone_number,   presence: true
   validates :update_time,    presence: true
-
 end

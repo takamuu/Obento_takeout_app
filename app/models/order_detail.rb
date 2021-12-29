@@ -3,5 +3,4 @@ class OrderDetail < ApplicationRecord
   belongs_to :food
 
   validates :count, presence: true
-
 end

@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.integer    :total_price,          null: false, default: 0
       t.integer    :consumption_tax,      null: false, default: 0
       t.integer    :progress_status,      null: false, default: 0
-      
+
       t.timestamps
     end
   end

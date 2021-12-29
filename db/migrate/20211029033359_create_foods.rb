@@ -6,7 +6,7 @@ class CreateFoods < ActiveRecord::Migration[6.1]
       t.text       :food_description, null: false
       t.integer    :price,            null: false
       t.integer    :sales_limit
-      t.integer    :sales_status,     null: false 
+      t.integer    :sales_status, null: false
       t.string     :image
 
       t.timestamps

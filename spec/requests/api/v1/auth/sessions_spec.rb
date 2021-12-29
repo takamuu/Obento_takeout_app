@@ -1,16 +1,17 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "V1::Auth::Sessions", type: :request do
+RSpec.describe "Api::V1::Auth::Sessions", type: :request do
   let(:current_user) { create(:user) }
   let(:headers) { current_user.create_new_auth_token }
 
   # サインイン
-  describe "POST /v1/auth/sign_in" do
-    subject { post(v1_user_session_path, params: params) }
+  describe "POST /api/v1/auth/sign_in" do
+    subject { post(api_v1_user_session_path, params: params) }
+
     before { @user = create(:user) }
 
     context "ユーザーのemailとpasswordが一致している時" do
-      let(:params) {{ email: @user.email, password: @user.password }}
+      let(:params) { { email: @user.email, password: @user.password } }
       it "ログインできること" do
         subject
         expect(response).to have_http_status(:ok)
@@ -24,7 +25,7 @@ RSpec.describe "V1::Auth::Sessions", type: :request do
     end
 
     context "ユーザーemailとpasswordが一致しない時" do
-      let(:params) {{ email: @user.email, password: "password" }}
+      let(:params) { { email: @user.email, password: "password" } }
       it "エラーが発生する" do
         subject
         expect(response).to have_http_status(:unauthorized)
@@ -39,8 +40,8 @@ RSpec.describe "V1::Auth::Sessions", type: :request do
   end
 
   # サインアウト
-  describe "DELETE v1/auth/sign_out" do
-    subject { delete(destroy_v1_user_session_path, headers: headers) }
+  describe "DELETE /api/v1/auth/sign_out" do
+    subject { delete(destroy_api_v1_user_session_path, headers: headers) }
 
     context "パラメータが正しい場合" do
       it "ログアウトできる" do
