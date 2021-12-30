@@ -31,11 +31,15 @@ export const Login: VFC = memo(() => {
 
   // ユーザーID用State
   const [userId, setUserId] = useState('');
+  const [userPassword, setUserPassword] = useState('');
 
   const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) =>
     setUserId(e.target.value);
 
-  const onClickLogin = () => login(userId);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) =>
+    setUserPassword(e.target.value);
+
+  const onClickLogin = () => login(userId, userPassword);
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -67,9 +71,11 @@ export const Login: VFC = memo(() => {
             placeholder="Password"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
+            value={userPassword}
+            onChange={onChangePassword}
           />
           <PrimaryButton
-            disabled={!userId}
+            disabled={!userId || !userPassword ? true : false}
             loading={loading}
             onClick={onClickLogin}
           >
