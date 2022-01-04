@@ -1,6 +1,6 @@
 class Food < ApplicationRecord
   belongs_to :restaurant
-  has_many :cart_details
+  has_many :cart_details, dependent: :destroy
   has_many :cart, through: :cart
   has_many :order_details, dependent: :destroy
   has_many :orders, through: :order_details

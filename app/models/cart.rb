@@ -4,7 +4,6 @@ class Cart < ApplicationRecord
   has_many :foods, through: :cart_details
   has_many :cart_details_foods, through: :cart_details, source: :food
 
-  validates :user_id, uniqueness: true
   validates :total_price, presence: true, numericality: { greater_than: 0 }
 
   # active等削除したので、後で要確認
@@ -18,7 +17,7 @@ class Cart < ApplicationRecord
   end
 
   # カート表示情報を作成
-  def get_cart_info
+  def cart_info
     cart_info = []
     cart_hash = {}
     cart_details.each do |info|
