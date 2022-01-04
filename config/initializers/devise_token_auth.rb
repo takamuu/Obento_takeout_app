@@ -41,12 +41,13 @@ DeviseTokenAuth.setup do |config|
   # It depends on fields like email, provider and uid.
   # config.default_callbacks = true
 
-  # Makes it possible to change the headers names
+  # rubocop:disable all
   config.headers_names = { :"access-token" => "access-token",
-                           client => "client",
-                           expiry => "expiry",
-                           uid => "uid",
+                           :"client" => "client",
+                           :"expiry" => "expiry",
+                           :"uid" => "uid",
                            :"token-type" => "token-type" }
+  # rubocop:enable all
 
   # By default, only Bearer Token authentication is implemented out of the box.
   # If, however, you wish to integrate with legacy Devise authentication, you can

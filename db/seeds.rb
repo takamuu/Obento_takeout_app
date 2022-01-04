@@ -61,7 +61,7 @@ Rails.logger.debug "ユーザーのテストデータを作成OK！".green
 # Restaurant
 #-----------------------------------------
 RESTAURANT_NUM.times do |r|
-  restaurant = Restaurant.create!(
+  Restaurant.create!(
     name: "レストラン#{r + 1}",
     description: "美味しいお店",
     fee: 0.05,
@@ -81,7 +81,7 @@ Rails.logger.debug "restaurantのテストデータを作成OK！".green
 #-----------------------------------------
 NUMBER_OF_REPEATS.times do |n|
   FOOD_NUM.times do |f|
-    food = Food.create!(
+    Food.create!(
       restaurant_id: n + 1,
       name: "テスト弁当#{f + 1}",
       food_description: "美味",
@@ -98,7 +98,7 @@ Rails.logger.debug "foodテストデータを作成OK！".green
 # Order
 #-----------------------------------------
 ORDER_NUM.times do |o|
-  order = Order.create!(
+  Order.create!(
     user_id: 1,
     rceipt_number: "AAAA#{o}",
     total_price: 3000,
@@ -113,7 +113,7 @@ Rails.logger.debug "orderテストデータを作成OK！".green
 # Cart
 #-----------------------------------------
 CART_NUM.times do |c|
-  cart = Cart.create!(
+  Cart.create!(
     user_id: c + 1,
     total_price: 1500,
   )
@@ -125,7 +125,7 @@ Rails.logger.debug "cartテストデータを作成OK！".green
 # CartDetail
 #-----------------------------------------
 CART_DETAIL_NUM.times do |t|
-  cart_detail = CartDetail.create!(
+  CartDetail.create!(
     food_id: t + 1,
     cart_id: t + 1,
     count: t + 1,
