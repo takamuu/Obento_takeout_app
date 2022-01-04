@@ -29,6 +29,7 @@ module Api
           @test_user = User.first
         end
 
+        # rubocop:disable all
         def set_cart(ordered_food)
           # ユーザーのカートがない場合
           if @test_user.cart.blank?
@@ -72,6 +73,7 @@ module Api
             end
           end
         end
+        # rubocop:enable all
     end
   end
 end
