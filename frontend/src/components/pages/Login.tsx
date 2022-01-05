@@ -18,6 +18,7 @@ import { GuestButton } from 'components/atoms/button/GuestButton';
 import { NewRegistrationButton } from 'components/atoms/button/NewRegistrationButton';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
+import { SignInParams } from 'types/api/sign';
 
 export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
@@ -39,7 +40,11 @@ export const Login: VFC = memo(() => {
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) =>
     setUserPassword(e.target.value);
 
-  const onClickLogin = () => login(userId, userPassword);
+  const params: SignInParams = {
+    email: userId,
+    password: userPassword,
+  };
+  const onClickLogin = () => login(params);
 
   return (
     <Flex align="center" justify="center" height="100vh">
