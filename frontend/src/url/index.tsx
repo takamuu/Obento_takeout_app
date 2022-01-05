@@ -1,6 +1,8 @@
 /* eslint-disable arrow-body-style */
 const DEFAULT_API_LOCALHOST = `${process.env.REACT_APP_SERVER_URL}/api/v1`;
 
+export const signInUrl = `${DEFAULT_API_LOCALHOST}/auth/sign_in`;
+
 export const restaurantsIndexUrl = `${DEFAULT_API_LOCALHOST}/restaurants`;
 
 export const foodsIndexUrl = (restaurantId: string) =>
