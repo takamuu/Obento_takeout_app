@@ -2,11 +2,12 @@
 import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignInParams } from 'types/api/sign';
-import { signIn } from 'hooks/auth';
+import { signInUrl } from 'url/index';
 
 export const useAuth = () => {
   const history = useHistory();
@@ -14,27 +15,18 @@ export const useAuth = () => {
 
   const [loading, setLoading] = useState(false);
 
-  //  const params: SignInParams = {
-  //   email: email,
-  //   password: password
-  // }
-
   const login = useCallback(
     (params: SignInParams) => {
       setLoading(true);
       axios
-        .post<User>(`http://localhost:3000/api/v1/auth/sign_in`, params)
+        .post<User>(signInUrl, params)
         .then((res) => {
-          console.log(res);
-          console.log(params);
-          console.log(login);
           showMessage({ title: 'ログインしました', status: 'success' });
           history.push('/restaurants');
         })
         .catch((res) => {
           console.log(res);
           console.log(params);
-          console.log(login);
           showMessage({
             title:
               'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
