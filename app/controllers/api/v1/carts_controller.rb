@@ -1,13 +1,14 @@
 module Api
   module V1
     class CartsController < ApplicationController
+      # before_action :authenticate_api_v1_user!, only: %i[index]
       before_action :set_food, only: %i[create]
       before_action :test_user
 
       def index
         cart = @test_user.cart
         if cart.present?
-          cart_info = cart.get_cart_info
+          cart_info = cart.cart_info
           render json: cart_info, status: :ok
         else
           render json: [], status: :no_content
