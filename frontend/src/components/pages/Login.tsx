@@ -31,8 +31,8 @@ export const Login: VFC = memo(() => {
   );
 
   // ユーザーID用State
-  const [userId, setUserId] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [userId, setUserId] = useState('example@example.com');
+  const [userPassword, setUserPassword] = useState('password');
 
   const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) =>
     setUserId(e.target.value);
