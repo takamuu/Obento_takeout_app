@@ -5,7 +5,6 @@ module Api
         private
 
           def sign_up_params
-            # binding.pry
             params.permit(:email, :password, :password_confirmation, :name, :kana, :phone_number)
           end
       end

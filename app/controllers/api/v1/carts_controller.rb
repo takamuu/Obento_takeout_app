@@ -8,7 +8,7 @@ module Api
       def index
         cart = @test_user.cart
         if cart.present?
-          cart_info = cart.cart_info
+          cart_info = cart.user_has_cart_info
           render json: cart_info, status: :ok
         else
           render json: [], status: :no_content

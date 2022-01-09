@@ -8,7 +8,6 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     context "パラメータが妥当な場合" do
       let(:params) { attributes_for(:user) }
       it "新規登録ができること" do
-        # binding.pry
         expect { subject }.to change { User.count }.by(1)
         expect(response).to have_http_status(:ok)
         res = JSON.parse(response.body)

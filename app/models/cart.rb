@@ -17,7 +17,7 @@ class Cart < ApplicationRecord
   end
 
   # カート表示情報を作成
-  def cart_info
+  def user_has_cart_info
     cart_info = []
     cart_hash = {}
     cart_details.each do |info|

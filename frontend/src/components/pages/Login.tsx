@@ -80,7 +80,7 @@ export const Login: VFC = memo(() => {
             onChange={onChangePassword}
           />
           <PrimaryButton
-            disabled={!userId || !userPassword ? true : false}
+            disabled={!userId || !userPassword}
             loading={loading}
             onClick={onClickLogin}
           >

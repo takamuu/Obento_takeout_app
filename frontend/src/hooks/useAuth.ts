@@ -8,12 +8,14 @@ import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignInParams } from 'types/api/sign';
 import { signInUrl } from 'url/index';
-import { useLoginUser } from './useLoginUser';
+// TODO:useContext導入時に下記を使用
+// import { useLoginUser } from './useLoginUser';
 
 export const useAuth = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
-  const { setLoginUser } = useLoginUser();
+  // TODO:useContext導入時に下記を使用
+  // const { setLoginUser } = useLoginUser();
   const [loading, setLoading] = useState(false);
 
   const login = useCallback(
@@ -30,7 +32,7 @@ export const useAuth = () => {
           setLoading(false);
           history.push('/restaurants');
         })
-        .catch((res) => {
+        .catch(() => {
           showMessage({
             title:
               'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
@@ -39,7 +41,8 @@ export const useAuth = () => {
           setLoading(false);
         });
     },
-    [history, showMessage, setLoginUser]
+    // TODO:useContext導入時にsetLoginUserを下記に追加
+    [history, showMessage]
   );
   return { login, loading };
 };
