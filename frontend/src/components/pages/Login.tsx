@@ -18,6 +18,7 @@ import { GuestButton } from 'components/atoms/button/GuestButton';
 import { NewRegistrationButton } from 'components/atoms/button/NewRegistrationButton';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
+import { SignInParams } from 'types/api/sign';
 
 export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
@@ -30,12 +31,20 @@ export const Login: VFC = memo(() => {
   );
 
   // ユーザーID用State
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState('example@example.com');
+  const [userPassword, setUserPassword] = useState('password');
 
   const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) =>
     setUserId(e.target.value);
 
-  const onClickLogin = () => login(userId);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) =>
+    setUserPassword(e.target.value);
+
+  const params: SignInParams = {
+    email: userId,
+    password: userPassword,
+  };
+  const onClickLogin = () => login(params);
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -67,9 +76,11 @@ export const Login: VFC = memo(() => {
             placeholder="Password"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
+            value={userPassword}
+            onChange={onChangePassword}
           />
           <PrimaryButton
-            disabled={!userId}
+            disabled={!userId || !userPassword}
             loading={loading}
             onClick={onClickLogin}
           >
