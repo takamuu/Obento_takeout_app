@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 import { Cart } from 'types/api/cart';
 
@@ -15,9 +16,15 @@ export const useCarts = () => {
   const getCarts = useCallback(() => {
     setLoading(true);
     axios
-      .get<Array<Cart>>(cartsIndexUrl())
+      .get<Array<Cart>>(cartsIndexUrl(), {
+        headers: {
+          'access-token': Cookies.get('_access_token'),
+          client: Cookies.get('_client'),
+          uid: Cookies.get('_uid'),
+        },
+      })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.headers);
         setCarts(res.data);
       })
       .catch(() => {

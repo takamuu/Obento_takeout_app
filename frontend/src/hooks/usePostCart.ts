@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 
@@ -16,11 +17,21 @@ export const usePostCart = () => {
     console.log(params);
     setLoading(true);
     axios
-      .post<Array<Cart>>(cartsPostUrl, {
-        food_id: params.food.id,
-        restaurant_id: params.food.restaurant_id,
-        count: params.count,
-      })
+      .post<Array<Cart>>(
+        cartsPostUrl,
+        {
+          food_id: params.food.id,
+          restaurant_id: params.food.restaurant_id,
+          count: params.count,
+        },
+        {
+          headers: {
+            'access-token': Cookies.get('_access_token'),
+            client: Cookies.get('_client'),
+            uid: Cookies.get('_uid'),
+          },
+        }
+      )
       .then((res) => {
         setCarts(res.data);
         history.push(`/restaurants/cart`);
