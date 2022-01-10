@@ -3,10 +3,9 @@ module Api
     class CartsController < ApplicationController
       # before_action :authenticate_api_v1_user!, only: %i[index]
       before_action :set_food, only: %i[create]
-      before_action :test_user
 
       def index
-        cart = @test_user.cart
+        cart = current_api_v1_user.cart
         if cart.present?
           cart_info = cart.user_has_cart_info
           render json: cart_info, status: :ok
@@ -25,26 +24,21 @@ module Api
           @ordered_food = Food.find(params[:food_id])
         end
 
-        # 暫定ログインユーザー
-        def test_user
-          @test_user = User.first
-        end
-
         # rubocop:disable all
         def set_cart(ordered_food)
           # ユーザーのカートがない場合
-          if @test_user.cart.blank?
+          if current_api_v1_user.cart.blank?
             # カートを作成
-            Cart.create_cart(@test_user, ordered_food, params[:count])
+            Cart.create_cart(current_api_v1_user, ordered_food, params[:count])
             # カート詳細情報を作成
-            @test_user.cart.cart_details.create(
+            current_api_v1_user.cart.cart_details.create(
               food_id: params[:food_id],
               count: params[:count],
             )
           else
             # ユーザーのカートがある場合
             # カート詳細のフード注文個数を更新
-            users_cart = @test_user.cart
+            users_cart = current_api_v1_user.cart
             cart_details = CartDetail.find_by(food_id: ordered_food.id, cart_id: users_cart.id)
             # カート詳細のフード有無を判定
             if cart_details.blank?
