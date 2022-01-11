@@ -29,7 +29,6 @@ export const Restaurants: VFC = memo(() => {
         </Center>
       ) : (
         <Wrap p={{ base: 4, md: 10 }} justify="space-around">
-          {console.log(restaurants)}
           {restaurants.map((restaurant) => (
             <WrapItem key={restaurant.id}>
               <RestaurantCard

@@ -14,7 +14,6 @@ export const usePostCart = () => {
   const history = useHistory();
 
   const postCart = useCallback((params) => {
-    console.log(params);
     setLoading(true);
     axios
       .post<Array<Cart>>(
@@ -35,11 +34,9 @@ export const usePostCart = () => {
       .then((res) => {
         setCarts(res.data);
         history.push(`/restaurants/cart`);
-        console.log(res.data);
       })
       .catch((e) => {
         throw e;
-        console.log(e);
       })
       .finally(() => {
         setLoading(false);

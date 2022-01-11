@@ -24,7 +24,6 @@ export const useCartIndex = () => {
         },
       })
       .then((res) => {
-        console.log(res.headers);
         setCarts(res.data);
       })
       .catch(() => {
