@@ -16,7 +16,7 @@ class Cart < ApplicationRecord
     end
   end
 
-  # カート表示情報を作成
+  # カート情報を取得
   def user_has_cart_info
     cart_info = []
     cart_hash = {}
@@ -27,6 +27,10 @@ class Cart < ApplicationRecord
       cart_info.push(cart_hash)
       cart_hash = {}
     end
+    # カート合計金額
+    # cart_hash["tota_price"] = ロジック
+    # {cart_details: [{}], total_price: 10000}
+
     cart_info
   end
 
