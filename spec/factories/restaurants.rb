@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :restaurant do
-    name { "テストレストラン" }
+    sequence(:name) {|n| "テストレストラン#{n}" }
     description { "説明" }
     fee { 100 }
     postal_code { 100 }

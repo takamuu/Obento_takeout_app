@@ -11,31 +11,47 @@ RSpec.describe "Api::V1::Carts", type: :request do
     context "トークン認証情報がない場合" do
       subject { get(api_v1_carts_path) }
 
-      it "認証不可(401)" do
+      it "認証不可(401)がレスポンスされる" do
         subject
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
-    context "トークン認証情報はあるが、カートは存在しない場合" do
-      it "リクエストは成功するが、「カートはありません」と表示される(204)" do
-        subject
-        expect(response).to have_http_status(:no_content)
-        expect(response.body).to eq ""
+    context "トークン認証情報がある場合" do
+      context "カートが存在しない場合" do
+        it "no_content(204)がレスポンスされる" do
+          subject
+          expect(response).to have_http_status(:no_content)
+        end
       end
-    end
 
-    context "トークン認証情報があり、カートが存在する場合" do
-      # let!(:cart) { create(:cart, user_id: current_user.id) }
-      # let!(:cart_detail) { create(:cart_detail, cart_id: current_user.cart.id) }
-      it "リクエストは成功し、カートが表示される、cartが持つtotal_priceが正常に計算されている" do
-        create(:cart, user_id: current_user.id)
-        create(:cart_detail, cart_id: current_user.cart.id)
-        subject
-        json = JSON.parse(response.body)
-        expect(response).to have_http_status(:ok)
-        expect(json.size).to eq 1
-        expect(json.sum {|c| c["price"] }).to eq current_user.cart.total_price
+      context "カートが存在する場合 && 商品が存在する場合" do
+        before {
+          create(:cart, user_id: current_user.id)
+          create(:cart_detail, cart_id: current_user.cart.id)
+        }
+
+        it "ok(200)がレスポンスされる" do
+          subject
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "取得したカート情報がレスポンスされる" do
+          subject
+          json = JSON.parse(response.body)
+          expect(json[0]["name"]).to be_present
+          expect(json[0]["count"]).to be_present
+          expect(json[0]["price"]).to be_present
+          # expect(json["tota_price"]).to be_present
+        end
+      end
+
+      context "カートが存在する場合 && 商品が存在しない場合" do
+        before { create(:cart, user_id: current_user.id) }
+
+        xit "no_content(204)がレスポンスされる" do
+          # TODO
+        end
       end
     end
   end
@@ -49,31 +65,29 @@ RSpec.describe "Api::V1::Carts", type: :request do
     context "トークン認証情報がない場合" do
       subject { post(api_v1_carts_path) }
 
-      it "認証不可(401)" do
+      it "認証不可(401)がレスポンスされる" do
         subject
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
-    context "トークン認証情報はある場合" do
-      context "カートが存在しない" do
-        it "カートとカート詳細情報を作成する" do
-          subject
-          expect(response).to have_http_status(:ok)
-          expect(response.body).to eq ""
-        end
+    context "トークン認証情報がある && カートが存在しない" do
+      it "カートとカート詳細情報を作成する" do
+        subject
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to eq ""
       end
+    end
 
-      context "カートが存在する" do
-        # let!(:cart) { create(:cart, user_id: current_user.id) }
-        # let!(:cart_detail) { create(:cart_detail, cart_id: current_user.cart.id) }
-        it "カートとカート詳細情報を正常に更新する" do
-          subject
-          json = JSON.parse(response.body)
-          expect(response).to have_http_status(:ok)
-          expect(json.size).to eq 1
-          expect(json.sum {|c| c["price"] }).to eq current_user.cart.total_price
-        end
+    context "トークン認証情報がある && カートが存在する" do
+      # let!(:cart) { create(:cart, user_id: current_user.id) }
+      # let!(:cart_detail) { create(:cart_detail, cart_id: current_user.cart.id) }
+      it "カートとカート詳細情報を正常に更新する" do
+        subject
+        json = JSON.parse(response.body)
+        expect(response).to have_http_status(:ok)
+        expect(json.size).to eq 1
+        expect(json.sum {|c| c["price"] }).to eq current_user.cart.total_price
       end
     end
   end
