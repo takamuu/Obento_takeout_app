@@ -3,11 +3,11 @@
 import { Center, Heading, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { CartCard } from 'components/organisms/cart/CartCard';
-import { useCarts } from 'hooks/useCarts';
+import { useCartIndex } from 'hooks/useCartIndex';
 import { memo, useEffect, VFC } from 'react';
 
 export const Cart: VFC = memo(() => {
-  const { getCarts, carts, loading } = useCarts();
+  const { getCarts, carts, loading } = useCartIndex();
 
   useEffect(() => getCarts(), []);
 
