@@ -137,8 +137,5 @@ RSpec.describe "Api::V1::Carts", type: :request do
         expect(response).to have_http_status(:unauthorized)
       end
     end
-
-    xdescribe "PUT /replace" do
-    end
   end
 end
