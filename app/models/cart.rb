@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
   has_many :foods, through: :cart_details
   has_many :cart_details_foods, through: :cart_details, source: :food
 
-  validates :total_price, presence: true, numericality: { greater_than: 0 }
+  validates :total_price, presence: true
 
   # active等削除したので、後で要確認
   def save_with_update_temporary_orders!(temporary_orders)
@@ -47,16 +47,5 @@ class Cart < ApplicationRecord
   #      new_restaurant: Food.find(params[:food_id]).restaurant.name,
   #    }, status: :not_acceptable
   #  end
-  # end
-
-  # TODO: カートindexを実装時に検討
-  # def render_cart_details(cart_details)
-  #   if cart_details.save
-  #     render json:
-  #       cart_details, status: :created
-  #   else
-  #     render json: {}, status: :internal_server_error
-  #   end
-  # end
   # end
 end
