@@ -57,7 +57,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
   end
 
   describe "POST #create" do
-    let(:food_params) { { "food_id" => @cart_details.food.id, "restaurant_id" => 1, "count" => 1 } }
+    let(:food_params) { { food_id: @cart_details.food.id, restaurant_id: 1, count: 1 } }
 
     context "トークン認証情報がある場合" do
       subject { post(api_v1_carts_path, params: food_params, headers: headers) }
