@@ -5,7 +5,7 @@ module Api
       before_action :set_food, only: %i[create]
 
       def index
-        if current_api_v1_user.cart.present?
+        if current_api_v1_user.cart.present? && current_api_v1_user.cart.cart_details.present?
           cart_info = current_api_v1_user.cart.user_has_cart_info
           render json: cart_info, status: :ok
         else
@@ -13,62 +13,68 @@ module Api
         end
       end
 
+      # rubocop:disable all
       def create
-        set_cart(@ordered_food)
+        # カートが作成されている場合
+        if current_api_v1_user.cart.present?
+          # 1.追加するフードを含むカート詳細を取得
+          cart_details = acquire_cart_details(@ordered_food)
+
+          # 2.カート詳細があれば更新、なければ作成
+          update_or_create_cart_details(cart_details)
+
+          # 3.カートの合計金額を更新
+          current_api_v1_user.cart.attributes = { total_price: calc_total_price }
+          if current_api_v1_user.cart.save
+            cart_info = current_api_v1_user.cart.user_has_cart_info
+            render json: cart_info, status: :ok
+          else
+            render json: [], status: :internal_server_error
+          end
+
+        else
+          # カートが作成されていない場合は、カートを作成
+          new_cart = Cart.create!(user_id: current_api_v1_user.id, total_price: @ordered_food.price * params[:count].to_i)
+          # カート詳細情報を作成
+          new_cart_details = new_cart.cart_details.new(food_id: params[:food_id].to_i, count: params[:count].to_i)
+          if new_cart_details.save
+            cart_info = new_cart.user_has_cart_info
+            render json: cart_info, status: :ok
+          else
+            render json: [], status: :internal_server_error
+          end
+        end
       end
+      # rubocop:enable all
 
       private
 
         def set_food
-          @ordered_food = Food.find(params[:food_id])
+          @ordered_food = Food.find(params[:food_id].to_i)
         end
 
-        # rubocop:disable all
-        def set_cart(ordered_food)
-          users_cart = current_api_v1_user.cart
-          # ユーザーのカートがない場合
-          if users_cart.blank?
-            # カートを作成
-            users_cart = Cart.create_cart(current_api_v1_user, ordered_food, params[:count])
-            # カート詳細情報を作成
-            users_cart.cart_details.create(
-              food_id: params[:food_id],
-              count: params[:count],
-            )
+        # 追加するフードを含むカート詳細を取得
+        def acquire_cart_details(ordered_food)
+          current_api_v1_user.cart.cart_details.find_by(food_id: ordered_food.id)
+        end
+
+        # カート詳細があれば更新、なければ作成
+        def update_or_create_cart_details(cart_details)
+          if cart_details.present?
+            cart_details.update!(count: cart_details.count + params[:count].to_i)
           else
-            # ユーザーのカートがある場合
-            # カート詳細のフード注文個数を更新
-            cart_details = CartDetail.find_by(food_id: ordered_food.id, cart_id: users_cart.id)
-            # カート詳細のフード有無を判定
-            if cart_details.blank?
-              cart_details = CartDetail.new(
-                food_id: ordered_food.id,
-                cart_id: users_cart.id,
-                count: params[:count],
-              )
-            else
-              cart_details.attributes = {
-                count: cart_details.count + params[:count],
-              }
-              cart_details.save
-            end
-            # カートの注文合計金額を更新
-            all_details_of_cart = CartDetail.where(cart_id: users_cart.id)
-            total_price = 0
-            all_details_of_cart.each do |detail|
-              total_price += detail.food.price * detail.count
-            end
-            users_cart.attributes = {
-              total_price: total_price,
-            }
-            if users_cart.save
-              render json: cart_details, status: :created
-            else
-              render json: {}, status: :internal_server_error
-            end
+            current_api_v1_user.cart.cart_details.create!(food_id: params[:food_id].to_i, count: params[:count].to_i)
           end
         end
-        # rubocop:enable all
+
+        # カートの合計金額を更新
+        def calc_total_price
+          @total_price = 0
+          current_api_v1_user.cart.cart_details.each do |detail|
+            @total_price += detail.food.price * detail.count
+          end
+          @total_price
+        end
     end
   end
 end
