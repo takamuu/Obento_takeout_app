@@ -6,6 +6,7 @@ import { Image } from '@chakra-ui/image';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useHistory } from 'react-router-dom';
 
+import { useLoginUser } from 'hooks/useLoginUser';
 import { MenuIconButton } from 'components/atoms/button/MenuIconButton';
 import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
@@ -24,6 +25,8 @@ export const Header: VFC = memo(() => {
   //   onOpen: onOpenCartModal,
   //   onClose: onCloseCartModal,
   // } = useDisclosure();
+
+  const { loginUser } = useLoginUser();
 
   const history = useHistory();
 
