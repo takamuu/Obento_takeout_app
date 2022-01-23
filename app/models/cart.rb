@@ -26,11 +26,7 @@ class Cart < ApplicationRecord
 
   # カートの合計金額を更新
   def self.calc_total_price(current_user)
-    @total_price = 0
-    current_user.cart.cart_details.each do |detail|
-      @total_price += detail.food.price * detail.count
-    end
-    @total_price
+    current_user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
   end
 
   # 追加するフードを含むカート詳細を取得
