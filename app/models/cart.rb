@@ -6,16 +6,6 @@ class Cart < ApplicationRecord
 
   validates :total_price, presence: true
 
-  # active等削除したので、後で要確認
-  def save_with_update_temporary_orders!(temporary_orders)
-    ActiveRecord::Base.transaction do
-      temporary_orders.each do |temporary_order|
-        temporary_order.update!(active: false, order: self)
-      end
-      save!
-    end
-  end
-
   # カート情報を取得
   def user_has_cart_info
     cart_info = []
@@ -34,18 +24,27 @@ class Cart < ApplicationRecord
     cart_info
   end
 
-  def self.create_cart(user, ordered_food, count)
-    create(user_id: user.id, total_price: ordered_food.price * count)
+  # カートの合計金額を更新
+  def self.calc_total_price(current_user)
+    current_user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
   end
 
-  # def restaurant_duplicate_check
-  #  暫定的にuserをid:1に限定（ログイン機能実装時に、User判定ロジックを追加）
-  #  all_food_in_cart = User.find_by(id:1).cart.foods
-  #  if @ordered_food.restaurant_id != all_food_in_cart.first.restaurant_id
-  #    return render json: {
-  #      existing_restaurant: all_food_in_cart.first.restaurant.name,
-  #      new_restaurant: Food.find(params[:food_id]).restaurant.name,
-  #    }, status: :not_acceptable
-  #  end
-  # end
+  # 追加するフードを含むカート詳細を取得
+  def self.acquire_cart_details(current_user, ordered_food)
+    current_user.cart.cart_details.find_by(food_id: ordered_food.id)
+  end
+
+  # カートを作成する
+  def self.create_cart(user, ordered_food, cart_details_params)
+    create(user_id: user.id, total_price: ordered_food.price * cart_details_params[:count].to_i)
+  end
+
+  # カート詳細があれば更新、なければ作成
+  def self.update_or_create_cart_details(cart_details, user, cart_details_params)
+    if cart_details.present?
+      cart_details.update!(count: cart_details.count + cart_details_params[:count].to_i)
+    else
+      user.cart.cart_details.create!(cart_details_params)
+    end
+  end
 end

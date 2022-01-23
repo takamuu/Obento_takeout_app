@@ -66,6 +66,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
         before {
           @cart = create(:cart, user_id: current_user.id)
           @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
+          @other_food_details = create(:cart_detail, cart_id: current_user.cart.id)
         }
 
         it "ok(200)がレスポンスされる" do
@@ -74,11 +75,11 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
 
         it "カート情報が更新される" do
-          expect { subject }.to change { @cart.reload.total_price }.from(0).to(2000)
+          expect { subject }.to change { @cart.reload.total_price }.from(0).to(3000)
         end
 
         it "カート詳細情報が更新される" do
-          expect { subject }.to change { CartDetail.last.count }.by(1)
+          expect { subject }.to change { @cart_details.reload.count }.from(1).to(2)
         end
       end
 
@@ -89,7 +90,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
           @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
         }
 
-        let(:food_params) { { "food_id" => @food.id, "restaurant_id" => 1, "count" => 1 } }
+        let(:food_params) { { food_id: @food.id, restaurant_id: 1, count: 1 } }
 
         it "ok(200)がレスポンスされる" do
           subject
@@ -108,7 +109,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
       context "カートが存在しない場合" do
         before { @food = create(:food) }
 
-        let(:food_params) { { "food_id" => @food.id, "restaurant_id" => 1, "count" => 1 } }
+        let(:food_params) { { food_id: @food.id, restaurant_id: 1, count: 1 } }
 
         it "ok(200)がレスポンスされる" do
           subject
@@ -130,7 +131,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
 
       before { @food = create(:food) }
 
-      let(:food_params) { { "food_id" => @food.id, "restaurant_id" => 1, "count" => 1 } }
+      let(:food_params) { { food_id: @food.id, restaurant_id: 1, count: 1 } }
 
       it "認証不可(401)がレスポンスされる" do
         subject
