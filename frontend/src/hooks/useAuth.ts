@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignInParams } from 'types/api/sign';
-import { signInUrl } from 'url/index';
+import { signOutUrl, signInUrl } from 'url/index';
 import { useLoginUser } from './useLoginUser';
 
 export const useAuth = () => {
@@ -17,6 +17,7 @@ export const useAuth = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // ログイン
   const login = useCallback(
     (params: SignInParams) => {
       setLoading(true);
@@ -42,5 +43,34 @@ export const useAuth = () => {
     },
     [history, showMessage, setLoginUser]
   );
-  return { login, loading };
+
+  // ログアウト
+  const logout = useCallback(() => {
+    axios
+      .delete(signOutUrl, {
+        headers: {
+          'access-token': Cookies.get('_access_token'),
+          client: Cookies.get('_client'),
+          uid: Cookies.get('_uid'),
+        },
+      })
+      .then(() => {
+        Cookies.remove('_access_token');
+        Cookies.remove('_client');
+        Cookies.remove('_uid');
+        setLoginUser(null);
+        showMessage({
+          title: 'ログアウトしました',
+          status: 'error',
+        });
+        history.push('/login');
+      })
+      .catch(() => {
+        showMessage({
+          title: 'ログアウトできませんでした',
+          status: 'error',
+        });
+      });
+  }, [history, showMessage, setLoginUser]);
+  return { login, logout, loading };
 };
