@@ -1,6 +1,5 @@
 import axios from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
-import { signInUrl } from 'url/index';
 // applyCaseMiddleware:
 // axiosで受け取ったレスポンスの値をスネークケース→キャメルケースに変換
 // または送信するリクエストの値をキャメルケース→スネークケースに変換してくれるライブラリ
@@ -12,7 +11,7 @@ const options = {
 
 const client = applyCaseMiddleware(
   axios.create({
-    baseURL: signInUrl,
+    baseURL: `${process.env.REACT_APP_SERVER_URL}/api/v1`,
   }),
   options
 );
