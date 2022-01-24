@@ -12,6 +12,7 @@ export type LoginUserContextType = {
   loginUser: User | null;
   setLoginUser: Dispatch<SetStateAction<User | null>>;
 };
+
 export const LoginUserContext = createContext<LoginUserContextType>(
   {} as LoginUserContextType
 );
