@@ -6,6 +6,8 @@ import { Image } from '@chakra-ui/image';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useHistory } from 'react-router-dom';
 
+import { useLoginUser } from 'hooks/useLoginUser';
+import { useAuth } from 'hooks/useAuth';
 import { MenuIconButton } from 'components/atoms/button/MenuIconButton';
 import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
@@ -25,18 +27,15 @@ export const Header: VFC = memo(() => {
   //   onClose: onCloseCartModal,
   // } = useDisclosure();
 
+  const { loginUser } = useLoginUser();
+  const { logout } = useAuth();
   const history = useHistory();
 
   const onClickHome = useCallback(() => history.push('/restaurants'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-
   const onClickCart = useCallback(() => history.push('/restaurants/cart'), []);
-  // 今回は使用していないが、以降実装予定のコード
-  // const onClickUserManagement = useCallback(
-  //   () => history.push('/login/user_management'),
-  //   []
-  // );
-  // const onClickSetting = useCallback(() => history.push('/login/setting'), []);
+
+  const onClickLogout = () => logout();
 
   return (
     <>
@@ -71,9 +70,15 @@ export const Header: VFC = memo(() => {
           <Box pr={4}>
             <Link>お問い合わせ</Link>
           </Box>
-          <Box pr={4}>
-            <Link onClick={onClickLogin}>ログイン</Link>
-          </Box>
+          {loginUser ? (
+            <Box pr={4}>
+              <Link onClick={onClickLogout}>ログアウト</Link>
+            </Box>
+          ) : (
+            <Box pr={4}>
+              <Link onClick={onClickLogin}>ログイン</Link>
+            </Box>
+          )}
           <Box pr={4}>
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>

@@ -7,29 +7,29 @@ import Cookies from 'js-cookie';
 import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignInParams } from 'types/api/sign';
-import { signInUrl } from 'url/index';
-// TODO:useContext導入時に下記を使用
-// import { useLoginUser } from './useLoginUser';
+import { signOutUrl, signInUrl } from 'url/index';
+import { useLoginUser } from './useLoginUser';
 
 export const useAuth = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
-  // TODO:useContext導入時に下記を使用
-  // const { setLoginUser } = useLoginUser();
+  const { setLoginUser } = useLoginUser();
+
   const [loading, setLoading] = useState(false);
 
+  // ログイン
   const login = useCallback(
     (params: SignInParams) => {
       setLoading(true);
       axios
         .post<User>(signInUrl, params)
         .then((res) => {
+          setLoginUser(res.data);
           showMessage({ title: 'ログインしました', status: 'success' });
           // ログインに成功した場合はCookieに各値を格納
           Cookies.set('_access_token', res.headers['access-token']);
           Cookies.set('_client', res.headers['client']);
           Cookies.set('_uid', res.headers['uid']);
-          setLoading(false);
           history.push('/restaurants');
         })
         .catch(() => {
@@ -41,8 +41,36 @@ export const useAuth = () => {
           setLoading(false);
         });
     },
-    // TODO:useContext導入時にsetLoginUserを下記に追加
-    [history, showMessage]
+    [history, showMessage, setLoginUser]
   );
-  return { login, loading };
+
+  // ログアウト
+  const logout = useCallback(() => {
+    axios
+      .delete(signOutUrl, {
+        headers: {
+          'access-token': Cookies.get('_access_token'),
+          client: Cookies.get('_client'),
+          uid: Cookies.get('_uid'),
+        },
+      })
+      .then(() => {
+        Cookies.remove('_access_token');
+        Cookies.remove('_client');
+        Cookies.remove('_uid');
+        setLoginUser(null);
+        showMessage({
+          title: 'ログアウトしました',
+          status: 'error',
+        });
+        history.push('/login');
+      })
+      .catch(() => {
+        showMessage({
+          title: 'ログアウトできませんでした',
+          status: 'error',
+        });
+      });
+  }, [history, showMessage, setLoginUser]);
+  return { login, logout, loading };
 };
