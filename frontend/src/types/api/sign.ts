@@ -1,9 +1,11 @@
 // サインアップ
 export type SignUpParams = {
   name: string;
+  kana: string;
   email: string;
   password: string;
-  passwordConfirmation: string;
+  password_confirmation: string;
+  phone_number: string;
 };
 
 // サインイン
