@@ -46,6 +46,11 @@ export const Login: VFC = memo(() => {
   };
   const onClickLogin = () => login(params);
 
+  const onClickNewRegistration = useCallback(
+    () => history.push('/login/new_registration'),
+    [history]
+  );
+
   return (
     <Flex align="center" justify="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
@@ -87,7 +92,12 @@ export const Login: VFC = memo(() => {
             ログイン
           </PrimaryButton>
           <GuestButton>ゲストログイン</GuestButton>
-          <NewRegistrationButton>新規登録</NewRegistrationButton>
+          <NewRegistrationButton
+            loading={loading}
+            onClick={onClickNewRegistration}
+          >
+            新規登録
+          </NewRegistrationButton>
         </Stack>
       </Box>
     </Flex>
