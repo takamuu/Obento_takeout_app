@@ -18,11 +18,11 @@ import {
 import MainLogo from 'images/MainLogo.svg';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from 'hooks/useAuth';
 import { SignUpParams } from 'types/api/sign';
+import { useNewRegistration } from 'hooks/useNewRegistration';
 
 export const NewRegistration: VFC = memo(() => {
-  const { login, loading } = useAuth();
+  const { newRegistration, loading } = useNewRegistration();
 
   const history = useHistory();
 
@@ -38,7 +38,7 @@ export const NewRegistration: VFC = memo(() => {
   const [userPassword, setUserPassword] = useState('password');
   const [userPasswordConfirmation, setUserPasswordConfirmation] =
     useState('password');
-  const [userTel, setUserTel] = useState('000-0000-1111');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('000-0000-1111');
   const [isChecked, setisChecked] = useState(false);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) =>
@@ -56,19 +56,19 @@ export const NewRegistration: VFC = memo(() => {
   const onChangePasswordConfirmation = (e: ChangeEvent<HTMLInputElement>) =>
     setUserPasswordConfirmation(e.target.value);
 
-  const onChangeTel = (e: ChangeEvent<HTMLInputElement>) =>
-    setUserTel(e.target.value);
+  const onChangePhoneNumber = (e: ChangeEvent<HTMLInputElement>) =>
+    setUserPhoneNumber(e.target.value);
 
   const params: SignUpParams = {
     name: userName,
     kana: userKana,
     email: userId,
     password: userPassword,
-    passwordConfirmation: userPassword,
-    tel: userTel,
+    password_confirmation: userPasswordConfirmation,
+    phone_number: userPhoneNumber,
   };
 
-  const onClickLogin = () => login(params);
+  const onClickNewRegistration = () => newRegistration(params);
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -146,8 +146,8 @@ export const NewRegistration: VFC = memo(() => {
             placeholder="TEL"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            value={userTel}
-            onChange={onChangeTel}
+            value={userPhoneNumber}
+            onChange={onChangePhoneNumber}
           />
           <Spacer />
           <HStack spacing={10} align="center">
@@ -175,11 +175,11 @@ export const NewRegistration: VFC = memo(() => {
               !userId ||
               !userPassword ||
               !userPasswordConfirmation ||
-              !userTel ||
+              !userPhoneNumber ||
               !isChecked
             }
             loading={loading}
-            onClick={onClickLogin}
+            onClick={onClickNewRegistration}
           >
             同意して登録
           </PrimaryButton>
