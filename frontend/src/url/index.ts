@@ -5,6 +5,8 @@ export const signInUrl = `${DEFAULT_API_LOCALHOST}/auth/sign_in`;
 
 export const signOutUrl = `${DEFAULT_API_LOCALHOST}/auth/sign_out`;
 
+export const signUpUrl = `${DEFAULT_API_LOCALHOST}/auth`;
+
 export const restaurantsIndexUrl = `${DEFAULT_API_LOCALHOST}/restaurants`;
 
 export const foodsIndexUrl = (restaurantId: string) =>
