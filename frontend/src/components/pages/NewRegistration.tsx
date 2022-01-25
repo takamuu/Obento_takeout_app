@@ -9,6 +9,7 @@ import {
   Flex,
   Stack,
   HStack,
+  VStack,
   Text,
   Checkbox,
   Spacer,
@@ -72,7 +73,7 @@ export const NewRegistration: VFC = memo(() => {
 
   return (
     <Flex align="center" justify="center" height="100vh">
-      <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
+      <Box bg="white" w="sm" p={2} borderRadius="md" shadow="md">
         <HStack spacing="12px">
           <Image
             boxSize="60px"
@@ -94,8 +95,8 @@ export const NewRegistration: VFC = memo(() => {
         >
           アカウントを作成
         </Text>
-        <Stack spacing={6} py={4} px={10}>
-          <Text h="0.5">名前</Text>
+        <Stack spacing={4} py={4} px={10}>
+          <Text h="2">名前</Text>
           <Input
             borderColor="gray.300"
             placeholder="入力してください"
@@ -104,7 +105,7 @@ export const NewRegistration: VFC = memo(() => {
             value={userName}
             onChange={onChangeName}
           />
-          <Text h="0.5">カナ</Text>
+          <Text h="2">カナ</Text>
           <Input
             borderColor="gray.300"
             placeholder="入力してください"
@@ -113,7 +114,7 @@ export const NewRegistration: VFC = memo(() => {
             value={userKana}
             onChange={onChangeKana}
           />
-          <Text h="0.5">E-mail</Text>
+          <Text h="2">E-mail</Text>
           <Input
             borderColor="gray.300"
             placeholder="入力してください"
@@ -122,7 +123,7 @@ export const NewRegistration: VFC = memo(() => {
             value={userId}
             onChange={onChangeId}
           />
-          <Text h="0.5">パスワード</Text>
+          <Text h="2">パスワード</Text>
           <Input
             borderColor="gray.300"
             placeholder="６文字以上入力してください"
@@ -131,7 +132,7 @@ export const NewRegistration: VFC = memo(() => {
             value={userPassword}
             onChange={onChangePassword}
           />
-          <Text h="0.5">もう一度パスワードを入力して下さい</Text>
+          <Text h="2">もう一度パスワードを入力して下さい</Text>
           <Input
             borderColor="gray.300"
             placeholder="６文字以上入力してください"
@@ -140,7 +141,7 @@ export const NewRegistration: VFC = memo(() => {
             value={userPasswordConfirmation}
             onChange={onChangePasswordConfirmation}
           />
-          <Text h="0.5">TEL</Text>
+          <Text h="2">TEL</Text>
           <Input
             borderColor="gray.300"
             placeholder="TEL"
@@ -149,15 +150,16 @@ export const NewRegistration: VFC = memo(() => {
             value={userPhoneNumber}
             onChange={onChangePhoneNumber}
           />
-          <Spacer />
-          <HStack spacing={10} align="center">
+          {/* <Spacer /> */}
+          <Divider borderColor="brand" my={4} />
+          <VStack spacing={2} align="center">
             <Button color="brand" variant="link">
               利用規約
             </Button>
             <Button color="brand" variant="link">
               プライバシーポリシー
             </Button>
-          </HStack>
+          </VStack>
           <Checkbox
             defaultIsChecked={false}
             borderColor="gray.300"
