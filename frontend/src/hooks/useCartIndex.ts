@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 import { Cart } from 'types/api/cart';
 
-import { cartsIndexUrl } from 'url/index';
+import { cartsUrl } from 'url/index';
 import { useMessage } from './useMessage';
 
 export const useCartIndex = () => {
@@ -16,7 +16,7 @@ export const useCartIndex = () => {
   const getCarts = useCallback(() => {
     setLoading(true);
     axios
-      .get<Array<Cart>>(cartsIndexUrl(), {
+      .get<Array<Cart>>(cartsUrl, {
         headers: {
           'access-token': Cookies.get('_access_token'),
           client: Cookies.get('_client'),
