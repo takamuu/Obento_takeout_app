@@ -20,10 +20,10 @@ import MainLogo from 'images/MainLogo.svg';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { useHistory } from 'react-router-dom';
 import { SignUpParams } from 'types/api/sign';
-import { useNewRegistration } from 'hooks/useNewRegistration';
+import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
 
 export const NewRegistration: VFC = memo(() => {
-  const { newRegistration, loading } = useNewRegistration();
+  const { newUserRegistration, loading } = useNewUserRegistration();
 
   const history = useHistory();
 
@@ -32,14 +32,13 @@ export const NewRegistration: VFC = memo(() => {
     [history]
   );
 
-  // ユーザーID用State
   const [userName, setUserName] = useState('山田　太郎');
   const [userKana, setUserKana] = useState('ヤマダ　タロウ');
   const [userId, setUserId] = useState('taro-yamada@example.com');
   const [userPassword, setUserPassword] = useState('password');
   const [userPasswordConfirmation, setUserPasswordConfirmation] =
     useState('password');
-  const [userPhoneNumber, setUserPhoneNumber] = useState('000-0000-1111');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('00033335555');
   const [isChecked, setisChecked] = useState(false);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) =>
@@ -69,11 +68,11 @@ export const NewRegistration: VFC = memo(() => {
     phone_number: userPhoneNumber,
   };
 
-  const onClickNewRegistration = () => newRegistration(params);
+  const onClickNewRegistration = () => newUserRegistration(params);
 
   return (
-    <Flex align="center" justify="center" height="100vh">
-      <Box bg="white" w="sm" p={2} borderRadius="md" shadow="md">
+    <Flex align="center" justify="center" height="105vh">
+      <Box bg="white" p={2} borderRadius="md" shadow="md">
         <HStack spacing="12px">
           <Image
             boxSize="60px"
@@ -99,25 +98,25 @@ export const NewRegistration: VFC = memo(() => {
           <Text h="2">名前</Text>
           <Input
             borderColor="gray.300"
-            placeholder="入力してください"
+            placeholder="名前を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
             value={userName}
             onChange={onChangeName}
           />
-          <Text h="2">カナ</Text>
+          <Text h="2">フリガナ</Text>
           <Input
             borderColor="gray.300"
-            placeholder="入力してください"
+            placeholder="フリガナを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
             value={userKana}
             onChange={onChangeKana}
           />
-          <Text h="2">E-mail</Text>
+          <Text h="2">Eメールアドレス</Text>
           <Input
             borderColor="gray.300"
-            placeholder="入力してください"
+            placeholder="Eメールを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
             value={userId}
@@ -126,25 +125,27 @@ export const NewRegistration: VFC = memo(() => {
           <Text h="2">パスワード</Text>
           <Input
             borderColor="gray.300"
-            placeholder="６文字以上入力してください"
+            placeholder="パスワードを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
+            type="password"
             value={userPassword}
             onChange={onChangePassword}
           />
-          <Text h="2">もう一度パスワードを入力して下さい</Text>
+          <Text h="2">確認用パスワード</Text>
           <Input
             borderColor="gray.300"
-            placeholder="６文字以上入力してください"
+            placeholder="パスワードを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
+            type="password"
             value={userPasswordConfirmation}
             onChange={onChangePasswordConfirmation}
           />
-          <Text h="2">TEL</Text>
+          <Text h="2">電話番号（数字のみ入力）</Text>
           <Input
             borderColor="gray.300"
-            placeholder="TEL"
+            placeholder="電話番号を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
             value={userPhoneNumber}
@@ -161,6 +162,7 @@ export const NewRegistration: VFC = memo(() => {
             </Button>
           </VStack>
           <Checkbox
+            size="sm"
             defaultIsChecked={false}
             borderColor="gray.300"
             onChange={(e) => {

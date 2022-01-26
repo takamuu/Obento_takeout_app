@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/button';
 
 type Props = {
   children: ReactNode;
-  loading?: boolean;
+  loading: boolean;
   onClick: () => void;
 };
 

@@ -68,19 +68,22 @@ export const Login: VFC = memo(() => {
         </HStack>
         <Divider borderColor="brand" my={4} />
         <Stack spacing={6} py={4} px={10}>
+          <Text h="1">Eメールアドレス</Text>
           <Input
             borderColor="gray.300"
-            placeholder="ユーザーID"
+            placeholder="Eメールを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
             value={userId}
             onChange={onChangeUserId}
           />
+          <Text h="1">パスワード</Text>
           <Input
             borderColor="gray.300"
-            placeholder="Password"
+            placeholder="パスワードを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
+            type="password"
             value={userPassword}
             onChange={onChangePassword}
           />

@@ -10,15 +10,15 @@ import { SignUpParams } from 'types/api/sign';
 import { signUpUrl } from 'url/index';
 import { useLoginUser } from './useLoginUser';
 
-export const useNewRegistration = () => {
+export const useNewUserRegistration = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
 
   const [loading, setLoading] = useState(false);
 
-  // 新規登録
-  const newRegistration = useCallback(
+  // ユーザー新規登録
+  const newUserRegistration = useCallback(
     (params: SignUpParams) => {
       setLoading(true);
       axios
@@ -46,5 +46,5 @@ export const useNewRegistration = () => {
     },
     [history, showMessage, setLoginUser]
   );
-  return { newRegistration, loading };
+  return { newUserRegistration, loading };
 };
