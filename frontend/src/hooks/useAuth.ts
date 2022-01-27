@@ -19,58 +19,53 @@ export const useAuth = () => {
 
   // ログイン
   const login = useCallback(
-    (params: SignInParams) => {
+    async (params: SignInParams) => {
       setLoading(true);
-      axios
-        .post<User>(signInUrl, params)
-        .then((res) => {
-          setLoginUser(res.data);
-          showMessage({ title: 'ログインしました', status: 'success' });
-          // ログインに成功した場合はCookieに各値を格納
-          Cookies.set('_access_token', res.headers['access-token']);
-          Cookies.set('_client', res.headers['client']);
-          Cookies.set('_uid', res.headers['uid']);
-          history.push('/restaurants');
-        })
-        .catch(() => {
-          showMessage({
-            title:
-              'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
-            status: 'error',
-          });
-          setLoading(false);
+      try {
+        const res = await axios.post<User>(signInUrl, params);
+        setLoginUser(res.data);
+        showMessage({ title: 'ログインしました', status: 'success' });
+        // ログインに成功した場合はCookieに各値を格納
+        Cookies.set('_access_token', res.headers['access-token']);
+        Cookies.set('_client', res.headers['client']);
+        Cookies.set('_uid', res.headers['uid']);
+        history.push('/restaurants');
+      } catch (e) {
+        showMessage({
+          title: 'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
+          status: 'error',
         });
+        setLoading(false);
+      }
     },
     [history, showMessage, setLoginUser]
   );
 
   // ログアウト
-  const logout = useCallback(() => {
-    axios
-      .delete(signOutUrl, {
+  const logout = useCallback(async () => {
+    try {
+      axios.delete(signOutUrl, {
         headers: {
           'access-token': Cookies.get('_access_token'),
           client: Cookies.get('_client'),
           uid: Cookies.get('_uid'),
         },
-      })
-      .then(() => {
-        Cookies.remove('_access_token');
-        Cookies.remove('_client');
-        Cookies.remove('_uid');
-        setLoginUser(null);
-        showMessage({
-          title: 'ログアウトしました',
-          status: 'error',
-        });
-        history.push('/login');
-      })
-      .catch(() => {
-        showMessage({
-          title: 'ログアウトできませんでした',
-          status: 'error',
-        });
       });
+      Cookies.remove('_access_token');
+      Cookies.remove('_client');
+      Cookies.remove('_uid');
+      setLoginUser(null);
+      showMessage({
+        title: 'ログアウトしました',
+        status: 'error',
+      });
+      history.push('/login');
+    } catch (e) {
+      showMessage({
+        title: 'ログアウトできませんでした',
+        status: 'error',
+      });
+    }
   }, [history, showMessage, setLoginUser]);
   return { login, logout, loading };
 };
