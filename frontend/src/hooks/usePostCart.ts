@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 
 import { Cart } from 'types/api/cart';
-import { cartsPostUrl } from 'url/index';
+import { cartsUrl } from 'url/index';
 
 export const usePostCart = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export const usePostCart = () => {
     setLoading(true);
     axios
       .post<Array<Cart>>(
-        cartsPostUrl,
+        cartsUrl,
         {
           food_id: params.food.id,
           restaurant_id: params.food.restaurant_id,
