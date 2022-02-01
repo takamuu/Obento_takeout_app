@@ -29,7 +29,6 @@ export const useAuth = () => {
             'Content-Type': 'application/json',
           },
         });
-
         const result = await res.json();
         setLoginUser(result.data);
         showMessage({ title: 'ログインしました', status: 'success' });
@@ -54,7 +53,7 @@ export const useAuth = () => {
   // ログアウト
   const logout = useCallback(async () => {
     try {
-      axios.delete(signOutUrl, {
+      await axios.delete(signOutUrl, {
         headers: {
           'access-token': Cookies.get('_access_token'),
           client: Cookies.get('_client'),
