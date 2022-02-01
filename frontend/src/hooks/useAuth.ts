@@ -22,15 +22,24 @@ export const useAuth = () => {
     async (params: SignInParams) => {
       setLoading(true);
       try {
-        const res = await axios.post<User>(signInUrl, params);
-        setLoginUser(res.data);
+        const res = await fetch(signInUrl, {
+          method: 'POST',
+          body: JSON.stringify(params),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const result = await res.json();
+        setLoginUser(result.data);
         showMessage({ title: 'ログインしました', status: 'success' });
-        // ログインに成功した場合はCookieに各値を格納
-        Cookies.set('_access_token', res.headers['access-token']);
-        Cookies.set('_client', res.headers['client']);
-        Cookies.set('_uid', res.headers['uid']);
+        // TODO:access-tokenに保持するのは良くないので、サーバーサイドでsession.idを付与する方式に移行するまでの暫定
+        const res2 = await axios.post<User>(signInUrl, params);
+        Cookies.set('_access_token', res2.headers['access-token']);
+        Cookies.set('_client', res2.headers['client']);
+        Cookies.set('_uid', res2.headers['uid']);
         history.push('/restaurants');
       } catch (e) {
+        alert(e);
         showMessage({
           title: 'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
           status: 'error',
@@ -44,7 +53,7 @@ export const useAuth = () => {
   // ログアウト
   const logout = useCallback(async () => {
     try {
-      axios.delete(signOutUrl, {
+      await axios.delete(signOutUrl, {
         headers: {
           'access-token': Cookies.get('_access_token'),
           client: Cookies.get('_client'),

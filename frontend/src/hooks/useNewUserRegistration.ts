@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignUpParams } from 'types/api/sign';
-import { signUpUrl } from 'url/index';
+import { signInUrl, signUpUrl } from 'url/index';
 import { useLoginUser } from './useLoginUser';
 
 export const useNewUserRegistration = () => {
@@ -19,30 +19,37 @@ export const useNewUserRegistration = () => {
 
   // ユーザー新規登録
   const newUserRegistration = useCallback(
-    (params: SignUpParams) => {
+    async (params: SignUpParams) => {
       setLoading(true);
-      axios
-        .post<User>(signUpUrl, params)
-        .then((res) => {
-          setLoginUser(res.data);
-          showMessage({
-            title: '新規登録完了＆ログインしました',
-            status: 'success',
-          });
-          // ログインに成功した場合はCookieに各値を格納
-          Cookies.set('_access_token', res.headers['access-token']);
-          Cookies.set('_client', res.headers['client']);
-          Cookies.set('_uid', res.headers['uid']);
-          history.push('/restaurants');
-        })
-        .catch(() => {
-          showMessage({
-            title:
-              '既に登録があるか入力に誤りがある為、新規登録できませんでした。',
-            status: 'error',
-          });
-          setLoading(false);
+      try {
+        // TODO:access-tokenに保持するのは良くないので、サーバーサイドでsession.idを付与する方式に移行するまでの暫定
+        const res2 = await axios.post<User>(signUpUrl, params);
+        Cookies.set('_access_token', res2.headers['access-token']);
+        Cookies.set('_client', res2.headers['client']);
+        Cookies.set('_uid', res2.headers['uid']);
+
+        const res = await fetch(signInUrl, {
+          method: 'POST',
+          body: JSON.stringify(params),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
+        const result = await res.json();
+        setLoginUser(result.data);
+        showMessage({
+          title: '新規登録完了＆ログインしました',
+          status: 'success',
+        });
+        history.push('/restaurants');
+      } catch (e) {
+        showMessage({
+          title:
+            '既に登録があるか入力に誤りがある為、新規登録できませんでした。',
+          status: 'error',
+        });
+        setLoading(false);
+      }
     },
     [history, showMessage, setLoginUser]
   );
