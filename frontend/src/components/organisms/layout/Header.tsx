@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, VFC } from 'react';
-import { Box, Flex, Heading, Link } from '@chakra-ui/layout';
+import { Box, Flex, Heading, HStack, Link} from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/image';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useHistory } from 'react-router-dom';
@@ -83,14 +83,21 @@ export const Header: VFC = memo(() => {
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>
         </Flex>
-        <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
-          <Image
-            boxSize="40px"
-            src={CartIcon}
-            alt="CartIcon"
-            onClick={onClickCart}
-          />
-        </Box>
+        <HStack spacing="24px">
+          {loginUser && (
+            <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
+              {loginUser.name + `さん`}
+            </Box>
+          )}
+          <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
+            <Image
+              boxSize="40px"
+              src={CartIcon}
+              alt="CartIcon"
+              onClick={onClickCart}
+            />
+          </Box>
+        </HStack>
       </Flex>
       <MenuDrawer
         onClose={onCloseMenuDrawer}
