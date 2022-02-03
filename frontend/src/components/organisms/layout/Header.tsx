@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, VFC } from 'react';
-import { Box, Flex, Heading, HStack, Link} from '@chakra-ui/layout';
+import { Box, Flex, Heading, HStack, Link } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/image';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useHistory } from 'react-router-dom';
