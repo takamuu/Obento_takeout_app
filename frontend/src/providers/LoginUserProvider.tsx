@@ -29,7 +29,6 @@ export const LoginUserProvider = (props: { children: ReactNode }) => {
     res
       .then(function (result) {
         if (loginUser === null) setLoginUser(result);
-        console.log(loginUser);
       })
       .catch(function (error) {
         console.log(error);
