@@ -31,13 +31,13 @@ export const useAuth = () => {
         });
         const result = await res.json();
         setLoginUser(result.data);
-        showMessage({ title: 'ログインしました', status: 'success' });
         // TODO:access-tokenに保持するのは良くないので、サーバーサイドでsession.idを付与する方式に移行するまでの暫定
         const res2 = await axios.post<User>(signInUrl, params);
         Cookies.set('_access_token', res2.headers['access-token']);
         Cookies.set('_client', res2.headers['client']);
         Cookies.set('_uid', res2.headers['uid']);
         history.push('/restaurants');
+        showMessage({ title: 'ログインしました', status: 'success' });
       } catch (e) {
         alert(e);
         showMessage({
@@ -68,13 +68,12 @@ export const useAuth = () => {
         title: 'ログアウトしました',
         status: 'error',
       });
-      history.push('/login');
     } catch (e) {
       showMessage({
         title: 'ログアウトできませんでした',
         status: 'error',
       });
     }
-  }, [history, showMessage, setLoginUser]);
+  }, [showMessage, setLoginUser]);
   return { login, logout, loading };
 };
