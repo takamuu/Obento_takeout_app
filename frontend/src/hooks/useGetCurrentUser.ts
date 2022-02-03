@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import Cookies from 'js-cookie';
 
 export const useGetCurrentUser = () => {
-  // current_userを取得
   const getCurrentUser = useCallback(async () => {
     if (
       !Cookies.get('_access_token') ||
