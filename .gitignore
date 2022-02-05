@@ -12,6 +12,7 @@
 
 /public
 /node_modules/
+/public/images
 
 # Ignore all logfiles and tempfiles.
 /log/*
