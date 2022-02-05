@@ -49,43 +49,42 @@ export const Header: VFC = memo(() => {
       >
         <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }}>
           <MenuIconButton onOpen={onOpenMenuDrawer} />
-          <Heading
-            paddingLeft={4}
-            as="h1"
-            fontSize={{ base: '2xl', md: '3xl' }}
-            onClick={onClickHome}
-          >
+          <Heading paddingLeft={3} as="h1" onClick={onClickHome}>
             <Image boxSize="60px" src={MainLogo} alt="MainLogo" />
           </Heading>
         </Flex>
         <Flex
           align="center"
           fontSize="md"
+          fontWeight={'bold'}
           flexGrow={2}
           display={{ base: 'none', md: 'flex' }}
         >
-          <Box pr={4}>
+          <Box pr={{ md: '3', lg: '4' }}>
             <Link>弁テクの使い方</Link>
           </Box>
-          <Box pr={4}>
+          <Box pr={{ md: '3', lg: '4' }}>
             <Link>お問い合わせ</Link>
           </Box>
           {loginUser ? (
-            <Box pr={4}>
+            <Box pr={{ md: '3', lg: '4' }}>
               <Link onClick={onClickLogout}>ログアウト</Link>
             </Box>
           ) : (
-            <Box pr={4}>
+            <Box pr={{ md: '3', lg: '4' }}>
               <Link onClick={onClickLogin}>ログイン</Link>
             </Box>
           )}
-          <Box pr={4}>
+          <Box pr={{ md: '3', lg: '4' }}>
             <Link onClick={onClickLogin}>ゲストログイン</Link>
           </Box>
         </Flex>
         <HStack spacing="24px">
           {loginUser && (
-            <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
+            <Box
+              _hover={{ opacity: '0.8', cursor: 'pointer' }}
+              fontWeight={'bold'}
+            >
               {loginUser.name + `さん`}
             </Box>
           )}
