@@ -37,20 +37,21 @@ export const Restaurants: VFC = memo(() => {
           <Spinner />
         </Center>
       ) : (
-        <div>
-          <Wrap paddingTop="20" justify="center">
-            <Stack display={{ sm: 'flex', md: 'none' }}>
-              <Text
-                paddingTop="5"
-                w="full"
-                fontFamily={'sans-serif'}
-                fontSize={['18px', '22px']}
-                fontWeight={'bold'}
-                color="brand"
-              >
-                おトクでカンタンお弁当テイクアウト
-              </Text>
-            </Stack>
+        <>
+          <Wrap paddingTop="20" justify={'center'}>
+            <Text
+              paddingTop="5"
+              paddingBottom="5"
+              w="full"
+              fontFamily={'sans-serif'}
+              fontSize={'22px'}
+              textColor={'brand'}
+              justifyContent={'center'}
+              display={{ sm: 'flex', md: 'none' }}
+              fontWeight={'bold'}
+            >
+              おトクでカンタンお弁当テイクアウト
+            </Text>
             <HStack>
               <VStack display={{ sm: 'none', md: 'flex' }}>
                 <Text
@@ -105,7 +106,7 @@ export const Restaurants: VFC = memo(() => {
               </WrapItem>
             ))}
           </Wrap>
-        </div>
+        </>
       )}
     </>
   );
