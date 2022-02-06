@@ -187,19 +187,19 @@ Food.create!(
 )
 Food.create!(
   restaurant_id: 2,
-  name: "トマトオニオンバーガー",
-  food_description: "地産トマト＆オニオンの健康バーガー！",
+  name: "チェダーチーズ＆トマトベーコンバーガー",
+  food_description: "濃厚チェダーチーズと地産トマトにベーコンをプラスしたバーガー！",
   price: 700,
-  image: "/images/foods/2-TomatoOnionBurger.jpg",
+  image: "/images/foods/2-CheddarTomatoBaconBarger.jpg",
   sales_limit: 20,
   sales_status: 1,
 )
 Food.create!(
   restaurant_id: 2,
-  name: "黒ごま＆ブラックペッパーバーガー",
-  food_description: "バンズに黒ごまを使用し、ブラックペッパーが効いた刺激系バーガー！",
+  name: "イカ墨フィッシューバーガー",
+  food_description: "バンズにイカ墨を使用し、カリッとしたフライドフィッシュを挟んだシーフードバーガー！",
   price: 700,
-  image: "/images/foods/2-BlackPepperBurger.jpg",
+  image: "/images/foods/2-SquidInkCheeseFishBarger.jpg",
   sales_limit: 20,
   sales_status: 1,
 )
