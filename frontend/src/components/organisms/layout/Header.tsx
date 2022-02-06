@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, VFC } from 'react';
-import { Box, Flex, Heading, HStack, Link } from '@chakra-ui/layout';
+import { HStack, Link, Spacer, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/image';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useHistory } from 'react-router-dom';
@@ -39,65 +39,58 @@ export const Header: VFC = memo(() => {
 
   return (
     <>
-      <Flex
-        as="nav"
-        bg={{ color: 'white', opacity: '25%' }}
-        color="green.900"
+      <HStack
+        w="100%"
+        h="80px"
+        paddingRight={4}
+        spacing={4}
+        color="brand"
+        fontWeight={'bold'}
         align="center"
-        justify="space-between"
-        padding={{ base: 3, md: 5 }}
+        position="fixed"
       >
-        <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }}>
-          <MenuIconButton onOpen={onOpenMenuDrawer} />
-          <Heading paddingLeft={3} as="h1" onClick={onClickHome}>
-            <Image boxSize="60px" src={MainLogo} alt="MainLogo" />
-          </Heading>
-        </Flex>
-        <Flex
-          align="center"
-          fontSize="md"
-          fontWeight={'bold'}
-          flexGrow={2}
+        <MenuIconButton onOpen={onOpenMenuDrawer} />
+        <Image
+          boxSize="60px"
+          src={MainLogo}
+          alt="MainLogo"
           display={{ base: 'none', md: 'flex' }}
-        >
-          <Box pr={{ md: '3', lg: '4' }}>
-            <Link>弁テクの使い方</Link>
-          </Box>
-          <Box pr={{ md: '3', lg: '4' }}>
-            <Link>お問い合わせ</Link>
-          </Box>
-          {loginUser ? (
-            <Box pr={{ md: '3', lg: '4' }}>
-              <Link onClick={onClickLogout}>ログアウト</Link>
-            </Box>
-          ) : (
-            <Box pr={{ md: '3', lg: '4' }}>
-              <Link onClick={onClickLogin}>ログイン</Link>
-            </Box>
-          )}
-          <Box pr={{ md: '3', lg: '4' }}>
-            <Link onClick={onClickLogin}>ゲストログイン</Link>
-          </Box>
-        </Flex>
-        <HStack spacing="24px">
-          {loginUser && (
-            <Box
-              _hover={{ opacity: '0.8', cursor: 'pointer' }}
-              fontWeight={'bold'}
-            >
-              {loginUser.name + `さん`}
-            </Box>
-          )}
-          <Box _hover={{ opacity: '0.8', cursor: 'pointer' }}>
-            <Image
-              boxSize="40px"
-              src={CartIcon}
-              alt="CartIcon"
-              onClick={onClickCart}
-            />
-          </Box>
-        </HStack>
-      </Flex>
+          _hover={{ opacity: '0.8', cursor: 'pointer' }}
+          onClick={onClickHome}
+        />
+        <Link paddingLeft={2} display={{ base: 'none', md: 'flex' }}>
+          弁テクの使い方
+        </Link>
+        <Link display={{ base: 'none', md: 'flex' }}>お問い合わせ</Link>
+        {loginUser ? (
+          <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogout}>
+            ログアウト
+          </Link>
+        ) : (
+          <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogin}>
+            ログイン
+          </Link>
+        )}
+        <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogin}>
+          ゲストログイン
+        </Link>
+        <Spacer />
+        {loginUser && (
+          <Text
+            _hover={{ opacity: '0.8', cursor: 'pointer' }}
+            fontWeight={'bold'}
+          >
+            {loginUser.name + `さん`}
+          </Text>
+        )}
+        <Image
+          boxSize="40px"
+          src={CartIcon}
+          alt="CartIcon"
+          _hover={{ opacity: '0.8', cursor: 'pointer' }}
+          onClick={onClickCart}
+        />
+      </HStack>
       <MenuDrawer
         onClose={onCloseMenuDrawer}
         isOpen={isOpenMenuDrawer}
