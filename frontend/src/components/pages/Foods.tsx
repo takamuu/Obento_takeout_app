@@ -9,7 +9,6 @@ import { useDisclosure } from '@chakra-ui/hooks';
 
 import { useFoods } from 'hooks/useFoods';
 import { FoodCard } from 'components/organisms/food/FoodCard';
-import BeefTongue from 'images/BeefTongue.svg';
 import { FoodOrderModal } from 'components/organisms/food/FoodOrderModal';
 import { useSelectFood } from 'hooks/useSelectFood';
 
@@ -49,7 +48,7 @@ export const Foods: VFC = memo(() => {
               <WrapItem key={food.id}>
                 <FoodCard
                   id={food.id}
-                  imageUrl={BeefTongue}
+                  imageUrl={`${process.env.PUBLIC_URL}${food.image}`}
                   foodName={food.name}
                   foodDescription={food.food_description}
                   foodPrice={food.price}

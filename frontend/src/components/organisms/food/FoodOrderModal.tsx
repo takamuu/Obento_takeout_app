@@ -65,7 +65,6 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     >
       <ModalOverlay>
         <ModalContent bg="white">
-          <Image src={BeefTongue} />
           <ModalCloseButton
             bgColor="white"
             rounded="full"
