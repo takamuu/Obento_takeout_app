@@ -45,9 +45,10 @@ export const Restaurants: VFC = memo(() => {
         </Center>
       ) : (
         <div>
-          <Wrap justify="center">
+          <Wrap paddingTop="20" justify="center">
             <Stack display={{ sm: 'flex', md: 'none' }}>
               <Text
+                paddingTop="5"
                 w="full"
                 fontFamily={'sans-serif'}
                 fontSize={['18px', '22px']}
