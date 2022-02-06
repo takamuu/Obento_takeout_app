@@ -2,15 +2,8 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, VFC } from 'react';
 import {
-  Box,
   Center,
-  Container,
-  Flex,
-  Grid,
-  Heading,
   HStack,
-  SimpleGrid,
-  Spacer,
   Stack,
   Text,
   VStack,
@@ -19,7 +12,7 @@ import {
 } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useHistory } from 'react-router';
-import { Image, Skeleton } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
 
 import { useRestaurants } from 'hooks/useRestaurants';
 import { RestaurantCard } from 'components/organisms/restaurant/RestaurantCard';
