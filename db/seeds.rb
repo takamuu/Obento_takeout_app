@@ -6,7 +6,7 @@ Food.delete_all
 Restaurant.delete_all
 
 # User
-USER_NUM = 10
+USER_NUM = 5
 
 # Restaurant
 RESTAURANT_NUM = 10
@@ -272,39 +272,39 @@ Rails.logger.debug "foodテストデータを作成OK！".green
 #-----------------------------------------
 # Order
 #-----------------------------------------
-# ORDER_NUM.times do |o|
-#   Order.create!(
-#     user_id: 1,
-#     rceipt_number: "AAAA#{o}",
-#     total_price: 3000,
-#     consumption_tax: 300,
-#     progress_status: 0,
-#   )
-# end
+ORDER_NUM.times do |o|
+  Order.create!(
+    user_id: 1,
+    rceipt_number: "AAAA#{o}",
+    total_price: 3000,
+    consumption_tax: 300,
+    progress_status: 0,
+  )
+end
 
-# Rails.logger.debug "orderテストデータを作成OK！".green
+Rails.logger.debug "orderテストデータを作成OK！".green
 
 #-----------------------------------------
 # Cart
 #-----------------------------------------
-# CART_NUM.times do |c|
-#   Cart.create!(
-#     user_id: c + 1,
-#     total_price: 1500,
-#   )
-# end
+CART_NUM.times do |c|
+  Cart.create!(
+    user_id: c + 1,
+    total_price: 1500,
+  )
+end
 
-# Rails.logger.debug "cartテストデータを作成OK！".green
+Rails.logger.debug "cartテストデータを作成OK！".green
 
 #-----------------------------------------
 # CartDetail
 #-----------------------------------------
-# CART_DETAIL_NUM.times do |t|
-#   CartDetail.create!(
-#     food_id: t + 1,
-#     cart_id: t + 1,
-#     count: t + 1,
-#   )
-# end
+CART_DETAIL_NUM.times do |t|
+  CartDetail.create!(
+    food_id: t + 1,
+    cart_id: t + 1,
+    count: t + 1,
+  )
+end
 
-# Rails.logger.debug "cart_detailテストデータを作成OK！".green
+Rails.logger.debug "cart_detailテストデータを作成OK！".green
