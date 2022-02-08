@@ -4,7 +4,6 @@ import { memo, useCallback, useEffect, VFC } from 'react';
 import {
   Center,
   HStack,
-  Stack,
   Text,
   VStack,
   Wrap,
