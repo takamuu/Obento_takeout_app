@@ -15,13 +15,15 @@ import {
 import MainLogo from 'images/MainLogo.svg';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { GuestButton } from 'components/atoms/button/GuestButton';
-import { NewRegistrationButton } from 'components/atoms/button/NewRegistrationButton';
+import { NewUserRegistrationButton } from 'components/atoms/button/NewUserRegistrationButton';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 import { SignInParams } from 'types/api/sign';
+import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
 
 export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
+  const { newUserRegistrationLoading } = useNewUserRegistration();
 
   const history = useHistory();
 
@@ -46,8 +48,8 @@ export const Login: VFC = memo(() => {
   };
   const onClickLogin = () => login(params);
 
-  const onClickNewRegistration = useCallback(
-    () => history.push('/login/new_registration'),
+  const onClickNewUserRegistration = useCallback(
+    () => history.push('/login/new_user_registration'),
     [history]
   );
 
@@ -95,12 +97,12 @@ export const Login: VFC = memo(() => {
             ログイン
           </PrimaryButton>
           <GuestButton>ゲストログイン</GuestButton>
-          <NewRegistrationButton
-            loading={loading}
-            onClick={onClickNewRegistration}
+          <NewUserRegistrationButton
+            loading={newUserRegistrationLoading}
+            onClick={onClickNewUserRegistration}
           >
             新規登録
-          </NewRegistrationButton>
+          </NewUserRegistrationButton>
         </Stack>
       </Box>
     </Flex>
