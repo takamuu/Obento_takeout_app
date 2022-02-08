@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
+import { ChangeEvent, memo, useState, VFC } from 'react';
 import {
-  Image,
   Input,
   Box,
   Divider,
   Flex,
   Stack,
-  HStack,
   VStack,
   Text,
   Checkbox,
@@ -16,8 +14,6 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-import MainLogo from 'images/MainLogo.svg';
-import { useHistory } from 'react-router-dom';
 import { SignUpParams } from 'types/api/sign';
 import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
@@ -25,13 +21,6 @@ import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 export const NewUserRegistration: VFC = memo(() => {
   const { newUserRegistration, newUserRegistrationLoading } =
     useNewUserRegistration();
-
-  const history = useHistory();
-
-  const onClickHome = useCallback(
-    () => history.push('/restaurants'),
-    [history]
-  );
 
   const [userName, setUserName] = useState('');
   const [userKana, setUserKana] = useState('');
@@ -71,7 +60,7 @@ export const NewUserRegistration: VFC = memo(() => {
   const onClickNewRegistration = () => newUserRegistration(params);
 
   return (
-    <Flex align="center" justify="center" height="105vh">
+    <Flex bg="gray.200" align="center" justify="center" height="105vh">
       <Box bg="white" p={2} borderRadius="md" shadow="md">
         <VStack fontSize="23px" fontWeight="bold" color="brand" spacing="12px">
           <Text>お弁当テイクアウトアプリ</Text>

@@ -54,7 +54,7 @@ export const Login: VFC = memo(() => {
   );
 
   return (
-    <Flex align="center" justify="center" height="90vh">
+    <Flex bg="gray.200" align="center" justify="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <VStack
           fontSize="23px"
