@@ -17,13 +17,14 @@ import {
 } from '@chakra-ui/react';
 
 import MainLogo from 'images/MainLogo.svg';
-import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { useHistory } from 'react-router-dom';
 import { SignUpParams } from 'types/api/sign';
 import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
+import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 
-export const NewRegistration: VFC = memo(() => {
-  const { newUserRegistration, loading } = useNewUserRegistration();
+export const NewUserRegistration: VFC = memo(() => {
+  const { newUserRegistration, newUserRegistrationLoading } =
+    useNewUserRegistration();
 
   const history = useHistory();
 
@@ -182,7 +183,7 @@ export const NewRegistration: VFC = memo(() => {
               !userPhoneNumber ||
               !isChecked
             }
-            loading={loading}
+            loading={newUserRegistrationLoading}
             onClick={onClickNewRegistration}
           >
             同意して登録
