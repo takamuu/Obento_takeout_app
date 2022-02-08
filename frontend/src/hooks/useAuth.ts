@@ -52,28 +52,30 @@ export const useAuth = () => {
 
   // ログアウト
   const logout = useCallback(async () => {
-    try {
-      await axios.delete(signOutUrl, {
-        headers: {
-          'access-token': Cookies.get('_access_token'),
-          client: Cookies.get('_client'),
-          uid: Cookies.get('_uid'),
-        },
-      });
-      Cookies.remove('_access_token');
-      Cookies.remove('_client');
-      Cookies.remove('_uid');
-      setLoginUser(null);
-      showMessage({
-        title: 'ログアウトしました',
-        status: 'error',
-      });
-    } catch (e) {
-      showMessage({
-        title: 'ログアウトできませんでした',
-        status: 'error',
-      });
-    }
+    const logoutResult = confirm('ログアウトしてよろしいですか？');
+    if (logoutResult)
+      try {
+        await axios.delete(signOutUrl, {
+          headers: {
+            'access-token': Cookies.get('_access_token'),
+            client: Cookies.get('_client'),
+            uid: Cookies.get('_uid'),
+          },
+        });
+        Cookies.remove('_access_token');
+        Cookies.remove('_client');
+        Cookies.remove('_uid');
+        setLoginUser(null);
+        showMessage({
+          title: 'ログアウトしました',
+          status: 'error',
+        });
+      } catch (e) {
+        showMessage({
+          title: 'ログアウトできませんでした',
+          status: 'error',
+        });
+      }
   }, [showMessage, setLoginUser]);
   return { login, logout, loading };
 };
