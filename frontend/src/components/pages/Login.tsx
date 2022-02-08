@@ -8,7 +8,7 @@ import {
   Divider,
   Flex,
   Stack,
-  HStack,
+  VStack,
   Text,
 } from '@chakra-ui/react';
 
@@ -54,20 +54,18 @@ export const Login: VFC = memo(() => {
   );
 
   return (
-    <Flex align="center" justify="center" height="100vh">
+    <Flex align="center" justify="center" height="90vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
-        <HStack spacing="12px">
-          <Image
-            boxSize="60px"
-            src={MainLogo}
-            alt="MainLogo"
-            _hover={{ cursor: 'pointer' }}
-            onClick={onClickHome}
-          />
-          <Text fontSize="23px" fontWeight="bold" color="brand">
-            お弁当テイクアウトアプリ
-          </Text>
-        </HStack>
+        <VStack
+          fontSize="23px"
+          fontWeight="bold"
+          color="brand"
+          spacing={2}
+          align="center"
+        >
+          <Text>お弁当テイクアウトアプリ</Text>
+          <Text>ログイン</Text>
+        </VStack>
         <Divider borderColor="brand" my={4} />
         <Stack spacing={6} py={4} px={10}>
           <Text h="1">Eメールアドレス</Text>
