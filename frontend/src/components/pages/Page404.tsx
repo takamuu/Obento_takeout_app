@@ -5,7 +5,7 @@ export const Page404: VFC = memo(() => {
   return (
     <div>
       <h1>Page404:ページが見つかりません</h1>
-      <Link to="/restaurants">トップページへ戻る</Link>
+      <Link to="/">トップページへ戻る</Link>
     </div>
   );
 });

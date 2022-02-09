@@ -33,7 +33,7 @@ export const usePostCart = () => {
       )
       .then((res) => {
         setCarts(res.data);
-        history.push(`/restaurants/cart`);
+        history.push(`/cart`);
       })
       .catch((e) => {
         throw e;

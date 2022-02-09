@@ -28,7 +28,7 @@ export const NewRegistration: VFC = memo(() => {
   const history = useHistory();
 
   const onClickHome = useCallback(
-    () => history.push('/restaurants'),
+    () => history.push('/'),
     [history]
   );
 

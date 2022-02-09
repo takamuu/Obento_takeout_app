@@ -41,7 +41,7 @@ export const useNewUserRegistration = () => {
           title: '新規登録完了＆ログインしました',
           status: 'success',
         });
-        history.push('/restaurants');
+        history.push('/');
       } catch (e) {
         showMessage({
           title:

@@ -29,7 +29,7 @@ export const Router: VFC = memo(() => {
           )}
         />
         <Route
-          path="/restaurants"
+          path="/"
           render={({ match: { url } }) => (
             <Switch>
               {restaurantsRoutes.map((route) => (
