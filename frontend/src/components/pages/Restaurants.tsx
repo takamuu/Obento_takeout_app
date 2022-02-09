@@ -37,7 +37,7 @@ export const Restaurants: VFC = memo(() => {
         </Center>
       ) : (
         <>
-          <Wrap paddingTop="20" justify={'center'}>
+          <Wrap justify={'center'}>
             <Text
               paddingTop="5"
               paddingBottom="5"
