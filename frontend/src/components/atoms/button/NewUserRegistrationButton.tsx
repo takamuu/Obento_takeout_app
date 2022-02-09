@@ -7,7 +7,7 @@ type Props = {
   onClick: () => void;
 };
 
-export const NewRegistrationButton: VFC<Props> = memo((props) => {
+export const NewUserRegistrationButton: VFC<Props> = memo((props) => {
   const { children, loading = false, onClick } = props;
   return (
     <Button

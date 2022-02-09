@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
+import { ChangeEvent, memo, useState, VFC } from 'react';
 import {
-  Image,
   Input,
   Box,
   Divider,
   Flex,
   Stack,
-  HStack,
   VStack,
   Text,
   Checkbox,
@@ -16,29 +14,20 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-import MainLogo from 'images/MainLogo.svg';
-import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
-import { useHistory } from 'react-router-dom';
 import { SignUpParams } from 'types/api/sign';
 import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
+import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 
-export const NewRegistration: VFC = memo(() => {
-  const { newUserRegistration, loading } = useNewUserRegistration();
+export const NewUserRegistration: VFC = memo(() => {
+  const { newUserRegistration, newUserRegistrationLoading } =
+    useNewUserRegistration();
 
-  const history = useHistory();
-
-  const onClickHome = useCallback(
-    () => history.push('/restaurants'),
-    [history]
-  );
-
-  const [userName, setUserName] = useState('山田　太郎');
-  const [userKana, setUserKana] = useState('ヤマダ　タロウ');
-  const [userId, setUserId] = useState('taro-yamada@example.com');
-  const [userPassword, setUserPassword] = useState('password');
-  const [userPasswordConfirmation, setUserPasswordConfirmation] =
-    useState('password');
-  const [userPhoneNumber, setUserPhoneNumber] = useState('00033335555');
+  const [userName, setUserName] = useState('');
+  const [userKana, setUserKana] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [userPasswordConfirmation, setUserPasswordConfirmation] = useState('');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('');
   const [isChecked, setisChecked] = useState(false);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) =>
@@ -71,29 +60,13 @@ export const NewRegistration: VFC = memo(() => {
   const onClickNewRegistration = () => newUserRegistration(params);
 
   return (
-    <Flex align="center" justify="center" height="105vh">
+    <Flex bg="gray.200" align="center" justify="center" height="105vh">
       <Box bg="white" p={2} borderRadius="md" shadow="md">
-        <HStack spacing="12px">
-          <Image
-            boxSize="60px"
-            src={MainLogo}
-            alt="MainLogo"
-            _hover={{ cursor: 'pointer' }}
-            onClick={onClickHome}
-          />
-          <Text fontSize="23px" fontWeight="bold" color="brand">
-            お弁当テイクアウトアプリ
-          </Text>
-        </HStack>
+        <VStack fontSize="23px" fontWeight="bold" color="brand" spacing="12px">
+          <Text>お弁当テイクアウトアプリ</Text>
+          <Text>アカウントを作成</Text>
+        </VStack>
         <Divider borderColor="brand" my={4} />
-        <Text
-          textAlign={'center'}
-          fontSize="23px"
-          fontWeight="bold"
-          color="brand"
-        >
-          アカウントを作成
-        </Text>
         <Stack spacing={4} py={4} px={10}>
           <Text h="2">名前</Text>
           <Input
@@ -182,7 +155,7 @@ export const NewRegistration: VFC = memo(() => {
               !userPhoneNumber ||
               !isChecked
             }
-            loading={loading}
+            loading={newUserRegistrationLoading}
             onClick={onClickNewRegistration}
           >
             同意して登録

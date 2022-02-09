@@ -2,7 +2,7 @@ import { Login } from 'components/pages/Login';
 import { UserManagement } from 'components/pages/UserManagement';
 import { Setting } from 'components/pages/Setting';
 import { Page404 } from 'components/pages/Page404';
-import { NewRegistration } from 'components/pages/NewRegistration';
+import { NewUserRegistration } from 'components/pages/NewUserRegistration';
 
 export const loginRoutes = [
   {
@@ -11,9 +11,9 @@ export const loginRoutes = [
     children: <Login />,
   },
   {
-    path: '/new_registration',
+    path: '/new_user_registration',
     exact: false,
-    children: <NewRegistration />,
+    children: <NewUserRegistration />,
   },
   {
     path: '/user_management',

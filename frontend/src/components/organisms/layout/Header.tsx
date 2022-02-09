@@ -42,12 +42,15 @@ export const Header: VFC = memo(() => {
       <HStack
         w="100%"
         h="80px"
+        bg="white"
         paddingRight={4}
         spacing={4}
         color="brand"
         fontWeight={'bold'}
         align="center"
-        position="fixed"
+        top={0}
+        position="sticky"
+        zIndex={'sticky'}
       >
         <MenuIconButton onOpen={onOpenMenuDrawer} />
         <Image
