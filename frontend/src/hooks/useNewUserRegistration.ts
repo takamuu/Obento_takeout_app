@@ -15,12 +15,13 @@ export const useNewUserRegistration = () => {
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
 
-  const [loading, setLoading] = useState(false);
+  const [newUserRegistrationLoading, setNewUserRegistrationLoading] =
+    useState(false);
 
   // ユーザー新規登録
   const newUserRegistration = useCallback(
     async (params: SignUpParams) => {
-      setLoading(true);
+      setNewUserRegistrationLoading(true);
       try {
         // TODO:access-tokenに保持するのは良くないので、サーバーサイドでsession.idを付与する方式に移行するまでの暫定
         const res2 = await axios.post<User>(signUpUrl, params);
@@ -48,10 +49,10 @@ export const useNewUserRegistration = () => {
             '既に登録があるか入力に誤りがある為、新規登録できませんでした。',
           status: 'error',
         });
-        setLoading(false);
+        setNewUserRegistrationLoading(false);
       }
     },
     [history, showMessage, setLoginUser]
   );
-  return { newUserRegistration, loading };
+  return { newUserRegistration, newUserRegistrationLoading };
 };

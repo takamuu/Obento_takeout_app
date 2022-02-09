@@ -9,20 +9,22 @@ import {
   Divider,
   Flex,
   Stack,
-  HStack,
+  VStack,
   Text,
 } from '@chakra-ui/react';
 
 import MainLogo from 'images/MainLogo.svg';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { GuestButton } from 'components/atoms/button/GuestButton';
-import { NewRegistrationButton } from 'components/atoms/button/NewRegistrationButton';
+import { NewUserRegistrationButton } from 'components/atoms/button/NewUserRegistrationButton';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 import { SignInParams } from 'types/api/sign';
+import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
 
 export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
+  const { newUserRegistrationLoading } = useNewUserRegistration();
 
   const history = useHistory();
 
@@ -44,26 +46,24 @@ export const Login: VFC = memo(() => {
   };
   const onClickLogin = () => login(params);
 
-  const onClickNewRegistration = useCallback(
-    () => history.push('/login/new_registration'),
+  const onClickNewUserRegistration = useCallback(
+    () => history.push('/login/new_user_registration'),
     [history]
   );
 
   return (
-    <Flex align="center" justify="center" height="100vh">
+    <Flex bg="gray.200" align="center" justify="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
-        <HStack spacing="12px">
-          <Image
-            boxSize="60px"
-            src={MainLogo}
-            alt="MainLogo"
-            _hover={{ cursor: 'pointer' }}
-            onClick={onClickHome}
-          />
-          <Text fontSize="23px" fontWeight="bold" color="brand">
-            お弁当テイクアウトアプリ
-          </Text>
-        </HStack>
+        <VStack
+          fontSize="23px"
+          fontWeight="bold"
+          color="brand"
+          spacing={2}
+          align="center"
+        >
+          <Text>お弁当テイクアウトアプリ</Text>
+          <Text>ログイン</Text>
+        </VStack>
         <Divider borderColor="brand" my={4} />
         <Stack spacing={6} py={4} px={10}>
           <Text h="1">Eメールアドレス</Text>
@@ -93,12 +93,12 @@ export const Login: VFC = memo(() => {
             ログイン
           </PrimaryButton>
           <GuestButton>ゲストログイン</GuestButton>
-          <NewRegistrationButton
-            loading={loading}
-            onClick={onClickNewRegistration}
+          <NewUserRegistrationButton
+            loading={newUserRegistrationLoading}
+            onClick={onClickNewUserRegistration}
           >
             新規登録
-          </NewRegistrationButton>
+          </NewUserRegistrationButton>
         </Stack>
       </Box>
     </Flex>
