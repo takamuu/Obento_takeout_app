@@ -1,3 +1,6 @@
+/* eslint-disable arrow-body-style */
+import { ChangeEvent, memo, useState, VFC } from 'react';
+import { Button, Checkbox, Input, Textarea } from '@chakra-ui/react';
 import {
   Box,
   Divider,
@@ -8,10 +11,14 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/layout';
-import { Button, Checkbox, Input, Textarea } from '@chakra-ui/react';
-import { memo, VFC } from 'react';
 
 export const Contact: VFC = memo(() => {
+  const [contactTitle, setContactTitle] = useState('');
+  const [isChecked, setisChecked] = useState(false);
+
+  const onChangeContactTitle = (e: ChangeEvent<HTMLInputElement>) =>
+    setContactTitle(e.target.value);
+
   return (
     <Flex bg="gray.200" align="center" justify="center" height="130vh">
       <Box bg="white" p={2} borderRadius="md" shadow="md">
@@ -32,8 +39,8 @@ export const Contact: VFC = memo(() => {
             placeholder="件名を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            // value={userName}
-            // onChange={onChangeName}
+            value={contactTitle}
+            onChange={onChangeContactTitle}
           />
           <Text h="2">お問い合わせ内容（必須）</Text>
           <Textarea
@@ -41,8 +48,6 @@ export const Contact: VFC = memo(() => {
             placeholder="お問い合わせ内容を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            // value={userKana}
-            // onChange={onChangeKana}
           />
           <Text h="2">氏名（必須）</Text>
           <HStack>
@@ -56,8 +61,6 @@ export const Contact: VFC = memo(() => {
               placeholder="姓を入力してください"
               _placeholder={{ color: 'gray.300' }}
               _hover={{ color: 'gray.600' }}
-              // value={userId}
-              // onChange={onChangeId}
             />
             <Box>
               <Text h="2" w="32px" textAlign={'center'}>
@@ -69,8 +72,6 @@ export const Contact: VFC = memo(() => {
               placeholder="名を入力してください"
               _placeholder={{ color: 'gray.300' }}
               _hover={{ color: 'gray.600' }}
-              // value={userId}
-              // onChange={onChangeId}
             />
           </HStack>
           <Text h="2">フリガナ（必須）</Text>
@@ -81,13 +82,10 @@ export const Contact: VFC = memo(() => {
               </Text>
             </Box>
             <Input
-              // w="auto"
               borderColor="gray.300"
               placeholder="セイを入力してください"
               _placeholder={{ color: 'gray.300' }}
               _hover={{ color: 'gray.600' }}
-              // value={userId}
-              // onChange={onChangeId}
             />
             <Box>
               <Text h="2" w="32px" textAlign={'center'} fontSize={'sm'}>
@@ -99,8 +97,6 @@ export const Contact: VFC = memo(() => {
               placeholder="メイを入力してください"
               _placeholder={{ color: 'gray.300' }}
               _hover={{ color: 'gray.600' }}
-              // value={userId}
-              // onChange={onChangeId}
             />
           </HStack>
           <Text h="2">Eメールアドレス（必須）</Text>
@@ -109,8 +105,7 @@ export const Contact: VFC = memo(() => {
             placeholder="Eメールを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            // value={userId}
-            // onChange={onChangeId}
+            type="email"
           />
           <Text h="2">Eメールアドレス確認用（必須）</Text>
           <Input
@@ -118,9 +113,7 @@ export const Contact: VFC = memo(() => {
             placeholder="確認用のEメールアドレスを入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            type="password"
-            // value={userPassword}
-            // onChange={onChangePassword}
+            type="email"
           />
           <Text h="2">住所（任意）</Text>
           <Input
@@ -128,8 +121,6 @@ export const Contact: VFC = memo(() => {
             placeholder="住所を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            // value={userPhoneNumber}
-            // onChange={onChangePhoneNumber}
           />
           <Text h="2">電話番号（任意）</Text>
           <Input
@@ -137,9 +128,6 @@ export const Contact: VFC = memo(() => {
             placeholder="電話番号を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            type="password"
-            //   value={userPasswordConfirmation}
-            //   onChange={onChangePasswordConfirmation}
           />
           <Divider borderColor="brand" my={4} />
           <VStack spacing={2} align="center">
@@ -151,9 +139,9 @@ export const Contact: VFC = memo(() => {
               alignContent={'center'}
               defaultIsChecked={false}
               borderColor="gray.300"
-              // onChange={(e) => {
-              // isChecked ? setisChecked(false) : setisChecked(true);
-              // }}
+              onChange={(e) => {
+                isChecked ? setisChecked(false) : setisChecked(true);
+              }}
             >
               プライバシーポリシーに同意する
             </Checkbox>
