@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
 import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
@@ -27,10 +28,7 @@ export const Login: VFC = memo(() => {
 
   const history = useHistory();
 
-  const onClickHome = useCallback(
-    () => history.push('/restaurants'),
-    [history]
-  );
+  const onClickHome = useCallback(() => history.push('/'), []);
 
   // ユーザーID用State
   const [userId, setUserId] = useState('example@example.com');

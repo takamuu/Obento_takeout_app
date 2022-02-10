@@ -36,7 +36,7 @@ export const useAuth = () => {
         Cookies.set('_access_token', res2.headers['access-token']);
         Cookies.set('_client', res2.headers['client']);
         Cookies.set('_uid', res2.headers['uid']);
-        history.push('/restaurants');
+        history.push('/');
         showMessage({ title: 'ログインしました', status: 'success' });
       } catch (e) {
         alert(e);

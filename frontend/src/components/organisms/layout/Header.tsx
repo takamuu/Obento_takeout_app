@@ -31,9 +31,10 @@ export const Header: VFC = memo(() => {
   const { logout } = useAuth();
   const history = useHistory();
 
-  const onClickHome = useCallback(() => history.push('/restaurants'), []);
+  const onClickHome = useCallback(() => history.push('/'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-  const onClickCart = useCallback(() => history.push('/restaurants/cart'), []);
+  const onClickCart = useCallback(() => history.push('/cart'), []);
+  const onClickContact = useCallback(() => history.push('/contact'), []);
 
   const onClickLogout = () => logout();
 
@@ -64,7 +65,9 @@ export const Header: VFC = memo(() => {
         <Link paddingLeft={2} display={{ base: 'none', md: 'flex' }}>
           弁テクの使い方
         </Link>
-        <Link display={{ base: 'none', md: 'flex' }}>お問い合わせ</Link>
+        <Link display={{ base: 'none', md: 'flex' }} onClick={onClickContact}>
+          お問い合わせ
+        </Link>
         {loginUser ? (
           <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogout}>
             ログアウト

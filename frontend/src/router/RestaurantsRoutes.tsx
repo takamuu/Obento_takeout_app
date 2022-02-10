@@ -2,6 +2,7 @@ import { Restaurants } from 'components/pages/Restaurants';
 import { Foods } from 'components/pages/Foods';
 import { Cart } from 'components/pages/Cart';
 import { Page404 } from 'components/pages/Page404';
+import { Contact } from 'components/pages/Contact';
 
 export const restaurantsRoutes = [
   {
@@ -10,14 +11,19 @@ export const restaurantsRoutes = [
     children: <Restaurants />,
   },
   {
-    path: '/:restaurantId/foods',
+    path: ':restaurantId/foods',
     exact: false,
     children: <Foods />,
   },
   {
-    path: '/cart',
+    path: 'cart',
     exact: false,
     children: <Cart />,
+  },
+  {
+    path: 'contact',
+    exact: false,
+    children: <Contact />,
   },
   {
     path: '*',

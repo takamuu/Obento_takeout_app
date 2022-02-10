@@ -25,7 +25,7 @@ export const Restaurants: VFC = memo(() => {
   const history = useHistory();
 
   const onClickRestaurant = useCallback(
-    (restaurantId) => history.push(`/restaurants/${restaurantId}/foods`),
+    (restaurantId) => history.push(`/${restaurantId}/foods`),
     []
   );
 
@@ -93,7 +93,13 @@ export const Restaurants: VFC = memo(() => {
               </WrapItem>
             </HStack>
           </Wrap>
-          <Wrap spacing="0" justify="space-evenly" paddingTop={6}>
+          <Wrap
+            spacing="0"
+            justify="space-evenly"
+            paddingTop={6}
+            paddingBottom={10}
+          >
+            {console.log(restaurants)}
             {restaurants.map((restaurant) => (
               <WrapItem key={restaurant.id}>
                 <RestaurantCard

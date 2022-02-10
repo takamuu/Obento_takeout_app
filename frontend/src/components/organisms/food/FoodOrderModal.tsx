@@ -16,7 +16,6 @@ import { CountUpButton } from 'components/atoms/button/CountUpButton';
 import { CartButton } from 'components/atoms/button/CartButton';
 
 import { Food } from 'types/api/food';
-import BeefTongue from 'images/BeefTongue.svg';
 import { Image } from '@chakra-ui/image';
 import { usePostCart } from 'hooks/usePostCart';
 
