@@ -50,23 +50,6 @@ export const Contact: VFC = memo(() => {
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
           />
-          <Divider borderColor="brand" my={4} />
-          <VStack spacing={2} align="center">
-            <Button color="brand" variant="link">
-              プライバシーポリシー
-            </Button>
-            <Checkbox
-              size="sm"
-              alignContent={'center'}
-              defaultIsChecked={false}
-              borderColor="gray.300"
-              onChange={(e) => {
-                isChecked ? setisChecked(false) : setisChecked(true);
-              }}
-            >
-              プライバシーポリシーに同意する
-            </Checkbox>
-          </VStack>
           <Spacer />
           <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
             送信する

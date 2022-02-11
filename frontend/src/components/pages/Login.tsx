@@ -47,12 +47,12 @@ export const Login: VFC = memo(() => {
   const onClickLogin = () => login(params);
 
   const onClickNewUserRegistration = useCallback(
-    () => history.push('/login/new_user_registration'),
+    () => history.push('/new_user_registration'),
     [history]
   );
 
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="100vh">
+    <Flex bg="gray.200" align="center" justify="center" height="70vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <VStack
           fontSize="23px"
