@@ -4,11 +4,13 @@ import { Cart } from 'components/pages/Cart';
 import { Page404 } from 'components/pages/Page404';
 import { Contact } from 'components/pages/Contact';
 import { HowToUseBenteku } from 'components/pages/HowToUseBenteku';
-import { MyPage } from 'components/pages/MyPage';
 import { TermsOfUse } from 'components/pages/TermsOfUse';
 import { Policy } from 'components/pages/Policy';
 import { CommercialTransactionsLaw } from 'components/pages/CommercialTransactionsLaw';
 import { PurchaseHistory } from 'components/pages/PurchaseHistory';
+import { MyPage } from 'components/pages/MyPage';
+import { NewUserRegistration } from 'components/pages/NewUserRegistration';
+import { Login } from 'components/pages/Login';
 
 export const restaurantsRoutes = [
   {
@@ -17,7 +19,7 @@ export const restaurantsRoutes = [
     children: <Restaurants />,
   },
   {
-    path: ':restaurantId/foods',
+    path: 'restaurants/:restaurantId/foods',
     exact: false,
     children: <Foods />,
   },
@@ -35,11 +37,6 @@ export const restaurantsRoutes = [
     path: 'how_to_use_benteku',
     exact: false,
     children: <HowToUseBenteku />,
-  },
-  {
-    path: 'my_page',
-    exact: false,
-    children: <MyPage />,
   },
   {
     path: 'policy',
@@ -60,6 +57,21 @@ export const restaurantsRoutes = [
     path: 'purchase_history',
     exact: false,
     children: <PurchaseHistory />,
+  },
+  {
+    path: 'login',
+    exact: false,
+    children: <Login />,
+  },
+  {
+    path: 'new_user_registration',
+    exact: false,
+    children: <NewUserRegistration />,
+  },
+  {
+    path: 'my_page',
+    exact: false,
+    children: <MyPage />,
   },
   {
     path: '*',
