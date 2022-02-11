@@ -25,7 +25,7 @@ export const Restaurants: VFC = memo(() => {
   const history = useHistory();
 
   const onClickRestaurant = useCallback(
-    (restaurantId) => history.push(`/${restaurantId}/foods`),
+    (restaurantId) => history.push(`restaurants/${restaurantId}/foods`),
     []
   );
 
