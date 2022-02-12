@@ -36,7 +36,7 @@ REACT_APP_SERVER_URL=http://localhost:3000
 
 # URL
 
-- 本番環境（Production): https://obento-takeout-app.herokuapp.com/restaurants
+- 本番環境（Production): https://obento-takeout-app.herokuapp.com
 
 # Usage
 
@@ -49,12 +49,12 @@ REACT_APP_SERVER_URL=http://localhost:3000
 % rails db:migrate
 % rails db:seed
 % rails server
-ローカルURL(backend) http://localhost:3000/
+ローカルURL(backend) http://localhost:3000
 ## ２つ目のターミナルを起動
 % cd obento_takeout_app/frontend
 % npm install
 % npm start
-ローカルURL(frontend) http://localhost:3001/restaurants
+ローカルURL(frontend) http://localhost:3001
 ```
 
 # Author
