@@ -12,7 +12,7 @@ import { MyPage } from 'components/pages/MyPage';
 import { NewUserRegistration } from 'components/pages/NewUserRegistration';
 import { Login } from 'components/pages/Login';
 
-export const restaurantsRoutes = [
+export const Routes = [
   {
     path: '/',
     exact: true,
