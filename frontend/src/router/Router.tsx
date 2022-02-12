@@ -2,38 +2,20 @@
 import { memo, VFC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { loginRoutes } from './LoginRoutes';
 import { Page404 } from 'components/pages/Page404';
-import { restaurantsRoutes } from './RestaurantsRoutes';
+import { Routes } from './Routes';
 import { HeaderFooterLayout } from 'components/templates/HeaderFooterLayout';
 import { LoginUserProvider } from 'providers/LoginUserProvider';
-import { HeaderLayout } from 'components/templates/HeaderLayout';
 
 export const Router: VFC = memo(() => {
   return (
     <Switch>
       <LoginUserProvider>
         <Route
-          path="/login"
-          render={({ match: { url } }) => (
-            <Switch>
-              {loginRoutes.map((route) => (
-                <Route
-                  key={route.path}
-                  exact={route.exact}
-                  path={`${url}${route.path}`}
-                >
-                  <HeaderLayout>{route.children}</HeaderLayout>
-                </Route>
-              ))}
-            </Switch>
-          )}
-        />
-        <Route
           path="/"
           render={({ match: { url } }) => (
             <Switch>
-              {restaurantsRoutes.map((route) => (
+              {Routes.map((route) => (
                 <Route
                   key={route.path}
                   exact={route.exact}

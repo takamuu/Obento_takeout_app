@@ -60,7 +60,7 @@ export const NewUserRegistration: VFC = memo(() => {
   const onClickNewRegistration = () => newUserRegistration(params);
 
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="105vh">
+    <Flex bg="gray.200" align="center" justify="center" height="95vh">
       <Box bg="white" p={2} borderRadius="md" shadow="md">
         <VStack fontSize="23px" fontWeight="bold" color="brand" spacing="12px">
           <Text>お弁当テイクアウトアプリ</Text>

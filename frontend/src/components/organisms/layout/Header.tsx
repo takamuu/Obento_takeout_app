@@ -35,6 +35,11 @@ export const Header: VFC = memo(() => {
   const onClickLogin = useCallback(() => history.push('/login'), []);
   const onClickCart = useCallback(() => history.push('/cart'), []);
   const onClickContact = useCallback(() => history.push('/contact'), []);
+  const onClickHowToUseBenteku = useCallback(
+    () => history.push('/how_to_use_benteku'),
+    []
+  );
+  const onClickMyPage = useCallback(() => history.push('/my_page'), []);
 
   const onClickLogout = () => logout();
 
@@ -62,7 +67,11 @@ export const Header: VFC = memo(() => {
           _hover={{ opacity: '0.8', cursor: 'pointer' }}
           onClick={onClickHome}
         />
-        <Link paddingLeft={2} display={{ base: 'none', md: 'flex' }}>
+        <Link
+          paddingLeft={2}
+          display={{ base: 'none', md: 'flex' }}
+          onClick={onClickHowToUseBenteku}
+        >
           弁テクの使い方
         </Link>
         <Link display={{ base: 'none', md: 'flex' }} onClick={onClickContact}>
@@ -85,6 +94,7 @@ export const Header: VFC = memo(() => {
           <Text
             _hover={{ opacity: '0.8', cursor: 'pointer' }}
             fontWeight={'bold'}
+            onClick={onClickMyPage}
           >
             {loginUser.name + `さん`}
           </Text>

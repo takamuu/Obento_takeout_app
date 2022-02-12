@@ -12,7 +12,7 @@ import {
   VStack,
 } from '@chakra-ui/layout';
 
-export const Contact: VFC = memo(() => {
+export const CommercialTransactionsLaw: VFC = memo(() => {
   const [contactTitle, setContactTitle] = useState('');
   const [isChecked, setisChecked] = useState(false);
 
@@ -29,30 +29,14 @@ export const Contact: VFC = memo(() => {
           color="brand"
           spacing="12px"
         >
-          <Text>お問い合わせ</Text>
+          <Text>特定商取引法に基づく表記</Text>
         </VStack>
         <Divider borderColor="brand" my={4} />
         <Stack spacing={4} py={4} px={10}>
-          <Text h="2">件名（必須）</Text>
-          <Input
-            borderColor="gray.300"
-            placeholder="件名を入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            value={contactTitle}
-            onChange={onChangeContactTitle}
-          />
-          <Text h="2">お問い合わせ内容（必須）</Text>
-          <Textarea
-            h={'28'}
-            borderColor="gray.300"
-            placeholder="お問い合わせ内容を入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-          />
+          <Divider borderColor="brand" my={4} />
           <Spacer />
           <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
-            送信する
+            戻る
           </Button>
         </Stack>
       </Box>
