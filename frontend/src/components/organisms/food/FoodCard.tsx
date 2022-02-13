@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import { Image } from '@chakra-ui/image';
-import { Box, HStack, Text, VStack } from '@chakra-ui/layout';
+import { Box, Heading, HStack, Text, VStack } from '@chakra-ui/layout';
 import { memo, VFC } from 'react';
 
 type Props = {
@@ -17,28 +17,37 @@ export const FoodCard: VFC<Props> = memo((props) => {
   return (
     <Box
       w="400px"
-      h="200px"
-      bg="white"
-      borderRadius="10px"
+      h="180px"
+      borderWidth="1px"
       shadow="md"
-      p={4}
+      overflow="hidden"
       _hover={{ cursor: 'pointer', opacity: 0.8 }}
       onClick={() => onClick(id)}
     >
       <HStack>
-        <Image w="210px" h="140px" src={imageUrl} alt={foodName} m="auto" />
-        <VStack textAlign="center">
-          <Text fontSize="lg" fontWeight="bold">
+        <Image w="240px" h="180px" src={imageUrl} alt={foodName} m="auto" />
+        <VStack>
+          <Text
+            fontFamily={'sans-serif'}
+            w="150px"
+            fontSize="lg"
+            fontWeight="bold"
+            color="brand"
+            textAlign="center"
+          >
             {foodName}
           </Text>
-          <Text fontSize="sm" fontWeight="glay">
-            {foodName}
-          </Text>
-          <Text fontSize="sm" fontWeight="glay">
+          <Text
+            fontFamily={'sans-serif'}
+            fontWeight={'normal'}
+            w="140px"
+            color="brand"
+            isTruncated
+          >
             {foodDescription}
           </Text>
-          <Text fontSize="sm" fontWeight="glay">
-            {foodPrice}
+          <Text fontFamily={'sans-serif'} fontWeight={'bold'} color="brand">
+            ¥ {foodPrice.toLocaleString()}
           </Text>
         </VStack>
       </HStack>
