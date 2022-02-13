@@ -19,13 +19,16 @@ import Toppageimage from 'images/Toppageimage.svg';
 
 export const Restaurants: VFC = memo(() => {
   const { getRestaurants, restaurants, loading } = useRestaurants();
-
   useEffect(() => getRestaurants(), []);
 
   const history = useHistory();
 
   const onClickRestaurant = useCallback(
-    (restaurantId) => history.push(`restaurants/${restaurantId}/foods`),
+    (restaurant) =>
+      history.push({
+        pathname: `restaurants/${restaurant.id}/foods`,
+        state: { restaurant },
+      }),
     []
   );
 
@@ -99,14 +102,13 @@ export const Restaurants: VFC = memo(() => {
             paddingTop={6}
             paddingBottom={10}
           >
-            {console.log(restaurants)}
             {restaurants.map((restaurant) => (
               <WrapItem key={restaurant.id}>
                 <RestaurantCard
                   imageUrl={`${process.env.PUBLIC_URL}${restaurant.image}`}
                   restaurantName={restaurant.name}
                   restaurantDescription={restaurant.description}
-                  onClick={() => onClickRestaurant(restaurant.id)}
+                  onClick={() => onClickRestaurant(restaurant)}
                 />
               </WrapItem>
             ))}
