@@ -32,6 +32,7 @@ export const Foods: VFC = memo(() => {
 
   const history = useHistory();
 
+  // レストランページから店舗情報を受取る
   const resultState = history.location.state;
 
   const restaurant = resultState['restaurant'];
