@@ -3,7 +3,6 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, VFC } from 'react';
 import {
-  Box,
   Center,
   HStack,
   Text,
