@@ -115,7 +115,7 @@ export const Foods: VFC = memo(() => {
               </Text>
             </VStack>
           </HStack>
-          <Wrap p={{ base: 4, md: 10 }} justify="space-around">
+          <Wrap p={{ base: 4, md: 10 }} justify={'center'}>
             {foods.map((food) => (
               <WrapItem key={food.id}>
                 <FoodCard
