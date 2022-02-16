@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import { Image } from '@chakra-ui/image';
-import { Box, Heading, HStack, Text, VStack } from '@chakra-ui/layout';
+import { Box, HStack, Text, VStack } from '@chakra-ui/layout';
 import { memo, VFC } from 'react';
 
 type Props = {
