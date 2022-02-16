@@ -12,39 +12,20 @@ export const useFoods = () => {
   const [loading, setLoading] = useState(false);
   const [foods, setFoods] = useState<Array<Food>>([]);
 
-  const getFoods = useCallback((restaurantId: string) => {
+  const getFoods = useCallback(async (restaurantId: string) => {
     setLoading(true);
-    axios
-      .get<Array<Food>>(foodsIndexUrl(restaurantId))
-      .then((res) => {
-        setFoods(res.data);
-      })
-      .catch(() => {
-        showMessage({
-          title: 'データの取得に失敗しました',
-          status: 'error',
-        });
-      })
-      .finally(() => {
-        setLoading(false);
+    try {
+      const result = await axios.get<Array<Food>>(foodsIndexUrl(restaurantId));
+      setFoods(result.data);
+    } catch (e) {
+      showMessage({
+        title: 'データの取得に失敗しました',
+        status: 'error',
       });
+    } finally {
+      setLoading(false);
+    }
   }, []);
-
-  // const getFoodsAsync = useCallback(async (restaurantId: string) => {
-  //   setLoading(true);
-  //   try {
-  //     const result = await axios
-  //       .get<Array<Food>>(foodsIndexUrl(restaurantId));
-  //     setFoods(result.data);
-  //   } catch (e) {
-  //     showMessage({
-  //       title: 'データの取得に失敗しました',
-  //       status: 'error',
-  //     });
-  //   } finally {
-  //       setLoading(false);
-  //   };
-  // }, []);
 
   return { getFoods, loading, foods };
 };
