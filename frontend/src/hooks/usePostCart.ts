@@ -3,7 +3,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
-import { useHistory } from 'react-router';
 
 import { Cart } from 'types/api/cart';
 import { cartsUrl } from '../url';
@@ -11,7 +10,6 @@ import { cartsUrl } from '../url';
 export const usePostCart = () => {
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<Cart>>();
-  const history = useHistory();
 
   const postCart = useCallback((params) => {
     setLoading(true);
@@ -33,7 +31,7 @@ export const usePostCart = () => {
       )
       .then((res) => {
         setCarts(res.data);
-        history.push(`/cart`);
+        // history.push(`/cart`);
       })
       .catch((e) => {
         throw e;
