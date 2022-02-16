@@ -19,15 +19,10 @@ import { FoodCard } from 'components/organisms/food/FoodCard';
 import { FoodOrderModal } from 'components/organisms/food/FoodOrderModal';
 import { useSelectFood } from 'hooks/useSelectFood';
 import { Image } from '@chakra-ui/react';
-import { CartModal } from 'components/organisms/cart/CartModal';
 
 export const Foods: VFC = memo(() => {
+  // For FoodModal
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isOpen1,
-    onOpen: onOpen1,
-    onClose: onClose1,
-  } = useDisclosure();
 
   const { getFoods, foods, loading } = useFoods();
 
@@ -54,10 +49,6 @@ export const Foods: VFC = memo(() => {
   );
 
   const onClickHome = useCallback(() => history.push(`/`), []);
-
-  const onCloseFoodModal = () => {
-    onClose();
-  };
 
   return (
     <>
@@ -142,12 +133,8 @@ export const Foods: VFC = memo(() => {
       <FoodOrderModal
         food={selectedFood}
         isOpen={isOpen}
-        onClose={onCloseFoodModal}
-        // onClickCart={onClickCart}
+        onClose={() => onClose()}
       />
-      {/* <CartModal
-      isOpen={isOpenCart}
-      onClose={onCloseCartModal} */}
     </>
   );
 });
