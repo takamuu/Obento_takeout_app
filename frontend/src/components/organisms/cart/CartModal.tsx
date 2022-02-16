@@ -14,15 +14,14 @@ import { Cart } from 'types/api/cart';
 
 type Props = {
   // cart: Cart;
-  isOpenCartModal: boolean;
-  // onOpen: () => void;
-  onCloseCartModal: () => void;
+  isOpen: boolean;
+  onClose: () => void;
   // onClickCart: () => void;
 };
 
 export const CartModal: VFC<Props> = memo((props) => {
-  const { isOpenCartModal, onCloseCartModal } = props;
-  // const { onOpen } = useDisclosure();
+  const { isOpen, onClose } = props;
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [carts, setCarts] = useState<Array<Cart>>([]);
   // const [count, setCount] = useState(1);
 
@@ -30,9 +29,9 @@ export const CartModal: VFC<Props> = memo((props) => {
 
   // const onClickDownCount = () => setCount(count - 1);
 
-  const onCloseModal = () => {
-    onCloseCartModal();
-  };
+  // const onCloseModal = () => {
+  //   onCloseCartModal();
+  // };
 
   // const { postCart } = usePostCart();
   // const onClickCart = useCallback(
@@ -46,8 +45,8 @@ export const CartModal: VFC<Props> = memo((props) => {
     <>
       <Modal
         size="lg"
-        isOpen={isOpenCartModal}
-        onClose={onCloseCartModal}
+        isOpen={isOpen}
+        onClose={onClose}
         autoFocus={false}
         motionPreset="slideInBottom"
       >
