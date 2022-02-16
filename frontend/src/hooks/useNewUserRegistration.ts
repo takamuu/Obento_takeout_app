@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignUpParams } from 'types/api/sign';
-import { signInUrl, signUpUrl } from 'url/index';
+import { signInUrl, signUpUrl } from '../url';
 import { useLoginUser } from './useLoginUser';
 
 export const useNewUserRegistration = () => {

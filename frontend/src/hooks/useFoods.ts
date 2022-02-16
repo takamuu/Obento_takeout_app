@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useCallback, useState } from 'react';
 
 import { Food } from 'types/api/food';
-import { foodsIndexUrl } from 'url/index';
+import { foodsIndexUrl } from '../url';
 import { useMessage } from './useMessage';
 
 export const useFoods = () => {
@@ -29,6 +29,22 @@ export const useFoods = () => {
         setLoading(false);
       });
   }, []);
+
+  // const getFoodsAsync = useCallback(async (restaurantId: string) => {
+  //   setLoading(true);
+  //   try {
+  //     const result = await axios
+  //       .get<Array<Food>>(foodsIndexUrl(restaurantId));
+  //     setFoods(result.data);
+  //   } catch (e) {
+  //     showMessage({
+  //       title: 'データの取得に失敗しました',
+  //       status: 'error',
+  //     });
+  //   } finally {
+  //       setLoading(false);
+  //   };
+  // }, []);
 
   return { getFoods, loading, foods };
 };

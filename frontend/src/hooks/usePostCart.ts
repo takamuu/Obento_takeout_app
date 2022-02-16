@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 
 import { Cart } from 'types/api/cart';
-import { cartsUrl } from 'url/index';
+import { cartsUrl } from '../url';
 
 export const usePostCart = () => {
   const [loading, setLoading] = useState(false);

@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { User } from 'types/api/user';
 import { useMessage } from './useMessage';
 import { SignInParams } from 'types/api/sign';
-import { signOutUrl, signInUrl } from 'url/index';
+import { signOutUrl, signInUrl } from '../url';
 import { useLoginUser } from './useLoginUser';
 
 export const useAuth = () => {

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 import { Cart } from 'types/api/cart';
 
-import { cartsUrl } from 'url/index';
+import { cartsUrl } from '../url';
 import { useMessage } from './useMessage';
 
 export const useCartIndex = () => {
