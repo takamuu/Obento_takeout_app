@@ -42,14 +42,14 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     postCart({ food: food, count: count });
     setCount(1);
     onClose();
-    onOpenCart();
+    onOpenCartModal();
   }, []);
 
   // For CartModal
   const {
-    isOpen: isOpenCart,
-    onOpen: onOpenCart,
-    onClose: onCloseCart,
+    isOpen: isOpenCartModal,
+    onOpen: onOpenCartModal,
+    onClose: onCloseCartModal,
   } = useDisclosure();
 
   return (
@@ -109,7 +109,9 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
           </ModalContent>
         </ModalOverlay>
       </Modal>
-      <CartModal isOpen={isOpenCart} onClose={onCloseCart} />
+      {isOpenCartModal && (
+        <CartModal isOpen={isOpenCartModal} onClose={onCloseCartModal} />
+      )}
     </>
   );
 });
