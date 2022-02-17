@@ -13,7 +13,7 @@ export const CartCard: VFC<Props> = memo((props) => {
 
   return (
     <Box
-      w={{ base: '400px', md: '600px' }}
+      w={{ base: '350px', md: '400px' }}
       h="100px"
       bg="white"
       shadow="md"
