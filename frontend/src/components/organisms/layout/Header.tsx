@@ -34,7 +34,6 @@ export const Header: VFC = memo(() => {
 
   const onClickHome = useCallback(() => history.push('/'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-  // const onClickCart = useCallback(() => history.push('/cart'), []);
   const onClickContact = useCallback(() => history.push('/contact'), []);
   const onClickHowToUseBenteku = useCallback(
     () => history.push('/how_to_use_benteku'),
@@ -44,7 +43,9 @@ export const Header: VFC = memo(() => {
 
   const onClickLogout = () => logout();
 
-  const onClickCartModal = useCallback(() => onOpenCartModal(), []);
+  const onClickCartModal = useCallback(() => {
+    onOpenCartModal();
+  }, []);
 
   return (
     <>
@@ -116,7 +117,9 @@ export const Header: VFC = memo(() => {
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
       />
-      <CartModal onClose={onCloseCartModal} isOpen={isOpenCartModal} />
+      {isOpenCartModal && (
+        <CartModal isOpen={isOpenCartModal} onClose={onCloseCartModal} />
+      )}
     </>
   );
 });
