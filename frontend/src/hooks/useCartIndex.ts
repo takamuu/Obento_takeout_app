@@ -13,28 +13,25 @@ export const useCartIndex = () => {
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<Cart>>([]);
 
-  const getCarts = useCallback(() => {
+  const getCarts = useCallback(async () => {
     setLoading(true);
-    axios
-      .get<Array<Cart>>(cartsUrl, {
+    try {
+      const result = await axios.get<Array<Cart>>(cartsUrl, {
         headers: {
           'access-token': Cookies.get('_access_token'),
           client: Cookies.get('_client'),
           uid: Cookies.get('_uid'),
         },
-      })
-      .then((res) => {
-        setCarts(res.data);
-      })
-      .catch(() => {
-        showMessage({
-          title: 'データの取得に失敗しました',
-          status: 'error',
-        });
-      })
-      .finally(() => {
-        setLoading(false);
       });
+      setCarts(result.data);
+    } catch (e) {
+      showMessage({
+        title: 'データの取得に失敗しました',
+        status: 'error',
+      });
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return { getCarts, loading, carts };
