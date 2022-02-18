@@ -13,7 +13,7 @@ export const CartButton: VFC<Props> = memo((props) => {
   return (
     <Button
       size="lg"
-      mr={-3}
+      m={2}
       bg="brand"
       color="white"
       _hover={{ opacity: 0.8 }}

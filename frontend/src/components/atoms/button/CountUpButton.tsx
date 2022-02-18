@@ -11,8 +11,7 @@ export const CountUpButton: VFC<Props> = memo((props) => {
   return (
     <Button
       fontSize="2xl"
-      p={2}
-      mr={6}
+      fontWeight={'bold'}
       bg={'gray.100'}
       shadow="md"
       rounded="full"
