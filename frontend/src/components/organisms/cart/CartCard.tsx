@@ -21,13 +21,13 @@ export const CartCard: VFC<Props> = memo((props) => {
       _hover={{ cursor: 'pointer', opacity: 0.8 }}
     >
       <HStack justify="space-between" textAlign="center" padding="15px">
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="1xl" fontWeight="bold">
           {foodName}
         </Text>
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="1xl" fontWeight="bold">
           {count} 個
         </Text>
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="1xl" fontWeight="bold">
           ¥ {(price * count).toLocaleString()}
         </Text>
       </HStack>

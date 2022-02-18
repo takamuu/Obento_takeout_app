@@ -38,19 +38,19 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
 
   const { postCart } = usePostCart();
 
-  const onClickCartButton = useCallback(({ food, count }) => {
-    postCart({ food: food, count: count });
-    setCount(1);
-    onClose();
-    onOpenCartModal();
-  }, []);
-
   // For CartModal
   const {
     isOpen: isOpenCartModal,
     onOpen: onOpenCartModal,
     onClose: onCloseCartModal,
   } = useDisclosure();
+
+  const onClickCartButton = useCallback(({ food, count }) => {
+    postCart({ food: food, count: count });
+    setCount(1);
+    onClose();
+    onOpenCartModal();
+  }, []);
 
   return (
     <>
