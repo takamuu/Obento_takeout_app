@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCallback, useState } from 'react';
 
 import { Cart } from 'types/api/cart';
-import { cartsReplaceUrl } from 'url/index';
+import { cartsReplaceUrl } from '../url';
 
 export const useReplaceCart = () => {
   const [loading, setLoading] = useState(false);

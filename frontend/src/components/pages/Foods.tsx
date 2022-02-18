@@ -21,6 +21,7 @@ import { useSelectFood } from 'hooks/useSelectFood';
 import { Image } from '@chakra-ui/react';
 
 export const Foods: VFC = memo(() => {
+  // For FoodModal
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { getFoods, foods, loading } = useFoods();
@@ -36,7 +37,9 @@ export const Foods: VFC = memo(() => {
 
   const restaurant = resultState['restaurant'];
 
-  useEffect(() => getFoods(restaurantId), []);
+  useEffect(() => {
+    getFoods(restaurantId);
+  }, []);
 
   const onClickFood = useCallback(
     (selectFoodId: number) => {
@@ -46,10 +49,6 @@ export const Foods: VFC = memo(() => {
   );
 
   const onClickHome = useCallback(() => history.push(`/`), []);
-
-  const onCloseFoodModal = () => {
-    onClose();
-  };
 
   return (
     <>
@@ -115,7 +114,7 @@ export const Foods: VFC = memo(() => {
               </Text>
             </VStack>
           </HStack>
-          <Wrap p={{ base: 4, md: 10 }} justify="space-around">
+          <Wrap p={{ base: 4, md: 10 }} justify={'center'}>
             {foods.map((food) => (
               <WrapItem key={food.id}>
                 <FoodCard
@@ -134,8 +133,7 @@ export const Foods: VFC = memo(() => {
       <FoodOrderModal
         food={selectedFood}
         isOpen={isOpen}
-        onClose={onCloseFoodModal}
-        // onClickCart={onClickCart}
+        onClose={() => onClose()}
       />
     </>
   );

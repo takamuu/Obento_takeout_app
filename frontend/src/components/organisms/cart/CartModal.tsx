@@ -1,100 +1,97 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { memo, useState, VFC } from 'react';
-import { FormControl } from '@chakra-ui/form-control';
-import { Stack, Text } from '@chakra-ui/layout';
+import { memo, useCallback, useEffect, VFC } from 'react';
+import { useHistory } from 'react-router-dom';
+import {
+  Center,
+  Heading,
+  Spacer,
+  Text,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/layout';
 import {
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalOverlay,
 } from '@chakra-ui/modal';
+import { Spinner } from '@chakra-ui/react';
 
-import { Cart } from 'types/api/cart';
+import { useCartIndex } from 'hooks/useCartIndex';
+import { CartCard } from './CartCard';
+import { CartButton } from 'components/atoms/button/CartButton';
 
 type Props = {
-  // cart: Cart;
-  isOpenCartModal: boolean;
-  // onOpen: () => void;
-  onCloseCartModal: () => void;
-  // onClickCart: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 export const CartModal: VFC<Props> = memo((props) => {
-  const { isOpenCartModal, onCloseCartModal } = props;
-  // const { onOpen } = useDisclosure();
-  const [carts, setCarts] = useState<Array<Cart>>([]);
-  // const [count, setCount] = useState(1);
+  const { isOpen, onClose } = props;
+  const { getCarts, carts, loading } = useCartIndex();
+  useEffect(() => {
+    getCarts();
+  }, []);
 
-  // const onClickUpCount = () => setCount(count + 1);
-
-  // const onClickDownCount = () => setCount(count - 1);
-
-  const onCloseModal = () => {
-    onCloseCartModal();
-  };
-
-  // const { postCart } = usePostCart();
-  // const onClickCart = useCallback(
-  // () =>
-  //     postCart({ food: food, count: count })
-  // onOpen(),
-  //   []
-  // );
+  const history = useHistory();
+  const onClickCheckOutButton = useCallback(() => {
+    onClose();
+    history.push('/cart');
+  }, []);
 
   return (
     <>
       <Modal
         size="lg"
-        isOpen={isOpenCartModal}
-        onClose={onCloseCartModal}
+        isOpen={isOpen}
+        onClose={onClose}
         autoFocus={false}
         motionPreset="slideInBottom"
       >
         <ModalOverlay>
           <ModalContent bg="white">
-            {/* <Image src={BeefTongue} /> */}
             <ModalCloseButton
               bgColor="white"
               rounded="full"
               _hover={{ opacity: 0.8 }}
             />
-            <ModalBody mx={2}>
-              <Stack spacing={2}>
-                <FormControl>
-                  <Text fontSize="xl">test Cart Modal</Text>
-                </FormControl>
-                {/* <FormControl>
-                <Text fontSize="xl">{food?.food_description}</Text>
-              </FormControl>
-              <FormControl>
-                <Text fontSize="xl">金額 ¥ {food?.price.toLocaleString()}</Text>
-              </FormControl> */}
-              </Stack>
+            <ModalBody>
+              <Heading p={4} align={'center'} textColor={'brand'}>
+                カート
+              </Heading>
+              {loading ? (
+                <Center h="100vh">
+                  <Spinner />
+                </Center>
+              ) : (
+                <Wrap p={{ base: 4, md: 10 }} justify="space-around">
+                  {carts ? (
+                    <>
+                      {carts.map((cart) => (
+                        <WrapItem key={cart.id}>
+                          <CartCard
+                            foodName={cart.name}
+                            count={cart.count}
+                            price={cart.price}
+                          />
+                        </WrapItem>
+                      ))}
+                    </>
+                  ) : (
+                    <p>カートはありません</p>
+                  )}
+                </Wrap>
+              )}
             </ModalBody>
-            {/* <ModalFooter>
-            <CountDownButton
-              onClick={() => onClickDownCount()}
-              isDisabled={count <= 1}
-            />
-            <Text fontSize="xl" p={4}>
-              {count}
-            </Text>
-            <CountUpButton
-              onClick={() => onClickUpCount()}
-              isDisabled={count >= 9}
-            />
             <Spacer />
-            <CartButton
-              onClick={() => {
-                onClickCart();
-                onCloseModal();
-              }}
-            >
-              <Text p={2}>{`${count}点をカートに追加 `}</Text>
-              <Text p={2}>{`¥${(count * food?.price).toLocaleString()}`}</Text>
-            </CartButton>
-          </ModalFooter> */}
+            <ModalFooter mx={'auto'}>
+              <CartButton onClick={() => onClickCheckOutButton()}>
+                <Text p={2}>お会計に進む</Text>
+              </CartButton>
+            </ModalFooter>
           </ModalContent>
         </ModalOverlay>
       </Modal>

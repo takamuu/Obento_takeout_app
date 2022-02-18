@@ -3,20 +3,20 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
-import { useHistory } from 'react-router';
 
 import { Cart } from 'types/api/cart';
-import { cartsUrl } from 'url/index';
+import { cartsUrl } from '../url';
+import { useMessage } from './useMessage';
 
 export const usePostCart = () => {
+  const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<Cart>>();
-  const history = useHistory();
 
-  const postCart = useCallback((params) => {
+  const postCart = useCallback(async (params) => {
     setLoading(true);
-    axios
-      .post<Array<Cart>>(
+    try {
+      const result = await axios.post<Array<Cart>>(
         cartsUrl,
         {
           food_id: params.food.id,
@@ -30,17 +30,16 @@ export const usePostCart = () => {
             uid: Cookies.get('_uid'),
           },
         }
-      )
-      .then((res) => {
-        setCarts(res.data);
-        history.push(`/cart`);
-      })
-      .catch((e) => {
-        throw e;
-      })
-      .finally(() => {
-        setLoading(false);
+      );
+      setCarts(result.data);
+    } catch (e) {
+      showMessage({
+        title: 'データの取得に失敗しました',
+        status: 'error',
       });
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return { postCart, loading, carts };

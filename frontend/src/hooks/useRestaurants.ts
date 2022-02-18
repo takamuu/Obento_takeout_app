@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import axios from 'axios';
 
 import { Restaurant } from 'types/api/restaurant';
-import { restaurantsIndexUrl } from 'url/index';
+import { restaurantsIndexUrl } from '../url';
 import { useMessage } from './useMessage';
 
 export const useRestaurants = () => {

@@ -12,6 +12,7 @@ import { MenuIconButton } from 'components/atoms/button/MenuIconButton';
 import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
 import CartIcon from 'images/CartIcon.svg';
+import { CartModal } from '../cart/CartModal';
 
 export const Header: VFC = memo(() => {
   const {
@@ -20,12 +21,12 @@ export const Header: VFC = memo(() => {
     onClose: onCloseMenuDrawer,
   } = useDisclosure();
 
-  // todo: cartModal実装時に使用
-  // const {
-  //   isOpen: isOpenCartModal,
-  //   onOpen: onOpenCartModal,
-  //   onClose: onCloseCartModal,
-  // } = useDisclosure();
+  // For CartModal
+  const {
+    isOpen: isOpenCartModal,
+    onOpen: onOpenCartModal,
+    onClose: onCloseCartModal,
+  } = useDisclosure();
 
   const { loginUser } = useLoginUser();
   const { logout } = useAuth();
@@ -33,7 +34,6 @@ export const Header: VFC = memo(() => {
 
   const onClickHome = useCallback(() => history.push('/'), []);
   const onClickLogin = useCallback(() => history.push('/login'), []);
-  const onClickCart = useCallback(() => history.push('/cart'), []);
   const onClickContact = useCallback(() => history.push('/contact'), []);
   const onClickHowToUseBenteku = useCallback(
     () => history.push('/how_to_use_benteku'),
@@ -42,6 +42,10 @@ export const Header: VFC = memo(() => {
   const onClickMyPage = useCallback(() => history.push('/my_page'), []);
 
   const onClickLogout = () => logout();
+
+  const onClickCartModal = useCallback(() => {
+    onOpenCartModal();
+  }, []);
 
   return (
     <>
@@ -104,7 +108,7 @@ export const Header: VFC = memo(() => {
           src={CartIcon}
           alt="CartIcon"
           _hover={{ opacity: '0.8', cursor: 'pointer' }}
-          onClick={onClickCart}
+          onClick={onClickCartModal}
         />
       </HStack>
       <MenuDrawer
@@ -113,11 +117,9 @@ export const Header: VFC = memo(() => {
         onClickHome={onClickHome}
         onClickLogin={onClickLogin}
       />
-      {/* <CartModal
-        onCloseCartModal={onCloseCartModal}
-        isOpenCartModal={isOpenCartModal}
-        onOpen={onOpenCartModal}
-      /> */}
+      {isOpenCartModal && (
+        <CartModal isOpen={isOpenCartModal} onClose={onCloseCartModal} />
+      )}
     </>
   );
 });
