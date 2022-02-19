@@ -3,9 +3,11 @@
 import { memo, useCallback, useEffect, VFC } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
+  Box,
   Center,
   Heading,
   Spacer,
+  Stack,
   Text,
   Wrap,
   WrapItem,
@@ -42,6 +44,14 @@ export const CartModal: VFC<Props> = memo((props) => {
     history.push('/cart');
   }, []);
 
+  const sumArray = (array) => {
+    let sum = 0;
+    for (let i = 0, len = array.length; i < len; i++) {
+      sum += array[i].count * array[i].price;
+    }
+    return sum;
+  };
+
   return (
     <>
       <Modal
@@ -73,6 +83,7 @@ export const CartModal: VFC<Props> = memo((props) => {
                       {carts.map((cart) => (
                         <WrapItem key={cart.id}>
                           <CartCard
+                            key={cart.id}
                             foodName={cart.name}
                             count={cart.count}
                             price={cart.price}
@@ -87,9 +98,11 @@ export const CartModal: VFC<Props> = memo((props) => {
               )}
             </ModalBody>
             <Spacer />
-            <ModalFooter mx={'auto'}>
+            <ModalFooter mx={'auto'} mb={4}>
               <CartButton onClick={() => onClickCheckOutButton()}>
-                <Text p={2}>お会計に進む</Text>
+                <Text m={4}>
+                  お会計に進む {`¥${sumArray(carts).toLocaleString()}`}
+                </Text>
               </CartButton>
             </ModalFooter>
           </ModalContent>
