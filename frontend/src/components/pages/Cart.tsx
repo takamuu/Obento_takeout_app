@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
+import { memo, useCallback, useEffect, VFC } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
+
 import { CartButton } from 'components/atoms/button/CartButton';
 import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
-import { memo, useCallback, useEffect, VFC } from 'react';
-import { useHistory } from 'react-router-dom';
 
 export const Cart: VFC = memo(() => {
   const { getCarts, carts, loading } = useCartIndex();
@@ -38,6 +39,7 @@ export const Cart: VFC = memo(() => {
                   {carts.map((cart) => (
                     <WrapItem key={cart.id}>
                       <CartCard
+                        key={cart.id}
                         foodName={cart.name}
                         count={cart.count}
                         price={cart.price}
