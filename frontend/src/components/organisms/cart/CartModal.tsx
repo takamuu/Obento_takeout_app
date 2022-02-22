@@ -42,10 +42,16 @@ export const CartModal: VFC<Props> = memo((props) => {
     history.push('/cart');
   }, []);
 
+  // Calculate the total amount
+
+  let totalAmount = 0;
+
+  carts.map((cart) => (totalAmount += cart.count * cart.food.price));
+
   return (
     <>
       <Modal
-        size="lg"
+        size={'md'}
         isOpen={isOpen}
         onClose={onClose}
         autoFocus={false}
@@ -70,12 +76,13 @@ export const CartModal: VFC<Props> = memo((props) => {
                 <Wrap p={{ base: 4, md: 10 }} justify="space-around">
                   {carts ? (
                     <>
-                      {carts.map((cart) => (
-                        <WrapItem key={cart.id}>
+                      {carts.map((cart, i) => (
+                        <WrapItem key={i}>
                           <CartCard
-                            foodName={cart.name}
+                            food={cart.food}
+                            foodName={cart.food.name}
                             count={cart.count}
-                            price={cart.price}
+                            price={cart.food.price}
                           />
                         </WrapItem>
                       ))}
@@ -87,9 +94,11 @@ export const CartModal: VFC<Props> = memo((props) => {
               )}
             </ModalBody>
             <Spacer />
-            <ModalFooter mx={'auto'}>
+            <ModalFooter mx={'auto'} mb={4}>
               <CartButton onClick={() => onClickCheckOutButton()}>
-                <Text p={2}>お会計に進む</Text>
+                <Text m={4}>
+                  お会計に進む {`¥${totalAmount.toLocaleString()}`}
+                </Text>
               </CartButton>
             </ModalFooter>
           </ModalContent>

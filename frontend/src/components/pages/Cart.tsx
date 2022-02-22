@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
+import { memo, useCallback, useEffect, VFC } from 'react';
 import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
+
 import { CartButton } from 'components/atoms/button/CartButton';
 import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
-import { memo, useCallback, useEffect, VFC } from 'react';
-import { useHistory } from 'react-router-dom';
 
 export const Cart: VFC = memo(() => {
   const { getCarts, carts, loading } = useCartIndex();
@@ -15,10 +15,15 @@ export const Cart: VFC = memo(() => {
     getCarts();
   }, []);
 
-  const history = useHistory();
   const onClickOrderButton = useCallback(() => {
     alert('stripe決済ページを飛ばして受取票ページへ遷移');
   }, []);
+
+  // Calculate the total amount
+
+  let totalAmount = 0;
+
+  carts.map((cart) => (totalAmount += cart.count * cart.food.price));
 
   return (
     <>
@@ -35,12 +40,13 @@ export const Cart: VFC = memo(() => {
             {carts ? (
               <>
                 <VStack>
-                  {carts.map((cart) => (
-                    <WrapItem key={cart.id}>
+                  {carts.map((cart, i) => (
+                    <WrapItem key={i}>
                       <CartCard
-                        foodName={cart.name}
+                        food={cart.food}
+                        foodName={cart.food.name}
                         count={cart.count}
-                        price={cart.price}
+                        price={cart.food.price}
                       />
                     </WrapItem>
                   ))}
@@ -50,11 +56,27 @@ export const Cart: VFC = memo(() => {
               <p>カートはありません</p>
             )}
           </Wrap>
-          <WrapItem p={10} w={'full'} justifyContent={'center'}>
+          <VStack w={'full'} h="30vh">
+            <Box
+              color={'gray.300'}
+              borderTop={'2px'}
+              bg="twitter.100"
+              w={'400px'}
+              verticalAlign={'center'}
+            ></Box>
+            <Text
+              p={4}
+              color={'brand'}
+              fontSize={'2xl'}
+              fontWeight={'bold'}
+              verticalAlign={'center'}
+            >
+              合計 {`¥${totalAmount.toLocaleString()}`}
+            </Text>
             <CartButton onClick={() => onClickOrderButton()}>
               <Text p={2}>注文する</Text>
             </CartButton>
-          </WrapItem>
+          </VStack>
         </Wrap>
       )}
     </>

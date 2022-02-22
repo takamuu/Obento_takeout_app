@@ -11,15 +11,15 @@ import {
   ModalFooter,
   ModalOverlay,
 } from '@chakra-ui/modal';
+import { Image } from '@chakra-ui/image';
+import { useDisclosure } from '@chakra-ui/react';
+
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
 import { CartButton } from 'components/atoms/button/CartButton';
-
 import { Food } from 'types/api/food';
-import { Image } from '@chakra-ui/image';
 import { usePostCart } from 'hooks/usePostCart';
 import { CartModal } from '../cart/CartModal';
-import { useDisclosure } from '@chakra-ui/react';
 
 type Props = {
   food: Food;
@@ -62,25 +62,32 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
         motionPreset="slideInBottom"
       >
         <ModalOverlay>
-          <ModalContent bg="white">
-            <ModalCloseButton
-              bgColor="white"
-              rounded="full"
-              _hover={{ opacity: 0.8 }}
-            />
-            <ModalBody mx={2}>
+          <ModalContent bg={'white'}>
+            <ModalBody m={2}>
               <Stack spacing={2}>
+                <ModalCloseButton
+                  m={1}
+                  zIndex={'sticky'}
+                  bgColor={'white'}
+                  rounded="full"
+                  _hover={{ opacity: 0.8 }}
+                />
                 <FormControl>
                   <Image src={food?.image} />
                 </FormControl>
+                <Spacer />
                 <FormControl>
-                  <Text fontSize="xl">{food?.name}</Text>
+                  <Text fontSize="3xl" fontWeight={'bold'}>
+                    {food?.name}
+                  </Text>
                 </FormControl>
                 <FormControl>
-                  <Text fontSize="xl">{food?.food_description}</Text>
+                  <Text fontSize="xl" fontWeight={'bold'}>
+                    {food?.food_description}
+                  </Text>
                 </FormControl>
                 <FormControl>
-                  <Text fontSize="xl">
+                  <Text fontSize="xl" fontWeight={'bold'}>
                     金額 ¥ {food?.price.toLocaleString()}
                   </Text>
                 </FormControl>
@@ -91,7 +98,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
                 onClick={() => onClickDownCount()}
                 isDisabled={count <= 1}
               />
-              <Text fontSize="xl" p={4}>
+              <Text fontSize="xl" fontWeight={'bold'} p={4}>
                 {count}
               </Text>
               <CountUpButton
@@ -100,8 +107,8 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
               />
               <Spacer />
               <CartButton onClick={() => onClickCartButton({ food, count })}>
-                <Text p={2}>{`${count}点をカートに追加 `}</Text>
-                <Text p={2}>{`¥${(
+                <Text m={2}>{`${count}点をカートに追加 `}</Text>
+                <Text m={2}>{`¥${(
                   count * food?.price
                 ).toLocaleString()}`}</Text>
               </CartButton>

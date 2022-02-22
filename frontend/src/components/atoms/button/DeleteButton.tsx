@@ -8,13 +8,16 @@ type Props = {
   onClick: () => void;
 };
 
-export const CartButton: VFC<Props> = memo((props) => {
+export const DeleteButton: VFC<Props> = memo((props) => {
   const { children, disabled = false, loading = false, onClick } = props;
   return (
     <Button
-      size="lg"
+      w={'20'}
+      h={'8'}
+      fontSize={'sm'}
       bg="brand"
       color="white"
+      rounded="full"
       _hover={{ opacity: 0.8 }}
       disabled={disabled || loading}
       isLoading={loading}

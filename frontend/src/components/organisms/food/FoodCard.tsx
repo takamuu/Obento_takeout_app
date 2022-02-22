@@ -28,7 +28,6 @@ export const FoodCard: VFC<Props> = memo((props) => {
         <Image w="240px" h="180px" src={imageUrl} alt={foodName} m="auto" />
         <VStack>
           <Text
-            fontFamily={'sans-serif'}
             w="150px"
             fontSize="lg"
             fontWeight="bold"
@@ -37,16 +36,10 @@ export const FoodCard: VFC<Props> = memo((props) => {
           >
             {foodName}
           </Text>
-          <Text
-            fontFamily={'sans-serif'}
-            fontWeight={'normal'}
-            w="140px"
-            color="brand"
-            isTruncated
-          >
+          <Text fontWeight={'normal'} w="140px" color="brand" isTruncated>
             {foodDescription}
           </Text>
-          <Text fontFamily={'sans-serif'} fontWeight={'bold'} color="brand">
+          <Text fontWeight={'bold'} color="brand">
             ¥ {foodPrice.toLocaleString()}
           </Text>
         </VStack>
