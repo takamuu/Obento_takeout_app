@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, VFC } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 
@@ -16,7 +15,6 @@ export const Cart: VFC = memo(() => {
     getCarts();
   }, []);
 
-  const history = useHistory();
   const onClickOrderButton = useCallback(() => {
     alert('stripe決済ページを飛ばして受取票ページへ遷移');
   }, []);
@@ -36,10 +34,9 @@ export const Cart: VFC = memo(() => {
             {carts ? (
               <>
                 <VStack>
-                  {carts.map((cart) => (
-                    <WrapItem key={cart.id}>
+                  {carts.map((cart, i) => (
+                    <WrapItem key={i}>
                       <CartCard
-                        key={cart.id}
                         food={cart.food}
                         foodName={cart.name}
                         count={cart.count}
