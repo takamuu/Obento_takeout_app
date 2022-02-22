@@ -11,17 +11,12 @@ class Cart < ApplicationRecord
     cart_info = []
     cart_hash = {}
     cart_details.each do |info|
-      cart_hash["name"] = info.food.name
+      cart_hash["food"] = info.food
       cart_hash["count"] = info.count
-      cart_hash["price"] = info.food.price
       cart_info.push(cart_hash)
       cart_hash = {}
     end
-    # カート合計金額
-    # cart_hash["tota_price"] = ロジック
-    # {cart_details: [{}], total_price: 10000}
-
-    cart_info
+    cart_info.sort_by! {|c| c["food"]["id"] }
   end
 
   # カートの合計金額を更新
