@@ -40,6 +40,7 @@ export const Cart: VFC = memo(() => {
                     <WrapItem key={cart.id}>
                       <CartCard
                         key={cart.id}
+                        food={cart.food}
                         foodName={cart.name}
                         count={cart.count}
                         price={cart.price}
