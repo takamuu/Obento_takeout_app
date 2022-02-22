@@ -1,15 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, VFC } from 'react';
-import {
-  Box,
-  Center,
-  Divider,
-  Text,
-  VStack,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/layout';
+import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 
 import { CartButton } from 'components/atoms/button/CartButton';
@@ -27,13 +19,11 @@ export const Cart: VFC = memo(() => {
     alert('stripe決済ページを飛ばして受取票ページへ遷移');
   }, []);
 
-  const sumArray = (array) => {
-    let sum = 0;
-    for (let i = 0, len = array.length; i < len; i++) {
-      sum += array[i].count * array[i].food.price;
-    }
-    return sum;
-  };
+  // Calculate the total amount
+
+  let totalAmount = 0;
+
+  carts.map((cart) => (totalAmount += cart.count * cart.food.price));
 
   return (
     <>
@@ -81,7 +71,7 @@ export const Cart: VFC = memo(() => {
               fontWeight={'bold'}
               verticalAlign={'center'}
             >
-              合計 {`¥${sumArray(carts).toLocaleString()}`}
+              合計 {`¥${totalAmount.toLocaleString()}`}
             </Text>
             <CartButton onClick={() => onClickOrderButton()}>
               <Text p={2}>注文する</Text>
