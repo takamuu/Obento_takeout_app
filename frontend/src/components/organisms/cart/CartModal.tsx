@@ -47,7 +47,7 @@ export const CartModal: VFC<Props> = memo((props) => {
   const sumArray = (array) => {
     let sum = 0;
     for (let i = 0, len = array.length; i < len; i++) {
-      sum += array[i].count * array[i].price;
+      sum += array[i].count * array[i].food.price;
     }
     return sum;
   };
