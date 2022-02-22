@@ -3,11 +3,9 @@
 import { memo, useCallback, useEffect, VFC } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Box,
   Center,
   Heading,
   Spacer,
-  Stack,
   Text,
   Wrap,
   WrapItem,
