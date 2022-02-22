@@ -12,6 +12,8 @@ type Props = {
   price: number;
 };
 
+const NUMBER_OF_LIMIT = 20;
+
 export const CartCard: VFC<Props> = memo((props) => {
   const { foodName, count, price } = props;
 
@@ -23,11 +25,13 @@ export const CartCard: VFC<Props> = memo((props) => {
   );
 
   // Create a list of selections
-  const list = [];
+  const list = [...Array(NUMBER_OF_LIMIT).keys()].map((i) => ++i);
 
-  for (let i = 1; i <= 20; i++) {
-    list.push(<option value={String(i)}>{String(i)}</option>);
-  }
+  const option = list.map((data, i) => (
+    <option key={i} value={data}>
+      {data}
+    </option>
+  ));
 
   const handleChange = (ev: ChangeEvent<HTMLSelectElement>) => {
     setCartCount(Number(ev.target.value));
@@ -57,7 +61,7 @@ export const CartCard: VFC<Props> = memo((props) => {
           id={'count'}
           onChange={handleChange}
         >
-          {list}
+          {option}
         </Select>
       </VStack>
       <VStack>
