@@ -2,7 +2,7 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
-import { Box, Spacer, Stack, Text } from '@chakra-ui/layout';
+import { Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
   Modal,
   ModalBody,
@@ -11,15 +11,15 @@ import {
   ModalFooter,
   ModalOverlay,
 } from '@chakra-ui/modal';
+import { Image } from '@chakra-ui/image';
+import { useDisclosure } from '@chakra-ui/react';
+
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
 import { CartButton } from 'components/atoms/button/CartButton';
-
 import { Food } from 'types/api/food';
-import { Image } from '@chakra-ui/image';
 import { usePostCart } from 'hooks/usePostCart';
 import { CartModal } from '../cart/CartModal';
-import { useDisclosure } from '@chakra-ui/react';
 
 type Props = {
   food: Food;
@@ -62,11 +62,11 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
         motionPreset="slideInBottom"
       >
         <ModalOverlay>
-          <ModalContent>
+          <ModalContent bg={'white'}>
             <ModalBody m={2}>
               <Stack spacing={2}>
                 <ModalCloseButton
-                  m={2}
+                  m={1}
                   zIndex={'sticky'}
                   bgColor={'white'}
                   rounded="full"
