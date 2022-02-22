@@ -23,9 +23,9 @@ RSpec.describe "Api::V1::Carts", type: :request do
         it "取得したカート情報がレスポンスされる" do
           subject
           json = JSON.parse(response.body)
-          expect(json[0]["name"]).to be_present
+          expect(json[0]["food"]["name"]).to be_present
           expect(json[0]["count"]).to be_present
-          expect(json[0]["price"]).to be_present
+          expect(json[0]["food"]["price"]).to be_present
         end
       end
 
