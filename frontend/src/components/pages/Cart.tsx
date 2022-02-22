@@ -1,7 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, VFC } from 'react';
-import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
+import {
+  Box,
+  Center,
+  Divider,
+  Text,
+  VStack,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 
 import { CartButton } from 'components/atoms/button/CartButton';
@@ -18,6 +26,14 @@ export const Cart: VFC = memo(() => {
   const onClickOrderButton = useCallback(() => {
     alert('stripe決済ページを飛ばして受取票ページへ遷移');
   }, []);
+
+  const sumArray = (array) => {
+    let sum = 0;
+    for (let i = 0, len = array.length; i < len; i++) {
+      sum += array[i].count * array[i].food.price;
+    }
+    return sum;
+  };
 
   return (
     <>
@@ -38,9 +54,9 @@ export const Cart: VFC = memo(() => {
                     <WrapItem key={i}>
                       <CartCard
                         food={cart.food}
-                        foodName={cart.name}
+                        foodName={cart.food.name}
                         count={cart.count}
-                        price={cart.price}
+                        price={cart.food.price}
                       />
                     </WrapItem>
                   ))}
@@ -50,11 +66,27 @@ export const Cart: VFC = memo(() => {
               <p>カートはありません</p>
             )}
           </Wrap>
-          <WrapItem p={10} w={'full'} justifyContent={'center'}>
+          <VStack w={'full'} h="30vh">
+            <Box
+              color={'gray.300'}
+              borderTop={'2px'}
+              bg="twitter.100"
+              w={'400px'}
+              verticalAlign={'center'}
+            ></Box>
+            <Text
+              p={4}
+              color={'brand'}
+              fontSize={'2xl'}
+              fontWeight={'bold'}
+              verticalAlign={'center'}
+            >
+              合計 {`¥${sumArray(carts).toLocaleString()}`}
+            </Text>
             <CartButton onClick={() => onClickOrderButton()}>
               <Text p={2}>注文する</Text>
             </CartButton>
-          </WrapItem>
+          </VStack>
         </Wrap>
       )}
     </>
