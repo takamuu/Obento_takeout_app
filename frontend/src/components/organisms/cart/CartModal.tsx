@@ -55,7 +55,7 @@ export const CartModal: VFC<Props> = memo((props) => {
   return (
     <>
       <Modal
-        size="lg"
+        size={'md'}
         isOpen={isOpen}
         onClose={onClose}
         autoFocus={false}
@@ -80,13 +80,13 @@ export const CartModal: VFC<Props> = memo((props) => {
                 <Wrap p={{ base: 4, md: 10 }} justify="space-around">
                   {carts ? (
                     <>
-                      {carts.map((cart) => (
-                        <WrapItem key={cart.id}>
+                      {carts.map((cart, i) => (
+                        <WrapItem key={i}>
                           <CartCard
-                            key={cart.id}
-                            foodName={cart.name}
+                            food={cart.food}
+                            foodName={cart.food.name}
                             count={cart.count}
-                            price={cart.price}
+                            price={cart.food.price}
                           />
                         </WrapItem>
                       ))}
