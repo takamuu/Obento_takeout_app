@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, VFC } from 'react';
 import { HStack, Text, VStack } from '@chakra-ui/layout';
-import { Food } from 'types/api/cart';
+import { Food } from 'types/api/food';
 import { DeleteButton } from 'components/atoms/button/DeleteButton';
 import { Select } from '@chakra-ui/react';
 
