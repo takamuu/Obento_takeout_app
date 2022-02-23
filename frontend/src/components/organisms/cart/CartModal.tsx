@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, useEffect, VFC } from 'react';
+import { memo, useCallback, useEffect, VFC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Center,
@@ -23,18 +23,43 @@ import { Spinner } from '@chakra-ui/react';
 import { useCartIndex } from 'hooks/useCartIndex';
 import { CartCard } from './CartCard';
 import { CartButton } from 'components/atoms/button/CartButton';
+import { Food } from 'types/api/food';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
+type Items = {
+  id: number;
+  amount: number;
+  count: number;
+  name: string;
+  price: number;
+  food: Food;
+}[];
+
 export const CartModal: VFC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
   const { getCarts, carts, loading } = useCartIndex();
+  const [items, setItems] = useState<Items>([]);
+
   useEffect(() => {
     getCarts();
   }, []);
+
+  useEffect(() => {
+    setItems(
+      carts.map((cart) => ({
+        id: cart.food.id,
+        amount: cart.count * cart.food.price,
+        count: cart.count,
+        name: cart.food.name,
+        price: cart.food.price,
+        food: cart.food,
+      }))
+    );
+  }, [carts]);
 
   const history = useHistory();
   const onClickCheckOutButton = useCallback(() => {
@@ -44,9 +69,7 @@ export const CartModal: VFC<Props> = memo((props) => {
 
   // Calculate the total amount
 
-  let totalAmount = 0;
-
-  carts.map((cart) => (totalAmount += cart.count * cart.food.price));
+  const totalAmount = items.reduce((total, item) => total + item.amount, 0);
 
   return (
     <>
@@ -74,15 +97,27 @@ export const CartModal: VFC<Props> = memo((props) => {
                 </Center>
               ) : (
                 <Wrap p={{ base: 4, md: 10 }} justify="space-around">
-                  {carts ? (
+                  {items ? (
                     <>
-                      {carts.map((cart, i) => (
+                      {items.map((cart, i) => (
                         <WrapItem key={i}>
                           <CartCard
                             food={cart.food}
                             foodName={cart.food.name}
                             count={cart.count}
-                            price={cart.food.price}
+                            price={cart.price}
+                            onChangeCount={(newCount) => {
+                              setItems((s) =>
+                                s.map((item) => {
+                                  if (item.id !== cart.food.id) return item;
+                                  return {
+                                    ...item,
+                                    amount: cart.food.price * newCount,
+                                    count: newCount,
+                                  };
+                                })
+                              );
+                            }}
                           />
                         </WrapItem>
                       ))}
