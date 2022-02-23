@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
+import { memo, useCallback, VFC } from 'react';
 import { HStack, Text, VStack } from '@chakra-ui/layout';
 import { Food } from 'types/api/cart';
 import { DeleteButton } from 'components/atoms/button/DeleteButton';
@@ -10,12 +10,11 @@ type Props = {
   foodName: string;
   count: number;
   price: number;
+  onChangeCount?: (newCount: number) => void;
 };
 
 export const CartCard: VFC<Props> = memo((props) => {
-  const { foodName, count, price } = props;
-
-  const [cartCount, setCartCount] = useState(count);
+  const { food, foodName, count, price, onChangeCount } = props;
 
   const onClickDelete = useCallback(
     () => alert('該当するカート詳細を削除します'),
@@ -27,10 +26,6 @@ export const CartCard: VFC<Props> = memo((props) => {
   const NUMBER_OF_LIMIT = 20;
 
   const lists = [...Array(NUMBER_OF_LIMIT).keys()].map((i) => ++i);
-
-  const handleChange = (ev: ChangeEvent<HTMLSelectElement>) => {
-    setCartCount(Number(ev.target.value));
-  };
 
   return (
     <HStack
@@ -52,9 +47,11 @@ export const CartCard: VFC<Props> = memo((props) => {
           rounded={'full'}
           color={'brand'}
           fontWeight={'bold'}
-          value={cartCount}
+          value={count}
           id={'count'}
-          onChange={handleChange}
+          onChange={(e) =>
+            onChangeCount && onChangeCount(Number(e.target.value))
+          }
         >
           {lists.map((list, i) => (
             <option key={i} value={list}>
@@ -74,7 +71,7 @@ export const CartCard: VFC<Props> = memo((props) => {
           {foodName}
         </Text>
         <Text w={'64'} textAlign={'center'} fontSize={'xl'} fontWeight="bold">
-          ¥ {(price * cartCount).toLocaleString()}
+          ¥ {(price * count).toLocaleString()}
         </Text>
       </VStack>
     </HStack>
