@@ -9,11 +9,7 @@ import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
 
 export const Cart: VFC = memo(() => {
-  const { getCarts, carts, loading } = useCartIndex();
-
-  useEffect(() => {
-    getCarts();
-  }, []);
+  const { carts, loading } = useCartIndex();
 
   const onClickOrderButton = useCallback(() => {
     alert('stripe決済ページを飛ばして受取票ページへ遷移');
