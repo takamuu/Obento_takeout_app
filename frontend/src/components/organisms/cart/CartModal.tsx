@@ -41,12 +41,8 @@ type Items = {
 
 export const CartModal: VFC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
-  const { getCarts, carts, loading } = useCartIndex();
+  const { carts, loading } = useCartIndex();
   const [items, setItems] = useState<Items>([]);
-
-  useEffect(() => {
-    getCarts();
-  }, []);
 
   useEffect(() => {
     setItems(
