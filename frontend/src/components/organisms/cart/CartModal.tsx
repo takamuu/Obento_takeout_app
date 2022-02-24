@@ -22,30 +22,21 @@ import { Spinner } from '@chakra-ui/react';
 
 import { useCartIndex } from 'hooks/useCartIndex';
 import { CartCard } from './CartCard';
+import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
-import { Food } from 'types/api/food';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type Items = {
-  id: number;
-  amount: number;
-  count: number;
-  name: string;
-  price: number;
-  food: Food;
-}[];
-
 export const CartModal: VFC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
   const { carts, loading } = useCartIndex();
-  const [items, setItems] = useState<Items>([]);
+  const [newCarts, setNewCarts] = useState<NewCarts>([]);
 
   useEffect(() => {
-    setItems(
+    setNewCarts(
       carts.map((cart) => ({
         id: cart.food.id,
         amount: cart.count * cart.food.price,
@@ -65,7 +56,10 @@ export const CartModal: VFC<Props> = memo((props) => {
 
   // Calculate the total amount
 
-  const totalAmount = items.reduce((total, item) => total + item.amount, 0);
+  const totalAmount = newCarts.reduce(
+    (total, newCart) => total + newCart.amount,
+    0
+  );
 
   return (
     <>
@@ -93,9 +87,9 @@ export const CartModal: VFC<Props> = memo((props) => {
                 </Center>
               ) : (
                 <Wrap p={{ base: 4, md: 10 }} justify="space-around">
-                  {items ? (
+                  {newCarts ? (
                     <>
-                      {items.map((cart, i) => (
+                      {newCarts.map((cart, i) => (
                         <WrapItem key={i}>
                           <CartCard
                             food={cart.food}
@@ -103,11 +97,12 @@ export const CartModal: VFC<Props> = memo((props) => {
                             count={cart.count}
                             price={cart.price}
                             onChangeCount={(newCount) => {
-                              setItems((s) =>
-                                s.map((item) => {
-                                  if (item.id !== cart.food.id) return item;
+                              setNewCarts((s) =>
+                                s.map((newCart) => {
+                                  if (newCart.id !== cart.food.id)
+                                    return newCart;
                                   return {
-                                    ...item,
+                                    ...newCart,
                                     amount: cart.food.price * newCount,
                                     count: newCount,
                                   };
