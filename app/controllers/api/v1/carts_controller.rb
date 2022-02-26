@@ -47,6 +47,15 @@ module Api
       end
       # rubocop:enable all
 
+      def destroy
+        if current_api_v1_user.cart.cart_details.find_by(food_id: delete_params[:id]).destroy
+          cart_info = current_api_v1_user.cart.user_has_cart_info
+          render json: cart_info, status: :ok
+        else
+          render json: [], status: :no_content
+        end
+      end
+
       private
 
         def set_food
@@ -55,6 +64,10 @@ module Api
 
         def cart_details_params
           params.permit(:food_id, :count)
+        end
+
+        def delete_params
+          params.permit(:id)
         end
     end
   end
