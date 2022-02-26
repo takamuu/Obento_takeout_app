@@ -24,6 +24,7 @@ import { useCartIndex } from 'hooks/useCartIndex';
 import { CartCard } from './CartCard';
 import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
+import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
 
 type Props = {
   isOpen: boolean;
@@ -36,16 +37,17 @@ export const CartModal: VFC<Props> = memo((props) => {
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
 
   useEffect(() => {
-    setNewCarts(
-      carts.map((cart) => ({
-        id: cart.food.id,
-        amount: cart.count * cart.food.price,
-        count: cart.count,
-        name: cart.food.name,
-        price: cart.food.price,
-        food: cart.food,
-      }))
-    );
+    if (carts.length)
+      setNewCarts(
+        carts.map((cart) => ({
+          id: cart.food.id,
+          amount: cart.count * cart.food.price,
+          count: cart.count,
+          name: cart.food.name,
+          price: cart.food.price,
+          food: cart.food,
+        }))
+      );
   }, [carts]);
 
   const history = useHistory();
@@ -60,6 +62,23 @@ export const CartModal: VFC<Props> = memo((props) => {
     (total, newCart) => total + newCart.amount,
     0
   );
+
+  const { deleteCartDetails } = useDeleteCartDetails();
+
+  const onClickDelete = useCallback((foodId: string) => {
+    deleteCartDetails(foodId);
+    if (carts.length)
+      setNewCarts(
+        carts.map((cart) => ({
+          id: cart.food.id,
+          amount: cart.count * cart.food.price,
+          count: cart.count,
+          name: cart.food.name,
+          price: cart.food.price,
+          food: cart.food,
+        }))
+      );
+  }, []);
 
   return (
     <>
@@ -87,15 +106,16 @@ export const CartModal: VFC<Props> = memo((props) => {
                 </Center>
               ) : (
                 <Wrap p={{ base: 4, md: 10 }} justify="space-around">
-                  {newCarts ? (
+                  {newCarts.length ? (
                     <>
                       {newCarts.map((cart, i) => (
                         <WrapItem key={i}>
                           <CartCard
-                            food={cart.food}
+                            foodId={String(cart.food.id)}
                             foodName={cart.food.name}
                             count={cart.count}
                             price={cart.price}
+                            onClick={() => onClickDelete(String(cart.food.id))}
                             onChangeCount={(newCount) => {
                               setNewCarts((s) =>
                                 s.map((newCart) => {
@@ -114,7 +134,7 @@ export const CartModal: VFC<Props> = memo((props) => {
                       ))}
                     </>
                   ) : (
-                    <p>カートはありません</p>
+                    <p>カートの中に商品はありません</p>
                   )}
                 </Wrap>
               )}
