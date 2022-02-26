@@ -1,25 +1,20 @@
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, VFC } from 'react';
+import { memo, VFC } from 'react';
 import { HStack, Text, VStack } from '@chakra-ui/layout';
-import { Food } from 'types/api/food';
 import { DeleteButton } from 'components/atoms/button/DeleteButton';
 import { Select } from '@chakra-ui/react';
 
 type Props = {
-  food: Food;
+  foodId: string;
   foodName: string;
   count: number;
   price: number;
+  onClick: (foodId: string) => void;
   onChangeCount?: (newCount: number) => void;
 };
 
 export const CartCard: VFC<Props> = memo((props) => {
-  const { food, foodName, count, price, onChangeCount } = props;
-
-  const onClickDelete = useCallback(
-    () => alert('該当するカート詳細を削除します'),
-    []
-  );
+  const { foodId, foodName, count, price, onClick, onChangeCount } = props;
 
   // Create a list of selections
 
@@ -37,7 +32,7 @@ export const CartCard: VFC<Props> = memo((props) => {
       _hover={{ cursor: 'pointer', opacity: 0.8 }}
     >
       <VStack>
-        <DeleteButton onClick={() => onClickDelete()}>削除</DeleteButton>
+        <DeleteButton onClick={() => onClick(foodId)}>削除</DeleteButton>
         <Select
           w={'20'}
           h={'8'}
