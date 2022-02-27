@@ -53,10 +53,6 @@ module Api
           @ordered_food = Food.find(params[:food_id].to_i)
         end
 
-        def set_target_cart_detail
-          @target_cart_detail = current_api_v1_user.cart_details.find_by(food_id: delete_params[:id])
-        end
-
         def cart_details_params
           params.permit(:food_id, :count)
         end
