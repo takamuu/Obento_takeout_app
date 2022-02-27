@@ -17,15 +17,11 @@ module Api
       private
 
         def set_target_cart_detail
-          @target_cart_detail = current_api_v1_user.cart_details.find_by(food_id: delete_params[:id])
+          @target_cart_detail = current_api_v1_user.cart_details.find_by(food_id: cart_details_params[:id])
         end
 
         def cart_details_params
-          params.permit(:food_id, :count)
-        end
-
-        def delete_params
-          params.permit(:id)
+          params.permit(:id, :food_id, :count)
         end
     end
   end
