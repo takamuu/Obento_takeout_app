@@ -148,7 +148,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
 
       context "カートが存在する場合 && 商品が存在する場合" do
         before {
-          @cart = create(:cart, user_id: current_user.id)
+          create(:cart, user_id: current_user.id)
           @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
         }
 
@@ -161,13 +161,25 @@ RSpec.describe "Api::V1::Carts", type: :request do
           expect { subject }.to change { CartDetail.count }.by(-1)
         end
       end
+
+      context "カートが存在する場合 && 商品が存在しない場合" do
+        let(:delete_params) { @food }
+        before {
+          create(:cart, user_id: current_user.id)
+          @food = create(:food)
+        }
+
+        it "カート詳細情報は削除できない" do
+          expect { subject }.to change { CartDetail.count }.by(0)
+        end
+      end
     end
 
     context "トークン認証情報がない場合" do
       subject { delete(api_v1_cart_path(delete_params)) }
 
       before {
-        @cart = create(:cart, user_id: current_user.id)
+        create(:cart, user_id: current_user.id)
         @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
       }
 
