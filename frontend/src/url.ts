@@ -15,8 +15,8 @@ export const foodsIndexUrl = (restaurantId: string) =>
 export const cartsUrl = `${DEFAULT_API_LOCALHOST}/carts`;
 
 export const cartDeleteUrl = (foodId: string) =>
-  `${DEFAULT_API_LOCALHOST}/carts/${foodId}`;
+  `${DEFAULT_API_LOCALHOST}/cart_details/${foodId}`;
 
-export const cartsReplaceUrl = `${DEFAULT_API_LOCALHOST}/carts/replace`;
+export const cartsReplaceUrl = `${DEFAULT_API_LOCALHOST}/cart_details/replace`;
 
 export const orders = `${DEFAULT_API_LOCALHOST}/orders`;
