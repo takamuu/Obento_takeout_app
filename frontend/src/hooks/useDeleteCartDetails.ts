@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 
 import { Cart } from 'types/api/cart';
-import { cartDeleteUrl } from '../url';
+import { cartDetailsDeleteUrl } from '../url';
 import { useMessage } from './useMessage';
 
 export const useDeleteCartDetails = () => {
@@ -16,13 +16,16 @@ export const useDeleteCartDetails = () => {
   const deleteCartDetails = useCallback(async (foodId: string) => {
     setLoading(true);
     try {
-      const result = await axios.delete<Array<Cart>>(cartDeleteUrl(foodId), {
-        headers: {
-          'access-token': Cookies.get('_access_token'),
-          client: Cookies.get('_client'),
-          uid: Cookies.get('_uid'),
-        },
-      });
+      const result = await axios.delete<Array<Cart>>(
+        cartDetailsDeleteUrl(foodId),
+        {
+          headers: {
+            'access-token': Cookies.get('_access_token'),
+            client: Cookies.get('_client'),
+            uid: Cookies.get('_uid'),
+          },
+        }
+      );
       setCarts(result.data);
       showMessage({
         title: 'フードを削除しました',
