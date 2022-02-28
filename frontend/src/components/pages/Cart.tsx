@@ -8,22 +8,24 @@ import { CartButton } from 'components/atoms/button/CartButton';
 import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
 import { NewCarts } from 'types/api/newCarts';
+import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
 
 export const Cart: VFC = memo(() => {
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
 
   useEffect(() => {
-    setNewCarts(
-      carts.map((cart) => ({
-        id: cart.food.id,
-        amount: cart.count * cart.food.price,
-        count: cart.count,
-        name: cart.food.name,
-        price: cart.food.price,
-        food: cart.food,
-      }))
-    );
+    if (carts.length)
+      setNewCarts(
+        carts.map((cart) => ({
+          id: cart.food.id,
+          amount: cart.count * cart.food.price,
+          count: cart.count,
+          name: cart.food.name,
+          price: cart.food.price,
+          food: cart.food,
+        }))
+      );
   }, [carts]);
 
   const onClickOrderButton = useCallback(() => {
@@ -37,6 +39,23 @@ export const Cart: VFC = memo(() => {
     0
   );
 
+  const { deleteCartDetails } = useDeleteCartDetails();
+
+  const onClickDelete = useCallback((foodId: string) => {
+    deleteCartDetails(foodId);
+    if (carts.length)
+      setNewCarts(
+        carts.map((cart) => ({
+          id: cart.food.id,
+          amount: cart.count * cart.food.price,
+          count: cart.count,
+          name: cart.food.name,
+          price: cart.food.price,
+          food: cart.food,
+        }))
+      );
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -49,16 +68,19 @@ export const Cart: VFC = memo(() => {
             カートページ
           </Box>
           <Wrap p={{ base: 4, md: 10 }}>
-            {newCarts ? (
+            {newCarts.length ? (
               <>
                 <VStack>
                   {newCarts.map((cart, i) => (
                     <WrapItem key={i}>
                       <CartCard
-                        food={cart.food}
+                        foodId={String(cart.food.id)}
                         foodName={cart.food.name}
                         count={cart.count}
                         price={cart.price}
+                        onClick={() => {
+                          onClickDelete(String(cart.food.id));
+                        }}
                         onChangeCount={(newCount) => {
                           setNewCarts((s) =>
                             s.map((newCart) => {
@@ -77,7 +99,7 @@ export const Cart: VFC = memo(() => {
                 </VStack>
               </>
             ) : (
-              <p>カートはありません</p>
+              <p>カートの中に商品はありません</p>
             )}
           </Wrap>
           <VStack w={'full'} h="30vh">
