@@ -7,6 +7,8 @@ module Api
       def destroy
         if @target_cart_detail
           @target_cart_detail.destroy!
+          # カートの合計金額を更新
+          current_api_v1_user.cart.update!(total_price: Cart.calc_total_price(current_api_v1_user))
           cart_info = current_api_v1_user.cart.user_has_cart_info
           render json: cart_info, status: :ok
         else
