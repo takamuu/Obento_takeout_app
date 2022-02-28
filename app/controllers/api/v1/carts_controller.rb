@@ -3,7 +3,6 @@ module Api
     class CartsController < ApplicationController
       before_action :authenticate_api_v1_user!
       before_action :set_food, only: %i[create]
-      before_action :set_target_cart_detail, only: %i[destroy]
 
       def index
         if current_api_v1_user.cart.present? && current_api_v1_user.cart_details.present?
@@ -48,32 +47,14 @@ module Api
       end
       # rubocop:enable all
 
-      def destroy
-        if @target_cart_detail
-          @target_cart_detail.destroy!
-          cart_info = current_api_v1_user.cart.user_has_cart_info
-          render json: cart_info, status: :ok
-        else
-          render json: [], status: :no_content
-        end
-      end
-
       private
 
         def set_food
           @ordered_food = Food.find(params[:food_id].to_i)
         end
 
-        def set_target_cart_detail
-          @target_cart_detail = current_api_v1_user.cart_details.find_by(food_id: delete_params[:id])
-        end
-
         def cart_details_params
           params.permit(:food_id, :count)
-        end
-
-        def delete_params
-          params.permit(:id)
         end
     end
   end
