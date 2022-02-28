@@ -13,7 +13,7 @@ RSpec.describe "Api::V1::CartDetails", type: :request do
 
       context "カートが存在する場合 && 商品が存在する場合" do
         before {
-          create(:cart, user_id: current_user.id)
+          @cart = create(:cart, user_id: current_user.id, total_price: 1000)
           @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
         }
 
@@ -24,6 +24,10 @@ RSpec.describe "Api::V1::CartDetails", type: :request do
 
         it "カート詳細情報が削除されること" do
           expect { subject }.to change { CartDetail.count }.by(-1)
+        end
+
+        it "カートの合計金額が更新されること" do
+          expect { subject }.to change { @cart.reload.total_price }.from(1000).to(0)
         end
       end
 
