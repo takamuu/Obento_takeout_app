@@ -5,8 +5,8 @@ module Api
       before_action :set_target_cart_detail, only: %i[destroy]
 
       def destroy
-        if @target_cart_detail
-          @target_cart_detail.destroy!
+        if @cart_detail
+          @cart_detail.destroy!
           # カートの合計金額を更新
           current_api_v1_user.cart.update!(total_price: Cart.calc_total_price(current_api_v1_user))
           cart_info = current_api_v1_user.cart.user_has_cart_info
@@ -19,7 +19,7 @@ module Api
       private
 
         def set_target_cart_detail
-          @target_cart_detail = current_api_v1_user.cart_details.find_by(food_id: cart_details_params[:id])
+          @cart_detail = current_api_v1_user.cart_details.find_by(food_id: cart_details_params[:id])
         end
 
         def cart_details_params
