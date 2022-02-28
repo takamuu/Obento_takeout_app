@@ -15,7 +15,9 @@ Rails.application.routes.draw do
 
       resources :carts, only: %i[index create destroy]
 
-      put "carts/replace", to: "carts#replace"
+      resources :cart_details, only: %i[destroy]
+
+      put "cart_details/replace", to: "cart_details#replace"
 
       resources :orders, only: %i[create]
     end
