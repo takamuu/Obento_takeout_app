@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         resources :foods, only: %i[index]
       end
 
-      resources :carts, only: %i[index create destroy]
+      resources :carts, only: %i[index create]
 
       resources :cart_details, only: %i[destroy]
 
