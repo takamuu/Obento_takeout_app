@@ -16,10 +16,10 @@ import { useDisclosure } from '@chakra-ui/react';
 
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
-import { CartButton } from 'components/atoms/button/CartButton';
 import { Food } from 'types/api/food';
 import { usePostCart } from 'hooks/usePostCart';
 import { CartModal } from '../cart/CartModal';
+import { FoodButton } from 'components/atoms/button/FoodButton';
 
 type Props = {
   food: Food;
@@ -106,12 +106,12 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
                 isDisabled={count >= 9}
               />
               <Spacer />
-              <CartButton onClick={() => onClickCartButton({ food, count })}>
+              <FoodButton onClick={() => onClickCartButton({ food, count })}>
                 <Text m={2}>{`${count}点をカートに追加 `}</Text>
                 <Text m={2}>{`¥${(
                   count * food?.price
                 ).toLocaleString()}`}</Text>
-              </CartButton>
+              </FoodButton>
             </ModalFooter>
           </ModalContent>
         </ModalOverlay>
