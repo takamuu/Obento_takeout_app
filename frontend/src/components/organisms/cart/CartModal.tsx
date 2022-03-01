@@ -25,6 +25,7 @@ import { CartCard } from './CartCard';
 import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
+import { useReplaceCart } from 'hooks/useReplaceCart';
 
 type Props = {
   isOpen: boolean;
@@ -35,6 +36,7 @@ export const CartModal: VFC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
+  const { replaceCart } = useReplaceCart();
 
   useEffect(() => {
     if (carts.length)
@@ -128,6 +130,12 @@ export const CartModal: VFC<Props> = memo((props) => {
                                   };
                                 })
                               );
+                              {
+                                replaceCart({
+                                  food: cart.food,
+                                  count: newCount,
+                                });
+                              }
                             }}
                           />
                         </WrapItem>
