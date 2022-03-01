@@ -20,13 +20,13 @@ class Cart < ApplicationRecord
   end
 
   # カートの合計金額を更新
-  def self.calc_total_price(current_user)
-    current_user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
+  def self.calc_total_price(user)
+    user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
   end
 
   # 追加するフードを含むカート詳細を取得
-  def self.acquire_cart_details(current_user, ordered_food)
-    current_user.cart.cart_details.find_by(food_id: ordered_food.id)
+  def self.acquire_cart_details(user, ordered_food)
+    user.cart.cart_details.find_by(food_id: ordered_food.id)
   end
 
   # カートを作成する
@@ -41,5 +41,10 @@ class Cart < ApplicationRecord
     else
       user.cart.cart_details.create!(cart_details_params)
     end
+  end
+
+  # カート詳細を更新
+  def self.updata_cart_details(cart_details, user, cart_details_params)
+    cart_details.update!(count: cart_details.count + cart_details_params[:count].to_i)
   end
 end
