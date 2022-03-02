@@ -9,10 +9,12 @@ import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
 import { NewCarts } from 'types/api/newCarts';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
+import { useReplaceCart } from 'hooks/useReplaceCart';
 
 export const Cart: VFC = memo(() => {
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
+  const { replaceCart } = useReplaceCart();
 
   useEffect(() => {
     if (carts.length)
@@ -92,6 +94,12 @@ export const Cart: VFC = memo(() => {
                               };
                             })
                           );
+                          {
+                            replaceCart({
+                              food: cart.food,
+                              count: newCount,
+                            });
+                          }
                         }}
                       />
                     </WrapItem>
