@@ -33,7 +33,7 @@ export const Page404: VFC = memo(() => {
             ください。
           </Text>
           <Spacer />
-          <Link color="teal.500" to="/">
+          <Link color="teal.500" href="/">
             トップページへ戻る
           </Link>
         </VStack>
