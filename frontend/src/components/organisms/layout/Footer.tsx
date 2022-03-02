@@ -10,7 +10,7 @@ import MainLogoReversed from 'images/MainLogoReversed.svg';
 export const Footer: VFC = memo(() => {
   const history = useHistory();
 
-  const onClickHome = useCallback(() => history.push('/restaurants'), []);
+  const onClickHome = useCallback(() => history.push('/'), []);
   const onClickContact = useCallback(() => history.push('/contact'), []);
   const onClickPolicy = useCallback(() => history.push('/policy'), []);
   const onClickCommercialTransactionsLaw = useCallback(
