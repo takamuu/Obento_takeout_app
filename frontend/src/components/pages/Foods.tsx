@@ -55,7 +55,7 @@ export const Foods: VFC = memo(() => {
   // Setting Google map
   const containerStyle = {
     width: '400px',
-    height: '47.4vh',
+    height: '267px',
   };
 
   const center = {
