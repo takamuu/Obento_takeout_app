@@ -3,12 +3,7 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, useState, VFC } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import {
-  GoogleMap,
-  LoadScript,
-  useJsApiLoader,
-  useLoadScript,
-} from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import {
   Center,
   HStack,
