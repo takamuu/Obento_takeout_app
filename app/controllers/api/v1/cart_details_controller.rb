@@ -2,13 +2,25 @@ module Api
   module V1
     class CartDetailsController < ApplicationController
       before_action :authenticate_api_v1_user!
-      before_action :set_target_cart_detail, only: %i[destroy]
 
       def destroy
+        @cart_detail = current_api_v1_user.cart_details.find_by(food_id: delete_params[:id].to_i)
         if @cart_detail
           @cart_detail.destroy!
           # カートの合計金額を更新
-          current_api_v1_user.cart.update!(total_price: Cart.calc_total_price(current_api_v1_user))
+          CartDetail.total_price_update(current_api_v1_user)
+          cart_info = current_api_v1_user.cart.user_has_cart_info
+          render json: cart_info, status: :ok
+        else
+          render json: [], status: :no_content
+        end
+      end
+
+      def replace
+        @cart_detail = current_api_v1_user.cart_details.find_by(food_id: replace_params[:food_id].to_i)
+        if @cart_detail
+          @cart_detail.update!(count: replace_params[:count].to_i)
+          CartDetail.total_price_update(current_api_v1_user)
           cart_info = current_api_v1_user.cart.user_has_cart_info
           render json: cart_info, status: :ok
         else
@@ -18,12 +30,12 @@ module Api
 
       private
 
-        def set_target_cart_detail
-          @cart_detail = current_api_v1_user.cart_details.find_by(food_id: cart_details_params[:id])
+        def delete_params
+          params.permit(:id)
         end
 
-        def cart_details_params
-          params.permit(:id, :food_id, :count)
+        def replace_params
+          params.require(:cart_detail).permit(:food_id, :count)
         end
     end
   end

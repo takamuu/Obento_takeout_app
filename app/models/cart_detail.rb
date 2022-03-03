@@ -4,7 +4,7 @@ class CartDetail < ApplicationRecord
 
   validates :count,  presence: true, numericality: { greater_than: 0 }
 
-  # active等削除したので、後で要確認
-  # scope :active, -> { where(active: true) }
-  # scope :other_restaurant, -> (picked_restaurant_id) { where.not(restaurant_id: picked_restaurant_id) }
+  def self.total_price_update(user)
+    user.cart.update!(total_price: Cart.calc_total_price(user))
+  end
 end
