@@ -9,12 +9,12 @@ type Props = {
   foodName: string;
   count: number;
   price: number;
-  onClick: (foodId: string) => void;
+  onDelete: (foodId: string) => void;
   onChangeCount?: (newCount: number) => void;
 };
 
 export const CartCard: VFC<Props> = memo((props) => {
-  const { foodId, foodName, count, price, onClick, onChangeCount } = props;
+  const { foodId, foodName, count, price, onDelete, onChangeCount } = props;
 
   // Create a list of selections
 
@@ -32,7 +32,7 @@ export const CartCard: VFC<Props> = memo((props) => {
       _hover={{ cursor: 'pointer', opacity: 0.8 }}
     >
       <VStack>
-        <DeleteButton onClick={() => onClick(foodId)}>削除</DeleteButton>
+        <DeleteButton onClick={() => onDelete(foodId)}>削除</DeleteButton>
         <Select
           w={'20'}
           h={'8'}

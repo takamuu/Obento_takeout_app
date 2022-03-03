@@ -43,20 +43,18 @@ export const Cart: VFC = memo(() => {
 
   const { deleteCartDetails } = useDeleteCartDetails();
 
-  const onClickDelete = useCallback((foodId: string) => {
+  const onClickDelete = (foodId: string) => {
     deleteCartDetails(foodId);
-    if (carts.length)
-      setNewCarts(
-        carts.map((cart) => ({
-          id: cart.food.id,
-          amount: cart.count * cart.food.price,
-          count: cart.count,
-          name: cart.food.name,
-          price: cart.food.price,
-          food: cart.food,
-        }))
-      );
-  }, []);
+    setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
+  };
+
+  const display = (newCarts) => {
+    if (newCarts.length) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  };
 
   return (
     <>
@@ -80,7 +78,7 @@ export const Cart: VFC = memo(() => {
                         foodName={cart.food.name}
                         count={cart.count}
                         price={cart.price}
-                        onClick={() => {
+                        onDelete={() => {
                           onClickDelete(String(cart.food.id));
                         }}
                         onChangeCount={(newCount) => {
@@ -107,7 +105,9 @@ export const Cart: VFC = memo(() => {
                 </VStack>
               </>
             ) : (
-              <p>カートの中に商品はありません</p>
+              <Text fontSize={'xl'} fontWeight={'bold'}>
+                カートの中に商品はありません
+              </Text>
             )}
           </Wrap>
           <VStack w={'full'} h="30vh">
@@ -127,7 +127,10 @@ export const Cart: VFC = memo(() => {
             >
               合計 {`¥${totalAmount.toLocaleString()}`}
             </Text>
-            <CartButton onClick={() => onClickOrderButton()}>
+            <CartButton
+              display={display(newCarts)}
+              onClick={() => onClickOrderButton()}
+            >
               <Text p={2}>注文する</Text>
             </CartButton>
           </VStack>

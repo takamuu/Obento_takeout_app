@@ -53,7 +53,7 @@ export const CartModal: VFC<Props> = memo((props) => {
   }, [carts]);
 
   const history = useHistory();
-  const onClickCheckOutButton = useCallback(() => {
+  const onCheckOutButton = useCallback(() => {
     onClose();
     history.push('/cart');
   }, []);
@@ -67,20 +67,18 @@ export const CartModal: VFC<Props> = memo((props) => {
 
   const { deleteCartDetails } = useDeleteCartDetails();
 
-  const onClickDelete = useCallback((foodId: string) => {
+  const onDelete = (foodId: string) => {
     deleteCartDetails(foodId);
-    if (carts.length)
-      setNewCarts(
-        carts.map((cart) => ({
-          id: cart.food.id,
-          amount: cart.count * cart.food.price,
-          count: cart.count,
-          name: cart.food.name,
-          price: cart.food.price,
-          food: cart.food,
-        }))
-      );
-  }, []);
+    setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
+  };
+
+  const display = (newCarts) => {
+    if (newCarts.length) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  };
 
   return (
     <>
@@ -117,7 +115,7 @@ export const CartModal: VFC<Props> = memo((props) => {
                             foodName={cart.food.name}
                             count={cart.count}
                             price={cart.price}
-                            onClick={() => onClickDelete(String(cart.food.id))}
+                            onDelete={() => onDelete(String(cart.food.id))}
                             onChangeCount={(newCount) => {
                               setNewCarts((s) =>
                                 s.map((newCart) => {
@@ -142,16 +140,22 @@ export const CartModal: VFC<Props> = memo((props) => {
                       ))}
                     </>
                   ) : (
-                    <p>カートの中に商品はありません</p>
+                    <Text fontSize={'xl'} fontWeight={'bold'}>
+                      カートの中に商品はありません
+                    </Text>
                   )}
                 </Wrap>
               )}
             </ModalBody>
             <Spacer />
             <ModalFooter mx={'auto'} mb={4}>
-              <CartButton onClick={() => onClickCheckOutButton()}>
+              <CartButton
+                display={display(newCarts)}
+                onClick={() => onCheckOutButton()}
+              >
                 <Text m={4}>
-                  お会計に進む {`¥${totalAmount.toLocaleString()}`}
+                  お会計に進む
+                  {`¥${totalAmount.toLocaleString()}`}
                 </Text>
               </CartButton>
             </ModalFooter>
