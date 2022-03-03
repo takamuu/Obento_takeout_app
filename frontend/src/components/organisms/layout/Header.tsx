@@ -90,9 +90,11 @@ export const Header: VFC = memo(() => {
             ログイン
           </Link>
         )}
-        <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogin}>
-          ゲストログイン
-        </Link>
+        {!loginUser && (
+          <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogin}>
+            ゲストログイン
+          </Link>
+        )}
         <Spacer />
         {loginUser && (
           <Text
