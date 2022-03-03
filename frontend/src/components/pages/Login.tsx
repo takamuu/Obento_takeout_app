@@ -3,7 +3,6 @@
 /* eslint-disable arrow-body-style */
 import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
 import {
-  Image,
   Input,
   Box,
   Divider,
@@ -13,7 +12,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import MainLogo from 'images/MainLogo.svg';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { GuestButton } from 'components/atoms/button/GuestButton';
 import { NewUserRegistrationButton } from 'components/atoms/button/NewUserRegistrationButton';
@@ -28,11 +26,9 @@ export const Login: VFC = memo(() => {
 
   const history = useHistory();
 
-  const onClickHome = useCallback(() => history.push('/'), []);
-
   // ユーザーID用State
-  const [userId, setUserId] = useState('example@example.com');
-  const [userPassword, setUserPassword] = useState('password');
+  const [userId, setUserId] = useState('');
+  const [userPassword, setUserPassword] = useState('');
 
   const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) =>
     setUserId(e.target.value);
