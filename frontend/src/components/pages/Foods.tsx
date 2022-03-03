@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-condition */
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, useEffect, VFC } from 'react';
+import { memo, useCallback, useEffect, useState, VFC } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { GoogleMap, LoadScript, useJsApiLoader } from '@react-google-maps/api';
 import {
+  AspectRatio,
   Center,
   HStack,
   Text,
@@ -11,7 +14,6 @@ import {
   WrapItem,
 } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
-import { useHistory, useParams } from 'react-router-dom';
 import { useDisclosure } from '@chakra-ui/hooks';
 
 import { useFoods } from 'hooks/useFoods';
@@ -49,6 +51,24 @@ export const Foods: VFC = memo(() => {
   );
 
   const onClickHome = useCallback(() => history.push(`/`), []);
+
+  // Google map
+  // const { isLoaded } = useJsApiLoader({
+  //   id: 'google-map-script',
+  //   googleMapsApiKey: 'AIzaSyDtd5BGzAazlZGykozPUekXi2iGsFksJ90',
+  // });
+
+  // const [map, setMap] = useState(null);
+
+  // const onLoad = useCallback(function callback(map) {
+  //   const bounds = new window.google.maps.LatLngBounds();
+  //   map.fitBounds(bounds);
+  //   setMap(map);
+  // }, []);
+
+  // const onUnmount = useCallback(function callback(map) {
+  //   setMap(null);
+  // }, []);
 
   return (
     <>
@@ -96,13 +116,16 @@ export const Foods: VFC = memo(() => {
               </Text>
             </VStack>
             <VStack paddingBottom={{ sm: '10', md: '0' }}>
-              <Center
-                w={{ sm: '400px', md: '500px' }}
-                h={{ sm: '200px', md: '270px' }}
-                bg="gray.200"
-              >
-                Google Map
-              </Center>
+              <LoadScript googleMapsApiKey="AIzaSyDtd5BGzAazlZGykozPUekXi2iGsFksJ90">
+                <GoogleMap
+                  mapContainerStyle={{
+                    width: '400px',
+                    height: '270px',
+                  }}
+                  center={{ lat: 34.6663, lng: 133.91779 }}
+                  zoom={17}
+                ></GoogleMap>
+              </LoadScript>
               <Text
                 fontFamily={'sans-serif'}
                 fontWeight={'bold'}
