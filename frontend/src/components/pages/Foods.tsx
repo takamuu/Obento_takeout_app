@@ -3,9 +3,13 @@
 /* eslint-disable arrow-body-style */
 import { memo, useCallback, useEffect, useState, VFC } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { GoogleMap, LoadScript, useJsApiLoader } from '@react-google-maps/api';
 import {
-  AspectRatio,
+  GoogleMap,
+  LoadScript,
+  useJsApiLoader,
+  useLoadScript,
+} from '@react-google-maps/api';
+import {
   Center,
   HStack,
   Text,
@@ -21,6 +25,7 @@ import { FoodCard } from 'components/organisms/food/FoodCard';
 import { FoodOrderModal } from 'components/organisms/food/FoodOrderModal';
 import { useSelectFood } from 'hooks/useSelectFood';
 import { Image } from '@chakra-ui/react';
+// import mapStyles from './mapUtils/mapStyles';
 
 export const Foods: VFC = memo(() => {
   // For FoodModal
@@ -50,25 +55,37 @@ export const Foods: VFC = memo(() => {
     [foods, onSelectFood, onOpen]
   );
 
-  const onClickHome = useCallback(() => history.push(`/`), []);
+  const onClickHome = () => history.push(`/`);
 
-  // Google map
-  // const { isLoaded } = useJsApiLoader({
-  //   id: 'google-map-script',
-  //   googleMapsApiKey: 'AIzaSyDtd5BGzAazlZGykozPUekXi2iGsFksJ90',
-  // });
+  // Setting Google map
+  const containerStyle = {
+    width: '400px',
+    height: '47.4vh',
+  };
 
-  // const [map, setMap] = useState(null);
+  const center = {
+    lat: 34.6663,
+    lng: 133.91779,
+  };
 
-  // const onLoad = useCallback(function callback(map) {
-  //   const bounds = new window.google.maps.LatLngBounds();
-  //   map.fitBounds(bounds);
-  //   setMap(map);
-  // }, []);
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+  });
 
-  // const onUnmount = useCallback(function callback(map) {
-  //   setMap(null);
-  // }, []);
+  const [map, setMap] = useState(null);
+
+  const onLoad = (map) => {
+    const sw = new window.google.maps.LatLng(34.6653, 133.91769);
+    const ne = new window.google.maps.LatLng(34.6673, 133.91789);
+    const bounds = new window.google.maps.LatLngBounds(sw, ne);
+    map.fitBounds(bounds);
+    setMap(map);
+  };
+
+  const onUnmount = (map) => {
+    setMap(null);
+  };
 
   return (
     <>
@@ -116,16 +133,17 @@ export const Foods: VFC = memo(() => {
               </Text>
             </VStack>
             <VStack paddingBottom={{ sm: '10', md: '0' }}>
-              <LoadScript googleMapsApiKey="AIzaSyDtd5BGzAazlZGykozPUekXi2iGsFksJ90">
+              {isLoaded ? (
                 <GoogleMap
-                  mapContainerStyle={{
-                    width: '400px',
-                    height: '270px',
-                  }}
-                  center={{ lat: 34.6663, lng: 133.91779 }}
+                  mapContainerStyle={containerStyle}
+                  center={center}
                   zoom={17}
+                  onLoad={onLoad}
+                  onUnmount={onUnmount}
                 ></GoogleMap>
-              </LoadScript>
+              ) : (
+                <></>
+              )}
               <Text
                 fontFamily={'sans-serif'}
                 fontWeight={'bold'}
