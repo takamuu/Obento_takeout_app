@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, VFC } from 'react';
+import { memo, VFC } from 'react';
 import { HStack, Link, Spacer, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/image';
 import { useDisclosure } from '@chakra-ui/hooks';
@@ -32,20 +32,21 @@ export const Header: VFC = memo(() => {
   const { logout } = useAuth();
   const history = useHistory();
 
-  const onClickHome = useCallback(() => history.push('/'), []);
-  const onClickLogin = useCallback(() => history.push('/login'), []);
-  const onClickContact = useCallback(() => history.push('/contact'), []);
-  const onClickHowToUseBenteku = useCallback(
-    () => history.push('/how_to_use_benteku'),
-    []
-  );
-  const onClickMyPage = useCallback(() => history.push('/my_page'), []);
+  const onHome = () => history.push('/');
+  const onLogin = () => history.push('/login');
+  const onContact = () => history.push('/contact');
+  const onHowToUseBenteku = () => history.push('/how_to_use_benteku');
+  const onMyPage = () => history.push('/my_page');
 
-  const onClickLogout = () => logout();
+  const onLogout = () => logout();
 
-  const onClickCartModal = useCallback(() => {
-    onOpenCartModal();
-  }, []);
+  const onCartModal = () => {
+    if (loginUser) {
+      onOpenCartModal();
+    } else {
+      history.push('/login');
+    }
+  };
 
   return (
     <>
@@ -69,29 +70,29 @@ export const Header: VFC = memo(() => {
           alt="MainLogo"
           display={{ base: 'none', md: 'flex' }}
           _hover={{ opacity: '0.8', cursor: 'pointer' }}
-          onClick={onClickHome}
+          onClick={onHome}
         />
         <Link
           paddingLeft={2}
           display={{ base: 'none', md: 'flex' }}
-          onClick={onClickHowToUseBenteku}
+          onClick={onHowToUseBenteku}
         >
           弁テクの使い方
         </Link>
-        <Link display={{ base: 'none', md: 'flex' }} onClick={onClickContact}>
+        <Link display={{ base: 'none', md: 'flex' }} onClick={onContact}>
           お問い合わせ
         </Link>
         {loginUser ? (
-          <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogout}>
+          <Link display={{ base: 'none', md: 'flex' }} onClick={onLogout}>
             ログアウト
           </Link>
         ) : (
-          <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogin}>
+          <Link display={{ base: 'none', md: 'flex' }} onClick={onLogin}>
             ログイン
           </Link>
         )}
         {!loginUser && (
-          <Link display={{ base: 'none', md: 'flex' }} onClick={onClickLogin}>
+          <Link display={{ base: 'none', md: 'flex' }} onClick={onLogin}>
             ゲストログイン
           </Link>
         )}
@@ -100,7 +101,7 @@ export const Header: VFC = memo(() => {
           <Text
             _hover={{ opacity: '0.8', cursor: 'pointer' }}
             fontWeight={'bold'}
-            onClick={onClickMyPage}
+            onClick={onMyPage}
           >
             {loginUser.name + `さん`}
           </Text>
@@ -110,14 +111,14 @@ export const Header: VFC = memo(() => {
           src={CartIcon}
           alt="CartIcon"
           _hover={{ opacity: '0.8', cursor: 'pointer' }}
-          onClick={onClickCartModal}
+          onClick={onCartModal}
         />
       </HStack>
       <MenuDrawer
         onClose={onCloseMenuDrawer}
         isOpen={isOpenMenuDrawer}
-        onClickHome={onClickHome}
-        onClickLogin={onClickLogin}
+        onHome={onHome}
+        onLogin={onLogin}
       />
       {isOpenCartModal && (
         <CartModal isOpen={isOpenCartModal} onClose={onCloseCartModal} />

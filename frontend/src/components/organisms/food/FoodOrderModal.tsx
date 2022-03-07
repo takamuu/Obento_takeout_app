@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, useState, VFC } from 'react';
+import { memo, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
 import { Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
@@ -20,6 +20,8 @@ import { Food } from 'types/api/food';
 import { usePostCart } from 'hooks/usePostCart';
 import { CartModal } from '../cart/CartModal';
 import { FoodButton } from 'components/atoms/button/FoodButton';
+import { useLoginUser } from 'hooks/useLoginUser';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   food: Food;
@@ -32,9 +34,9 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
 
   const [count, setCount] = useState(1);
 
-  const onClickUpCount = () => setCount(count + 1);
+  const onUpCount = () => setCount(count + 1);
 
-  const onClickDownCount = () => setCount(count - 1);
+  const onDownCount = () => setCount(count - 1);
 
   const { postCart } = usePostCart();
 
@@ -45,12 +47,18 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     onClose: onCloseCartModal,
   } = useDisclosure();
 
-  const onClickCartButton = useCallback(({ food, count }) => {
-    postCart({ food: food, count: count });
-    setCount(1);
-    onClose();
-    onOpenCartModal();
-  }, []);
+  const history = useHistory();
+  const { loginUser } = useLoginUser();
+  const onCartButton = ({ food, count }) => {
+    if (loginUser) {
+      postCart({ food: food, count: count });
+      setCount(1);
+      onClose();
+      onOpenCartModal();
+    } else {
+      history.push('/login');
+    }
+  };
 
   return (
     <>
@@ -95,18 +103,18 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
             </ModalBody>
             <ModalFooter>
               <CountDownButton
-                onClick={() => onClickDownCount()}
+                onClick={() => onDownCount()}
                 isDisabled={count <= 1}
               />
               <Text fontSize="xl" fontWeight={'bold'} p={4}>
                 {count}
               </Text>
               <CountUpButton
-                onClick={() => onClickUpCount()}
+                onClick={() => onUpCount()}
                 isDisabled={count >= 9}
               />
               <Spacer />
-              <FoodButton onClick={() => onClickCartButton({ food, count })}>
+              <FoodButton onClick={() => onCartButton({ food, count })}>
                 <Text m={2}>{`${count}点をカートに追加 `}</Text>
                 <Text m={2}>{`¥${(
                   count * food?.price
