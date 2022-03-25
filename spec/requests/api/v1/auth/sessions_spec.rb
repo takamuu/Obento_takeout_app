@@ -64,4 +64,22 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
       end
     end
   end
+
+  # ゲストログイン
+  describe "POST /api/v1/auth/sessions/guest_sign_in" do
+    context "リクエストが送信された時" do
+      subject { post(api_v1_auth_guest_sign_in_path) }
+
+      it "ゲストログインできる" do
+        subject
+        expect(response).to have_http_status(:ok)
+        header = response.header
+        expect(header["access-token"]).to be_present
+        expect(header["client"]).to be_present
+        expect(header["expiry"]).to be_present
+        expect(header["uid"]).to be_present
+        expect(header["token-type"]).to be_present
+      end
+    end
+  end
 end
