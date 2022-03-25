@@ -19,10 +19,12 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 import { SignInParams } from 'types/api/sign';
 import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
+import { useGuestAuth } from 'hooks/useGuestAuth';
 
 export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
   const { newUserRegistrationLoading } = useNewUserRegistration();
+  const { guestLogin, loading: guestLoading } = useGuestAuth();
 
   const history = useHistory();
 
@@ -40,13 +42,14 @@ export const Login: VFC = memo(() => {
     email: userId,
     password: userPassword,
   };
-  const onClickLogin = () => login(params);
+  const onLogin = () => login(params);
 
-  const onClickNewUserRegistration = useCallback(
+  const onNewUserRegistration = useCallback(
     () => history.push('/new_user_registration'),
     [history]
   );
 
+  const onGuestLogin = () => guestLogin();
   return (
     <Flex bg="gray.200" align="center" justify="center" height="70vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
@@ -84,14 +87,16 @@ export const Login: VFC = memo(() => {
           <PrimaryButton
             disabled={!userId || !userPassword}
             loading={loading}
-            onClick={onClickLogin}
+            onClick={onLogin}
           >
             ログイン
           </PrimaryButton>
-          <GuestButton>ゲストログイン</GuestButton>
+          <GuestButton loading={guestLoading} onClick={onGuestLogin}>
+            ゲストログイン
+          </GuestButton>
           <NewUserRegistrationButton
             loading={newUserRegistrationLoading}
-            onClick={onClickNewUserRegistration}
+            onClick={onNewUserRegistration}
           >
             新規登録
           </NewUserRegistrationButton>
