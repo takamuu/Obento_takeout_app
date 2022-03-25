@@ -26,4 +26,14 @@ class User < ApplicationRecord
     active: 0,
     supended: 1,
   }
+
+  # ゲストユーザーが存在しない場合、ゲストユーザーを作成
+  def self.guest
+    find_or_create_by!(email: "guest@example.com") do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲストユーザー"
+      user.kana = "ゲストユーザー"
+      user.phone_number = "00012345678"
+    end
+  end
 end
