@@ -35,7 +35,6 @@ export const useGuestAuth = () => {
       history.push('/');
       showMessage({ title: 'ゲストログインしました', status: 'success' });
     } catch (e) {
-      alert(e);
       showMessage({
         title: 'ゲストログインできませんでした',
         status: 'error',
