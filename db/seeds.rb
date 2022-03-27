@@ -1,3 +1,5 @@
+require "securerandom"
+
 CartDetail.delete_all
 Cart.delete_all
 Order.delete_all
@@ -15,14 +17,8 @@ RESTAURANT_NUM = 10
 FOOD_NUM = 12
 NUMBER_OF_REPEATS = 3
 
-# Order
-ORDER_NUM = 5
-
-# Cart
-CART_NUM = 5
-
 # CartDetail
-CART_DETAIL_NUM = 5
+RCEIPT_NUMBER = SecureRandom.alphanumeric(3)
 
 #-----------------------------------------
 # User
@@ -270,41 +266,69 @@ Food.create!(
 Rails.logger.debug "foodテストデータを作成OK！".green
 
 #-----------------------------------------
-# Order
-#-----------------------------------------
-ORDER_NUM.times do |o|
-  Order.create!(
-    user_id: 1,
-    rceipt_number: "AAAA#{o}",
-    total_price: 3000,
-    consumption_tax: 300,
-    progress_status: 0,
-  )
-end
-
-Rails.logger.debug "orderテストデータを作成OK！".green
-
-#-----------------------------------------
 # Cart
 #-----------------------------------------
-CART_NUM.times do |c|
-  Cart.create!(
-    user_id: c + 1,
-    total_price: 1500,
-  )
-end
+Cart.create!(
+  user_id: 1,
+  total_price: 2300,
+)
+
+Cart.create!(
+  user_id: 2,
+  total_price: 1600,
+)
 
 Rails.logger.debug "cartテストデータを作成OK！".green
 
 #-----------------------------------------
 # CartDetail
 #-----------------------------------------
-CART_DETAIL_NUM.times do |t|
-  CartDetail.create!(
-    food_id: t + 1,
-    cart_id: t + 1,
-    count: t + 1,
-  )
-end
+CartDetail.create!(
+  food_id: 1,
+  cart_id: 1,
+  count: 1,
+)
+
+CartDetail.create!(
+  food_id: 2,
+  cart_id: 1,
+  count: 1,
+)
+
+CartDetail.create!(
+  food_id: 1,
+  cart_id: 2,
+  count: 2,
+)
+
+Rails.logger.debug "cart_detailテストデータを作成OK！".green
+
+#-----------------------------------------
+# Order
+#-----------------------------------------
+Order.create!(
+  user_id: 1,
+  rceipt_number: "16 #{RCEIPT_NUMBER}",
+  total_price: 2300,
+  consumption_tax: 300,
+  progress_status: 0,
+)
+
+Rails.logger.debug "orderテストデータを作成OK！".green
+
+#-----------------------------------------
+# OrderDetail
+#-----------------------------------------
+OrderDetail.create!(
+  food_id: 1,
+  order_id: 1,
+  count: 1,
+)
+
+OrderDetail.create!(
+  food_id: 2,
+  order_id: 1,
+  count: 1,
+)
 
 Rails.logger.debug "cart_detailテストデータを作成OK！".green
