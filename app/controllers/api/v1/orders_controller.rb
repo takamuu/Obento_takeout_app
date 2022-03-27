@@ -1,6 +1,16 @@
 module Api
   module V1
     class OrdersController < ApplicationController
+      before_action :authenticate_api_v1_user!
+
+      def index
+        if current_api_v1_user.orders.present? && current_api_v1_user.order_details.present?
+          render json: current_api_v1_user.orders, status: :ok
+        else
+          render json: [], status: :no_content
+        end
+      end
+
       # def create
       #     posted_line_foods = LineFood.where(id: params[:line_food_ids])
       #     order = Order.new(
