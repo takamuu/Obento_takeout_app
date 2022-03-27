@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable arrow-body-style */
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
