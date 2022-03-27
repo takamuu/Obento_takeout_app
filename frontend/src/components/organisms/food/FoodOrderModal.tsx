@@ -49,12 +49,13 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
 
   const history = useHistory();
   const { loginUser } = useLoginUser();
-  const onCartButton = ({ food, count }) => {
+  const onCartButton = async ({ food, count }) => {
     if (loginUser) {
-      postCart({ food: food, count: count });
-      setCount(1);
-      onClose();
-      onOpenCartModal();
+      await postCart({ food: food, count: count }).then(() => {
+        onClose();
+        setCount(1);
+        onOpenCartModal();
+      });
     } else {
       history.push('/login');
     }
@@ -125,7 +126,12 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
         </ModalOverlay>
       </Modal>
       {isOpenCartModal && (
-        <CartModal isOpen={isOpenCartModal} onClose={onCloseCartModal} />
+        <CartModal
+          food={food}
+          count={count}
+          isOpen={isOpenCartModal}
+          onClose={onCloseCartModal}
+        />
       )}
     </>
   );
