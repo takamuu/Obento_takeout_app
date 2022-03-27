@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
       put "cart_details/replace", to: "cart_details#replace"
 
-      resources :orders, only: %i[create]
+      resources :orders, only: %i[index create]
     end
   end
 
