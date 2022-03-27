@@ -26,17 +26,24 @@ import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
 import { useReplaceCart } from 'hooks/useReplaceCart';
+import { Food } from 'types/api/food';
 
 type Props = {
+  food?: Food;
+  count?: number;
   isOpen: boolean;
   onClose: () => void;
 };
 
 export const CartModal: VFC<Props> = memo((props) => {
-  const { isOpen, onClose } = props;
+  const { food, count, isOpen, onClose } = props;
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
   const { replaceCart } = useReplaceCart();
+
+  console.log(food, count);
+  console.log(carts);
+  console.log(newCarts);
 
   useEffect(() => {
     if (carts.length)
