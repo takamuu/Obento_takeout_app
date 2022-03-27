@@ -26,12 +26,12 @@ export const useGuestAuth = () => {
           'Content-Type': 'application/json',
         },
       });
-      const result = await res.json();
-      setLoginUser(result.data);
-      const res2 = await axios.post<User>(guestSignInUrl);
-      Cookies.set('_access_token', res2.headers['access-token']);
-      Cookies.set('_client', res2.headers['client']);
-      Cookies.set('_uid', res2.headers['uid']);
+      const resForUserName = await res.json();
+      setLoginUser(resForUserName.data);
+      const resForCookies = await axios.post<User>(guestSignInUrl);
+      Cookies.set('_access_token', resForCookies.headers['access-token']);
+      Cookies.set('_client', resForCookies.headers['client']);
+      Cookies.set('_uid', resForCookies.headers['uid']);
       history.push('/');
       showMessage({ title: 'ゲストログインしました', status: 'success' });
     } catch (e) {
