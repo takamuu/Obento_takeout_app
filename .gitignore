@@ -9,6 +9,7 @@
 /.bundle
 /vendor/bundle/
 /.vscode
+/.env
 
 /public
 /node_modules/
