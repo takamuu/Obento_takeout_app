@@ -28,6 +28,7 @@ gem "rails-i18n", "~> 6.0.0" # 日本語化
 
 group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "dotenv-rails"
   gem "pry-byebug"        # デバッグ用
   gem "pry-doc"           # デバッグ用
   gem "pry-rails"
