@@ -21,11 +21,6 @@ class Order < ApplicationRecord
     user.orders.present? && user.order_details.present?
   end
 
-  def self.formatted_parchase_history(user)
-    user.orders
-    user.order_details
-  end
-
   def self.confirm_cart_presence?(params)
     users_cart = Cart.find_by(user_id: params[:user_id].to_i)
     users_cart.present? && CartDetail.find_by(cart_id: users_cart.id).present?
