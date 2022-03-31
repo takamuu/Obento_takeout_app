@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CartDetail, type: :model do
-  describe "バリデーションのチェック" do
+  describe "動作チェック" do
     subject { cart_detail.valid? }
 
     context "データが条件を満たす時" do
