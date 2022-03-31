@@ -21,27 +21,22 @@ class Order < ApplicationRecord
     user.orders.present? && user.order_details.present?
   end
 
-  def self.formatted_parchase_history(user)
-    user.orders
-    user.order_details
-  end
-
-  def self.confirm_cart_presence?(params)
-    users_cart = Cart.find_by(user_id: params[:user_id].to_i)
+  def self.confirm_cart_presence?(user_id)
+    users_cart = Cart.find_by(user_id: user_id)
     users_cart.present? && CartDetail.find_by(cart_id: users_cart.id).present?
   end
 
   def self.create_order_history(user)
     ActiveRecord::Base.transaction do
       # 注文履歴を作成
-      order_create(user)
+      order_create!(user)
       # カート詳細から注文履歴詳細を作成
-      order_details_create(user)
-      user.cart.destroy
+      order_details_create!(user)
+      user.cart.destroy!
     end
   end
 
-  def self.order_create(user)
+  def self.order_create!(user)
     user.orders.create!(
       user_id: user.id,
       rceipt_number: "#{Date.today.day} #{SecureRandom.alphanumeric(3)}", # rubocop:disable Rails/Date
@@ -51,7 +46,7 @@ class Order < ApplicationRecord
     )
   end
 
-  def self.order_details_create(user)
+  def self.order_details_create!(user)
     user.cart_details.each do |cart_detail|
       OrderDetail.create!(
         order_id: user.orders.last.id,
