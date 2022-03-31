@@ -75,7 +75,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
 
         it "カート情報が更新される" do
-          expect { subject }.to change { @cart.reload.total_price }.from(0).to(3000)
+          expect { subject }.to change { @cart.reload.total_price }.from(1000).to(3000)
         end
 
         it "カート詳細情報が更新される" do
@@ -98,7 +98,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
 
         it "カートが更新される" do
-          expect { subject }.to change { @cart.reload.total_price }.from(0).to(2000)
+          expect { subject }.to change { @cart.reload.total_price }.from(1000).to(2000)
         end
 
         it "カート詳細が作成される" do
