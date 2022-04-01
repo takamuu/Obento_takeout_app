@@ -27,13 +27,18 @@ class Order < ApplicationRecord
   end
 
   def self.create_order_history(user)
-    ActiveRecord::Base.transaction do
+    all_success = true
+    transaction do
       # 注文履歴を作成
-      order_create!(user)
+      all_success &= order_create!(user)
       # カート詳細から注文履歴詳細を作成
-      order_details_create!(user)
-      user.cart.destroy!
+      all_success &= OrderDetail.order_details_create!(user)
+      all_success &= user.cart.destroy!
+      unless all_success
+        raise ActiveRecord::Rollback
+      end
     end
+    all_success
   end
 
   def self.order_create!(user)
@@ -44,15 +49,5 @@ class Order < ApplicationRecord
       consumption_tax: (BigDecimal(user.cart.total_price) * BigDecimal(ENV["CONSUMPTION_TAX"])).ceil,
       progress_status: "orde",
     )
-  end
-
-  def self.order_details_create!(user)
-    user.cart_details.each do |cart_detail|
-      OrderDetail.create!(
-        order_id: user.orders.last.id,
-        food_id: cart_detail.food_id,
-        count: cart_detail.count,
-      )
-    end
   end
 end
