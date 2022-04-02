@@ -11,8 +11,9 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   has_one :cart,    dependent: :destroy
-  has_many :orders, dependent: :destroy
   has_many :cart_details, through: :cart, source: :cart_details
+  has_many :orders, dependent: :destroy
+  has_many :order_details, through: :orders, source: :order_details
 
   validates :name,         presence: true
   validates :kana,         presence: true

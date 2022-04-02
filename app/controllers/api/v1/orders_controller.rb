@@ -1,23 +1,29 @@
 module Api
   module V1
     class OrdersController < ApplicationController
-      # def create
-      #     posted_line_foods = LineFood.where(id: params[:line_food_ids])
-      #     order = Order.new(
-      #       total_price: total_price(posted_line_foods),
-      #     )
-      #     if order.save_with_update_line_foods!(posted_line_foods)
-      #       render json: {}, status: :no_content
-      #     else
-      #       render json: {}, status: :internal_server_error
-      #     end
-      #   end
+      before_action :authenticate_api_v1_user!
 
-      #   private
+      def index
+        if Order.check_users_order_history?(current_api_v1_user)
+          render json: current_api_v1_user.orders, status: :ok
+        else
+          render json: [], status: :no_content
+        end
+      end
 
-      #   def total_price(posted_line_foods)
-      #     posted_line_foods.sum {|line_food| line_food.total_amount } + posted_line_foods.first.restaurant.fee
-      #   end
+      def create
+        if Order.confirm_cart_presence?(order_params[:user_id].to_i) && Order.create_order_history(current_api_v1_user)
+          render status: :ok
+        else
+          render status: :no_content
+        end
+      end
+
+      private
+
+        def order_params
+          params.permit(:user_id)
+        end
     end
   end
 end
