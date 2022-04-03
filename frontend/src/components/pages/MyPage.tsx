@@ -1,11 +1,11 @@
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
-import { Button, Checkbox, Input, Textarea } from '@chakra-ui/react';
+import { memo, VFC } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
 import {
   Box,
   Divider,
   Flex,
-  HStack,
   Spacer,
   Stack,
   Text,
@@ -13,11 +13,11 @@ import {
 } from '@chakra-ui/layout';
 
 export const MyPage: VFC = memo(() => {
-  const [contactTitle, setContactTitle] = useState('');
-  const [isChecked, setisChecked] = useState(false);
+  const history = useHistory();
 
-  const onChangeContactTitle = (e: ChangeEvent<HTMLInputElement>) =>
-    setContactTitle(e.target.value);
+  const onBackButton = () => history.push('/');
+
+  const onOrderHistoryButton = () => history.push('/order_history');
 
   return (
     <Flex bg="gray.200" align="center" justify="center" height="70vh">
@@ -35,8 +35,21 @@ export const MyPage: VFC = memo(() => {
         <Stack spacing={4} py={4} px={10}>
           <Divider borderColor="brand" my={4} />
           <Spacer />
-          <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
+          <Button
+            bg="brand"
+            color="white"
+            _hover={{ opacity: 0.8 }}
+            onClick={() => onBackButton()}
+          >
             戻る
+          </Button>
+          <Button
+            bg="brand"
+            color="white"
+            _hover={{ opacity: 0.8 }}
+            onClick={() => onOrderHistoryButton()}
+          >
+            購入履歴
           </Button>
         </Stack>
       </Box>
