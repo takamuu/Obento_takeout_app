@@ -7,13 +7,11 @@ export type Orders = {
   progress_status?: string;
   restaurant_name?: string;
   created_at?: string;
-  order_details?: OrderDetail;
+  order_details?: OrderDetail[];
 };
 
-export type OrderDetail = [
-  {
-    food_name: string | null;
-    food_price: string;
-    count: number;
-  }
-];
+export type OrderDetail = {
+  food_name: string;
+  food_price: number;
+  count: number;
+};
