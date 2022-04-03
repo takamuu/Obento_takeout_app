@@ -6,7 +6,7 @@ module Api
       def index
         if Order.check_users_order_history?(current_api_v1_user)
           @orders = current_api_v1_user.orders
-          render json: @orders, include: { order_details: [:food_id] }, status: :ok
+          render json: @orders, include: { order_details: [:food] }, status: :ok
         else
           render json: [], status: :no_content
         end
