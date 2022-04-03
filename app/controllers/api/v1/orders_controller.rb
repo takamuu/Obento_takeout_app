@@ -13,8 +13,7 @@ module Api
       end
 
       def create
-        if Order.confirm_cart_presence?(order_params)
-          Order.create_order_history(current_api_v1_user)
+        if Order.confirm_cart_presence?(order_params[:user_id].to_i) && Order.create_order_history(current_api_v1_user)
           render status: :ok
         else
           render status: :no_content
