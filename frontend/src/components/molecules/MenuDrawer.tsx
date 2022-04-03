@@ -23,7 +23,7 @@ export const MenuDrawer: VFC<Props> = memo((props) => {
 
   const onHowToUseBenteku = () => history.push('/how_to_use_benteku');
   const onMyPage = () => history.push('/my_page');
-  const onPurchaseHistory = () => history.push('/purchase_history');
+  const onOrderHistory = () => history.push('/order_history');
 
   return (
     <Drawer placement="left" size="xs" onClose={onClose} isOpen={isOpen}>
@@ -44,7 +44,7 @@ export const MenuDrawer: VFC<Props> = memo((props) => {
               マイページ
             </Button>
             <Button w="100%">受取票を表示する</Button>
-            <Button w="100%" onClick={onPurchaseHistory}>
+            <Button w="100%" onClick={onOrderHistory}>
               購入履歴
             </Button>
             <Button w="100%">サインアウト</Button>
