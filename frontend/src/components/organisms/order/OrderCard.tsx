@@ -9,12 +9,13 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/layout';
+import { OrderDetail } from 'types/api/orders';
 
 type Props = {
   createdAt: string;
   restaurantName: string;
   totalPrice: number;
-  orderDetails: any;
+  orderDetails: OrderDetail[];
 };
 
 export const OrderCard: VFC<Props> = memo((props) => {
@@ -45,63 +46,45 @@ export const OrderCard: VFC<Props> = memo((props) => {
             {restaurantName}
           </Box>
           <VStack>
-            {orderDetails.map(
-              (
-                detail: {
-                  food_name: string;
-                  count: number;
-                  food_price: number;
-                },
-                j: any
-              ) => (
-                <WrapItem key={j}>
-                  <HStack>
-                    <Box
-                      w={{ sm: '94px', md: '140px' }}
-                      fontSize={{ sm: 'xs', md: 'lg' }}
-                      fontWeight={'bold'}
-                      textAlign={'left'}
-                      isTruncated
-                    >
-                      {detail.food_name}
-                    </Box>
-                    <Box
-                      w={{ sm: '20px', md: '30px' }}
-                      fontSize={{ sm: 'xs', md: 'lg' }}
-                      fontWeight={'bold'}
-                      textAlign={'right'}
-                      isTruncated
-                    >
-                      {detail.count}
-                    </Box>
-                  </HStack>
-                </WrapItem>
-              )
-            )}
-          </VStack>
-          <VStack>
-            {orderDetails.map(
-              (
-                detail: {
-                  food_name: string;
-                  count: number;
-                  food_price: number;
-                },
-                k: any
-              ) => (
-                <WrapItem key={k}>
+            {orderDetails.map((detail, j) => (
+              <WrapItem key={j}>
+                <HStack>
                   <Box
-                    w={{ sm: '122px', md: '180px' }}
+                    w={{ sm: '94px', md: '140px' }}
+                    fontSize={{ sm: 'xs', md: 'lg' }}
+                    fontWeight={'bold'}
+                    textAlign={'left'}
+                    isTruncated
+                  >
+                    {detail.food_name}
+                  </Box>
+                  <Box
+                    w={{ sm: '20px', md: '30px' }}
                     fontSize={{ sm: 'xs', md: 'lg' }}
                     fontWeight={'bold'}
                     textAlign={'right'}
                     isTruncated
                   >
-                    ¥ {(detail.food_price * detail.count).toLocaleString()}
+                    {detail.count}
                   </Box>
-                </WrapItem>
-              )
-            )}
+                </HStack>
+              </WrapItem>
+            ))}
+          </VStack>
+          <VStack>
+            {orderDetails.map((detail, k) => (
+              <WrapItem key={k}>
+                <Box
+                  w={{ sm: '122px', md: '180px' }}
+                  fontSize={{ sm: 'xs', md: 'lg' }}
+                  fontWeight={'bold'}
+                  textAlign={'right'}
+                  isTruncated
+                >
+                  ¥ {(detail.food_price * detail.count).toLocaleString()}
+                </Box>
+              </WrapItem>
+            ))}
           </VStack>
         </HStack>
         <Box
