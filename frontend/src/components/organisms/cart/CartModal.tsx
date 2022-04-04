@@ -41,10 +41,6 @@ export const CartModal: VFC<Props> = memo((props) => {
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
   const { replaceCart } = useReplaceCart();
 
-  console.log(food, count);
-  console.log(carts);
-  console.log(newCarts);
-
   useEffect(() => {
     if (carts.length)
       setNewCarts(
