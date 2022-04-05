@@ -50,7 +50,7 @@ export const OrderHistory: VFC = memo(() => {
           <HStack>
             <Box
               h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '70px', md: '80px' }}
+              w={{ sm: '62px', md: '80px' }}
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
@@ -90,7 +90,7 @@ export const OrderHistory: VFC = memo(() => {
             </Box>
             <Box
               h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '70px', md: '80px' }}
+              w={{ sm: '68px', md: '80px' }}
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
@@ -99,7 +99,11 @@ export const OrderHistory: VFC = memo(() => {
               受取番号
             </Box>
           </HStack>
-          <Divider w={'740px'} borderColor={'brand'} border={'1px'} />
+          <Divider
+            w={{ sm: '460px', md: '730px' }}
+            borderColor={'brand'}
+            border={'1px'}
+          />
           <Wrap>
             {orders.length ? (
               <>
@@ -124,7 +128,7 @@ export const OrderHistory: VFC = memo(() => {
               </Text>
             )}
           </Wrap>
-          <Flex w={'100%'} pt={20} pb={40} justify="center" align="center">
+          <Flex w={'100%'} pt={20} pb={28} justify="center" align="center">
             <Button
               w={200}
               bg={'brand'}
