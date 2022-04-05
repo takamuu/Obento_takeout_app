@@ -7,7 +7,7 @@ import { HowToUseBenteku } from 'components/pages/HowToUseBenteku';
 import { TermsOfUse } from 'components/pages/TermsOfUse';
 import { Policy } from 'components/pages/Policy';
 import { CommercialTransactionsLaw } from 'components/pages/CommercialTransactionsLaw';
-import { PurchaseHistory } from 'components/pages/PurchaseHistory';
+import { OrderHistory } from 'components/pages/OrderHistory';
 import { MyPage } from 'components/pages/MyPage';
 import { NewUserRegistration } from 'components/pages/NewUserRegistration';
 import { Login } from 'components/pages/Login';
@@ -54,9 +54,9 @@ export const Routes = [
     children: <TermsOfUse />,
   },
   {
-    path: 'purchase_history',
+    path: 'order_history',
     exact: false,
-    children: <PurchaseHistory />,
+    children: <OrderHistory />,
   },
   {
     path: 'login',

@@ -13,7 +13,7 @@ type Props = {
   onChangeCount?: (newCount: number) => void;
 };
 
-export const CartCard: VFC<Props> = memo((props) => {
+export const CartModalCard: VFC<Props> = memo((props) => {
   const { foodId, foodName, count, price, onDelete, onChangeCount } = props;
 
   // Create a list of selections
@@ -70,7 +70,7 @@ export const CartCard: VFC<Props> = memo((props) => {
           <DeleteButton onClick={() => onDelete(foodId)}>削除</DeleteButton>
         </VStack>
       </HStack>
-      {/* <Divider w={'360px'} borderColor="brand" my={4} /> */}
+      <Divider w={'360px'} borderColor="brand" my={4} />
     </VStack>
   );
 });

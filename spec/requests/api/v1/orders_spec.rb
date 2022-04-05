@@ -23,7 +23,7 @@ RSpec.describe "Api::V1::Orders", type: :request do
         it "取得した購入履歴情報がレスポンスされる" do
           subject
           json = JSON.parse(response.body)
-          expect(json[0].keys).to eq %w[id user_id rceipt_number total_price consumption_tax progress_status created_at updated_at]
+          expect(json[0].keys).to eq %w[id user_id rceipt_number total_price consumption_tax progress_status restaurant_name created_at order_details]
         end
       end
 

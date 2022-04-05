@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { memo, useCallback, useEffect, useState, VFC } from 'react';
+import { memo, useEffect, useState, VFC } from 'react';
 import { Box, Center, Text, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 
@@ -10,6 +10,8 @@ import { useCartIndex } from 'hooks/useCartIndex';
 import { NewCarts } from 'types/api/newCarts';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
 import { useReplaceCart } from 'hooks/useReplaceCart';
+import { usePostOrders } from 'hooks/usePostOrders';
+import { useLoginUser } from 'hooks/useLoginUser';
 
 export const Cart: VFC = memo(() => {
   const { carts, loading } = useCartIndex();
@@ -30,9 +32,12 @@ export const Cart: VFC = memo(() => {
       );
   }, [carts]);
 
-  const onClickOrderButton = useCallback(() => {
-    alert('stripe決済ページを飛ばして受取票ページへ遷移');
-  }, []);
+  const { loginUser } = useLoginUser();
+  const { postOrders } = usePostOrders();
+  const onOrderButton = (userId: string) => {
+    postOrders(userId);
+    alert('受取票ページへ遷移');
+  };
 
   // Calculate the total amount
 
@@ -129,7 +134,7 @@ export const Cart: VFC = memo(() => {
             </Text>
             <CartButton
               display={display(newCarts)}
-              onClick={() => onClickOrderButton()}
+              onClick={() => onOrderButton(String(loginUser.id))}
             >
               <Text p={2}>注文する</Text>
             </CartButton>

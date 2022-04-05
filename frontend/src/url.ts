@@ -7,6 +7,8 @@ export const signOutUrl = `${DEFAULT_API_LOCALHOST}/auth/sign_out`;
 
 export const signUpUrl = `${DEFAULT_API_LOCALHOST}/auth`;
 
+export const guestSignInUrl = `${DEFAULT_API_LOCALHOST}/auth/guest_sign_in`;
+
 export const restaurantsIndexUrl = `${DEFAULT_API_LOCALHOST}/restaurants`;
 
 export const foodsIndexUrl = (restaurantId: string) =>
@@ -19,6 +21,4 @@ export const cartDetailsDeleteUrl = (foodId: string) =>
 
 export const cartsReplaceUrl = `${DEFAULT_API_LOCALHOST}/cart_details/replace`;
 
-export const orders = `${DEFAULT_API_LOCALHOST}/orders`;
-
-export const guestSignInUrl = `${DEFAULT_API_LOCALHOST}/auth/guest_sign_in`;
+export const ordersUrl = `${DEFAULT_API_LOCALHOST}/orders`;

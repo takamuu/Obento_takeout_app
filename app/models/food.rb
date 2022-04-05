@@ -3,7 +3,6 @@ class Food < ApplicationRecord
   has_many :cart_details, dependent: :destroy
   has_many :cart, through: :cart
   has_many :order_details, dependent: :destroy
-  has_many :orders, through: :order_details
   has_many :cart_details_carts, through: :cart_details, source: :cart
 
   validates :name,             presence: true
