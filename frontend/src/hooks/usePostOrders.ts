@@ -10,11 +10,12 @@ import { useMessage } from './useMessage';
 export const usePostOrders = () => {
   const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState<Orders>();
 
   const postOrders = useCallback(async (params) => {
     setLoading(true);
     try {
-      await axios.post<Orders>(
+      const result = await axios.post<Orders>(
         ordersUrl,
         {
           user_id: params,
@@ -27,11 +28,11 @@ export const usePostOrders = () => {
           },
         }
       );
-
       showMessage({
         title: '注文を確定しました',
         status: 'success',
       });
+      setOrder(result.data);
     } catch (e) {
       showMessage({
         title: 'データの取得に失敗しました',
@@ -42,5 +43,5 @@ export const usePostOrders = () => {
     }
   }, []);
 
-  return { postOrders, loading };
+  return { postOrders, order, loading };
 };
