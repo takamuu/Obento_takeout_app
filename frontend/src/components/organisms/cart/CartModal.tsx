@@ -21,7 +21,7 @@ import {
 import { Spinner } from '@chakra-ui/react';
 
 import { useCartIndex } from 'hooks/useCartIndex';
-import { CartCard } from './CartCard';
+import { CartModalCard } from './CartModalCard';
 import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
@@ -113,7 +113,7 @@ export const CartModal: VFC<Props> = memo((props) => {
                     <>
                       {newCarts.map((cart, i) => (
                         <WrapItem key={i}>
-                          <CartCard
+                          <CartModalCard
                             foodId={String(cart.food.id)}
                             foodName={cart.food.name}
                             count={cart.count}
