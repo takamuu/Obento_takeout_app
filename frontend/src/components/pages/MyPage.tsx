@@ -31,7 +31,6 @@ export const MyPage: VFC = memo(() => {
         >
           <Text>マイページ</Text>
         </VStack>
-        <Divider borderColor="brand" my={4} />
         <Stack spacing={4} py={4} px={10}>
           <Divider borderColor="brand" my={4} />
           <Spacer />
@@ -41,7 +40,7 @@ export const MyPage: VFC = memo(() => {
             _hover={{ opacity: 0.8 }}
             onClick={() => onBackButton()}
           >
-            戻る
+            トップ画面へ戻る
           </Button>
           <Button
             bg="brand"

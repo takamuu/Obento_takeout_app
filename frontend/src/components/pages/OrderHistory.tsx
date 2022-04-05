@@ -89,7 +89,7 @@ export const OrderHistory: VFC = memo(() => {
               金額
             </Box>
           </HStack>
-          <Divider borderColor={'brand'} border={'1px'} />
+          <Divider w={'740px'} borderColor={'brand'} border={'1px'} />
           <Wrap>
             {orders.length ? (
               <>
@@ -120,7 +120,7 @@ export const OrderHistory: VFC = memo(() => {
               _hover={{ opacity: 0.8 }}
               onClick={() => onBackButton()}
             >
-              戻る
+              マイページへ戻る
             </Button>
           </Flex>
         </Wrap>
