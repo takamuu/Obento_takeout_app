@@ -44,7 +44,7 @@ class Order < ApplicationRecord
   def self.order_create!(user)
     user.orders.create!(
       user_id: user.id,
-      rceipt_number: "#{Date.today.day} #{SecureRandom.alphanumeric(3)}", # rubocop:disable Rails/Date
+      rceipt_number: "#{Date.today.day} #{SecureRandom.alphanumeric(4)}", # rubocop:disable Rails/Date
       total_price: user.cart.total_price,
       consumption_tax: (BigDecimal(user.cart.total_price) * BigDecimal(ENV["CONSUMPTION_TAX"])).ceil,
       progress_status: "orde",
