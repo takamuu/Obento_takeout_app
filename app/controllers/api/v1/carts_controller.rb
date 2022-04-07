@@ -6,8 +6,8 @@ module Api
 
       def index
         if current_api_v1_user.cart.present? && current_api_v1_user.cart_details.present?
-          cart_info = current_api_v1_user.cart.user_has_cart_info
-          render json: cart_info, status: :ok
+          @cart_details = current_api_v1_user.cart_details
+          render json: @cart_details, status: :ok
         else
           render json: [], status: :no_content
         end
@@ -19,8 +19,14 @@ module Api
         end
 
         if Cart.check_users_cart?(current_api_v1_user, @ordered_food, @food_count)
-          cart_info = Cart.find_by(user_id: current_api_v1_user.id).user_has_cart_info
-          render json: cart_info, status: :ok
+          # binding.pry
+          if current_api_v1_user.cart.blank?
+            new_cart = Cart.new(user_id: current_api_v1_user.id, total_price: @ordered_food.price * @food_count)
+            new_cart_details = CartDetail.new(food_id: @ordered_food.id, count: @food_count)
+            new_cart.save! && new_cart_details.save!
+          end
+          @cart_details = current_api_v1_user.cart_details
+          render json: @cart_details, status: :ok
         else
           render json: [], status: :internal_server_error
         end

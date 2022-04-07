@@ -9,8 +9,8 @@ module Api
           @cart_detail.destroy!
           # カートの合計金額を更新
           Cart.total_price_update(current_api_v1_user)
-          cart_info = current_api_v1_user.cart.user_has_cart_info
-          render json: cart_info, status: :ok
+          @cart_details = current_api_v1_user.cart_details
+          render json: @cart_details, status: :ok
         else
           render json: [], status: :no_content
         end
@@ -21,8 +21,8 @@ module Api
         if @cart_detail
           @cart_detail.update!(count: replace_params[:count].to_i)
           Cart.total_price_update(current_api_v1_user)
-          cart_info = current_api_v1_user.cart.user_has_cart_info
-          render json: cart_info, status: :ok
+          @cart_details = current_api_v1_user.cart_details
+          render json: @cart_details, status: :ok
         else
           render json: [], status: :no_content
         end
