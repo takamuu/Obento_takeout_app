@@ -29,6 +29,9 @@ class Cart < ApplicationRecord
       # カートとカート詳細を作成
       # new_cart = Cart.create!(user_id: user.id, total_price: food.price * food_count)
       # new_cart.cart_details.create!(food_id: food.id, count: food_count)
+      # -------------------------------------------------------------------------------
+      # create!(user_id: user.id, total_price: food.price * food_count)
+      # user.cart_details.create!(food_id: food.id, count: food_count)
     end
   end
 
