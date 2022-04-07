@@ -13,44 +13,24 @@ module Api
         end
       end
 
-      # rubocop:disable all
       def create
-        # カートが作成されている場合
-        if current_api_v1_user.cart.present?
-          # 1.追加するフードを含むカート詳細を取得
-          cart_details = Cart.acquire_cart_details(current_api_v1_user, @ordered_food)
+        if Cart.check_other_restaurant?(current_api_v1_user, @ordered_food)
+          return render json: cart_details_params, status: :not_acceptable
+        end
 
-          # 2.カート詳細があれば更新、なければ作成
-          Cart.update_or_create_cart_details(cart_details, current_api_v1_user, cart_details_params)
-
-          # 3.カートの合計金額を更新
-          current_api_v1_user.cart.attributes = { total_price: Cart.calc_total_price(current_api_v1_user) }
-          if current_api_v1_user.cart.save
-            cart_info = current_api_v1_user.cart.user_has_cart_info
-            render json: cart_info, status: :ok
-          else
-            render json: [], status: :internal_server_error
-          end
-
+        if Cart.check_users_cart?(current_api_v1_user, @ordered_food, @food_count)
+          cart_info = Cart.find_by(user_id: current_api_v1_user.id).user_has_cart_info
+          render json: cart_info, status: :ok
         else
-          # カートが作成されていない場合は、カートを作成
-          new_cart = Cart.create_cart(current_api_v1_user, @ordered_food, cart_details_params)
-          # カート詳細情報を作成
-          new_cart_details = new_cart.cart_details.new(cart_details_params)
-          if new_cart_details.save
-            cart_info = new_cart.user_has_cart_info
-            render json: cart_info, status: :ok
-          else
-            render json: [], status: :internal_server_error
-          end
+          render json: [], status: :internal_server_error
         end
       end
-      # rubocop:enable all
 
       private
 
         def set_food
           @ordered_food = Food.find(params[:food_id].to_i)
+          @food_count = cart_details_params[:count].to_i
         end
 
         def cart_details_params
