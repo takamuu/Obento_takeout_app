@@ -19,32 +19,55 @@ class Cart < ApplicationRecord
     cart_info.sort_by! {|c| c["food"]["id"] }
   end
 
-  # カートの合計金額を更新
-  def self.calc_total_price(user)
-    user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
+  # 追加するフードとカートにあるフードのレストランが違う場合
+  def self.check_other_restaurant?(user, food)
+    user.cart_details.first.food.restaurant.id != food.restaurant.id if user.cart_details.present?
   end
 
-  # 追加するフードを含むカート詳細を取得
-  def self.acquire_cart_details(user, ordered_food)
-    user.cart.cart_details.find_by(food_id: ordered_food.id)
+  # カートとカート詳細が存在するorしないで処理を分岐する
+  def self.check_users_cart?(user, food, food_count)
+    # カートが存在する && カート詳細が存在する場合
+    if user.cart.present? && user.cart_details.present?
+      # 追加するフードがカート詳細の中に存在するか？
+      food_exists_in_cart_details?(user, food, food_count)
+      # カートが存在する ＆& カート詳細が存在しない場合
+    elsif user.cart.present? && user.cart_details.blank?
+      CartDetail.create_cart_details(user, food, food_count)
+    # カートが存在しない && カート詳細も存在しない
+    elsif user.cart.blank?
+      # カートとカート詳細を作成
+      new_cart = Cart.create!(user_id: user.id, total_price: food.price * food_count)
+      new_cart.cart_details.create!(food_id: food.id, count: food_count)
+    end
+    total_price_update(user)
   end
 
-  # カートを作成する
-  def self.create_cart(user, ordered_food, cart_details_params)
-    create(user_id: user.id, total_price: ordered_food.price * cart_details_params[:count].to_i)
-  end
-
-  # カート詳細があれば更新、なければ作成
-  def self.update_or_create_cart_details(cart_details, user, cart_details_params)
-    if cart_details.present?
-      cart_details.update!(count: cart_details.count + cart_details_params[:count].to_i)
+  # 追加するフードがカート詳細の中に存在するか判定
+  def self.food_exists_in_cart_details?(user, food, food_count)
+    # 存在する場合
+    if user.cart.cart_details.find_by(food_id: food.id).present?
+      # カート詳細を更新し、カートの合計金額を更新する
+      CartDetail.update_cart_details(user, food, food_count)
+    # 存在しない場合
     else
-      user.cart.cart_details.create!(cart_details_params)
+      # カート詳細を作成し、カートの合計金額を更新する
+      CartDetail.create_cart_details(user, food, food_count)
     end
   end
 
-  # カート詳細を更新
-  def self.updata_cart_details(cart_details, user, cart_details_params)
-    cart_details.update!(count: cart_details.count + cart_details_params[:count].to_i)
+  # カートを作成する
+  def self.create_cart(user, ordered_food, food_count)
+    create(user_id: user.id, total_price: ordered_food.price * food_count)
+  end
+
+  # カートの合計金額を更新
+  def self.total_price_update(user)
+    re_cart = Cart.find_by(user_id: user.id)
+    re_cart.update!(total_price: re_cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) })
+  end
+
+  # カートの合計金額を計算
+  def self.calc_total_price(user)
+    user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
   end
 end
