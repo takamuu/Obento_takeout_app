@@ -4,7 +4,12 @@ class CartDetail < ApplicationRecord
 
   validates :count,  presence: true, numericality: { greater_than: 0 }
 
-  def self.total_price_update(user)
-    user.cart.update!(total_price: Cart.calc_total_price(user))
+  def self.update_cart_details(user, food, food_count)
+    cart_detail = user.cart_details.find_by(food_id: food.id)
+    cart_detail.update!(food_id: food.id, count: cart_detail.count + food_count)
+  end
+
+  def self.create_cart_details(user, food, food_count)
+    create!(food_id: food.id, cart_id: user.cart.id, count: food_count)
   end
 end
