@@ -32,7 +32,6 @@ export const MyPage: VFC = memo(() => {
           <Text>マイページ</Text>
         </VStack>
         <Stack spacing={4} py={4} px={10}>
-          <Divider borderColor="brand" my={4} />
           <Spacer />
           <Button
             bg="brand"

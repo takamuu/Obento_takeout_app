@@ -12,6 +12,8 @@ import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
 import { useReplaceCart } from 'hooks/useReplaceCart';
 import { usePostOrders } from 'hooks/usePostOrders';
 import { useLoginUser } from 'hooks/useLoginUser';
+import { useDisclosure } from '@chakra-ui/react';
+import { ReceiptModal } from 'components/organisms/order/ReceiptModal';
 
 export const Cart: VFC = memo(() => {
   const { carts, loading } = useCartIndex();
@@ -33,10 +35,13 @@ export const Cart: VFC = memo(() => {
   }, [carts]);
 
   const { loginUser } = useLoginUser();
-  const { postOrders } = usePostOrders();
-  const onOrderButton = (userId: string) => {
-    postOrders(userId);
-    alert('受取票ページへ遷移');
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { postOrders, order, loading: orderLoading } = usePostOrders();
+
+  const onOrderButton = async (userId: string) => {
+    await postOrders(userId).then(() => {
+      onOpen();
+    });
   };
 
   // Calculate the total amount
@@ -140,6 +145,14 @@ export const Cart: VFC = memo(() => {
             </CartButton>
           </VStack>
         </Wrap>
+      )}
+      {isOpen && (
+        <ReceiptModal
+          order={order}
+          loading={orderLoading}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
       )}
     </>
   );

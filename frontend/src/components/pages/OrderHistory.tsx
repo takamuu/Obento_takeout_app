@@ -50,17 +50,17 @@ export const OrderHistory: VFC = memo(() => {
           <HStack>
             <Box
               h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '122px', md: '180px' }}
+              w={{ sm: '70px', md: '80px' }}
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
-              textAlign={'center'}
+              textAlign={'left'}
             >
               購入日時
             </Box>
             <Box
               h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '122px', md: '180px' }}
+              w={{ sm: '80px', md: '180px' }}
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
@@ -70,7 +70,7 @@ export const OrderHistory: VFC = memo(() => {
             </Box>
             <Box
               h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '122px', md: '180px' }}
+              w={{ sm: '110px', md: '180px' }}
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
@@ -79,14 +79,24 @@ export const OrderHistory: VFC = memo(() => {
               商品
             </Box>
             <Box
-              h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '122px', md: '180px' }}
+              h={{ sm: '20pxs', md: '30px' }}
+              w={{ sm: '110px', md: '180px' }}
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
               textAlign={'center'}
             >
               金額
+            </Box>
+            <Box
+              h={{ sm: '20px', md: '30px' }}
+              w={{ sm: '70px', md: '80px' }}
+              fontSize={{ sm: 'xs', md: 'lg' }}
+              fontWeight={'bold'}
+              color={'brand'}
+              textAlign={'right'}
+            >
+              受取番号
             </Box>
           </HStack>
           <Divider w={'740px'} borderColor={'brand'} border={'1px'} />
@@ -101,6 +111,8 @@ export const OrderHistory: VFC = memo(() => {
                         restaurantName={order.restaurant_name}
                         totalPrice={order.total_price}
                         orderDetails={order.order_details}
+                        progressStatus={order.progress_status}
+                        receiptNumber={order.rceipt_number}
                       />
                     </WrapItem>
                   ))}

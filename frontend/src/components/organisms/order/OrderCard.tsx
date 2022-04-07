@@ -10,37 +10,49 @@ import {
   WrapItem,
 } from '@chakra-ui/layout';
 import { OrderDetail } from 'types/api/orders';
+import { Button } from '@chakra-ui/react';
 
 type Props = {
   createdAt: string;
   restaurantName: string;
   totalPrice: number;
+  progressStatus: string;
+  receiptNumber: string;
   orderDetails: OrderDetail[];
 };
 
 export const OrderCard: VFC<Props> = memo((props) => {
-  const { createdAt, restaurantName, totalPrice, orderDetails } = props;
+  const {
+    createdAt,
+    restaurantName,
+    totalPrice,
+    progressStatus,
+    receiptNumber,
+    orderDetails,
+  } = props;
 
-  const dateTime = new Date(createdAt).toLocaleString();
+  const dateTime = new Date(createdAt).toLocaleDateString();
+
+  const onRecipt = () => {
+    alert(receiptNumber);
+  };
 
   return (
-    <Wrap justify={'center'}>
+    <Wrap>
       <VStack>
-        <HStack>
+        <HStack align={'start'}>
           <Box
-            w={{ sm: '122px', md: '180px' }}
+            w={{ sm: '80px', md: '120px' }}
             fontSize={{ sm: 'xs', md: 'lg' }}
             fontWeight={'bold'}
-            textAlign={'center'}
             isTruncated
           >
             {dateTime}
           </Box>
           <Box
-            w={{ sm: '122px', md: '180px' }}
+            w={{ sm: '80px', md: '140px' }}
             fontSize={{ sm: 'xs', md: 'lg' }}
             fontWeight={'bold'}
-            textAlign={'center'}
             isTruncated
           >
             {restaurantName}
@@ -50,10 +62,9 @@ export const OrderCard: VFC<Props> = memo((props) => {
               <WrapItem key={j}>
                 <HStack>
                   <Box
-                    w={{ sm: '94px', md: '140px' }}
+                    w={{ sm: '80px', md: '140px' }}
                     fontSize={{ sm: 'xs', md: 'lg' }}
                     fontWeight={'bold'}
-                    textAlign={'left'}
                     isTruncated
                   >
                     {detail.food_name}
@@ -75,7 +86,7 @@ export const OrderCard: VFC<Props> = memo((props) => {
             {orderDetails.map((detail, k) => (
               <WrapItem key={k}>
                 <Box
-                  w={{ sm: '122px', md: '180px' }}
+                  w={{ sm: '100px', md: '160px' }}
                   fontSize={{ sm: 'xs', md: 'lg' }}
                   fontWeight={'bold'}
                   textAlign={'right'}
@@ -85,18 +96,34 @@ export const OrderCard: VFC<Props> = memo((props) => {
                 </Box>
               </WrapItem>
             ))}
+            <Box
+              w={'100%'}
+              display={'flex'}
+              justifyContent={'right'}
+              alignItems="end"
+              fontSize={{ sm: 'xs', md: 'lg' }}
+              fontWeight={'bold'}
+            >
+              <Text>合計 ¥ {totalPrice.toLocaleString()}</Text>
+            </Box>
+          </VStack>
+          <VStack>
+            <Box
+              w={{ sm: '60px', md: '100px' }}
+              textAlign={'right'}
+              fontSize={{ sm: 'xs', md: 'lg' }}
+              fontWeight={'bold'}
+            >
+              {progressStatus === 'delivered' ? (
+                <Text>受取済</Text>
+              ) : (
+                <Button bg={'brand'} color={'white'} onClick={() => onRecipt()}>
+                  {receiptNumber}
+                </Button>
+              )}
+            </Box>
           </VStack>
         </HStack>
-        <Box
-          w={'100%'}
-          display={'flex'}
-          justifyContent={'right'}
-          alignItems="end"
-          fontSize={{ sm: 'xs', md: 'lg' }}
-          fontWeight={'bold'}
-        >
-          <Text>合計 ¥ {totalPrice.toLocaleString()}</Text>
-        </Box>
         <Divider borderColor={'brand'} border={'1px'} borderRadius={'lg'} />
       </VStack>
     </Wrap>

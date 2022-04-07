@@ -5,7 +5,7 @@ module Api
 
       def index
         if Order.check_users_order_history?(current_api_v1_user)
-          @orders = current_api_v1_user.orders
+          @orders = current_api_v1_user.orders.order(id: "DESC")
           render json: @orders, include: { order_details: [:food] }, status: :ok
         else
           render json: [], status: :no_content
@@ -14,9 +14,10 @@ module Api
 
       def create
         if Order.confirm_cart_presence?(order_params[:user_id].to_i) && Order.create_order_history(current_api_v1_user)
-          render status: :ok
+          @orders = current_api_v1_user.orders.last
+          render json: @orders, include: { order_details: [:food] }, status: :ok
         else
-          render status: :no_content
+          render json: [], status: :no_content
         end
       end
 
