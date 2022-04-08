@@ -62,7 +62,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
     context "トークン認証情報がある場合" do
       subject { post(api_v1_carts_path, params: food_params, headers: headers) }
 
-      context "カートが存在する場合 && カート詳細が存在する場合 && 追加するフードが他のレストランの場合" do
+      context "カートが存在する場合 && 追加するフードが他のレストランの場合" do
         before {
           @food = create(:food)
           @other_food = create(:food)
