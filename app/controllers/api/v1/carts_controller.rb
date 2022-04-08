@@ -14,19 +14,11 @@ module Api
       end
 
       def create
-        if Cart.check_other_restaurant?(current_api_v1_user, @ordered_food)
-          return render json: cart_details_params, status: :not_acceptable
-        end
+        return render_not_acceptable if Cart.check_other_restaurant?(current_api_v1_user, @ordered_food)
 
-        if Cart.check_users_cart?(current_api_v1_user, @ordered_food, @food_count)
-          # binding.pry
-          if current_api_v1_user.cart.blank?
-            new_cart = Cart.new(user_id: current_api_v1_user.id, total_price: @ordered_food.price * @food_count)
-            new_cart_details = CartDetail.new(food_id: @ordered_food.id, count: @food_count)
-            new_cart.save! && new_cart_details.save!
-          end
-          @cart_details = current_api_v1_user.cart_details
-          render json: @cart_details, status: :ok
+        cart_detail = Cart.create_cart_and_cart_details(current_api_v1_user, @ordered_food, @food_count)
+        if cart_detail.save! && Cart.total_price_update(current_api_v1_user)
+          render json: current_api_v1_user.cart_details, status: :ok
         else
           render json: [], status: :internal_server_error
         end
@@ -41,6 +33,10 @@ module Api
 
         def cart_details_params
           params.permit(:food_id, :count)
+        end
+
+        def render_not_acceptable
+          render json: cart_details_params, status: :not_acceptable
         end
     end
   end
