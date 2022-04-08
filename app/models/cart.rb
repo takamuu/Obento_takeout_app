@@ -17,7 +17,6 @@ class Cart < ApplicationRecord
 
     # 追加するフードのカート詳細がない場合
     if food_exists_in_cart_details?(user, food)
-      # binding.pry
       CartDetail.new(food_id: food.id, cart_id: user.cart.id, count: food_count)
     else
       cart_detail = user.cart_details.find_by(food_id: food.id)
