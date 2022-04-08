@@ -86,7 +86,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
       end
 
-      context "カートが存在する && カート詳細が存在する && 追加するフードがカート詳細に含まれている場合" do
+      context "カートが存在する && 追加するフードがカート詳細に含まれている場合" do
         before {
           @cart = create(:cart, user_id: current_user.id)
           @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
@@ -107,7 +107,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
       end
 
-      context "カートが存在する場合 && カート詳細が存在する場合 && 追加するフードがカート詳細に含まれていない場合" do
+      context "カートが存在する場合 && 追加するフードがカート詳細に含まれていない場合" do
         before {
           @restaurant = create(:restaurant)
           @food = create(:food, restaurant_id: @restaurant.id)
