@@ -9,7 +9,7 @@ import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
 import { NewCarts } from 'types/api/newCarts';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
-import { useReplaceCart } from 'hooks/useReplaceCart';
+import { useUpdateCart } from 'hooks/useUpdateCart';
 import { usePostOrders } from 'hooks/usePostOrders';
 import { useLoginUser } from 'hooks/useLoginUser';
 import { useDisclosure } from '@chakra-ui/react';
@@ -18,7 +18,33 @@ import { ReceiptModal } from 'components/organisms/order/ReceiptModal';
 export const Cart: VFC = memo(() => {
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
-  const { replaceCart } = useReplaceCart();
+  const { updateCart } = useUpdateCart();
+  const { loginUser } = useLoginUser();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { postOrders, order, loading: orderLoading } = usePostOrders();
+  const { deleteCartDetails } = useDeleteCartDetails();
+  const totalAmount = newCarts.reduce(
+    (total, newCart) => total + newCart.amount,
+    0
+  );
+  const display = (newCarts) => {
+    if (newCarts.length) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  };
+
+  const onOrderButton = async (userId: string) => {
+    await postOrders(userId).then(() => {
+      onOpen();
+    });
+  };
+
+  const onClickDelete = (foodId: string) => {
+    deleteCartDetails(foodId);
+    setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
+  };
 
   useEffect(() => {
     if (carts.length)
@@ -33,38 +59,6 @@ export const Cart: VFC = memo(() => {
         }))
       );
   }, [carts]);
-
-  const { loginUser } = useLoginUser();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { postOrders, order, loading: orderLoading } = usePostOrders();
-
-  const onOrderButton = async (userId: string) => {
-    await postOrders(userId).then(() => {
-      onOpen();
-    });
-  };
-
-  // Calculate the total amount
-
-  const totalAmount = newCarts.reduce(
-    (total, newCart) => total + newCart.amount,
-    0
-  );
-
-  const { deleteCartDetails } = useDeleteCartDetails();
-
-  const onClickDelete = (foodId: string) => {
-    deleteCartDetails(foodId);
-    setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
-  };
-
-  const display = (newCarts) => {
-    if (newCarts.length) {
-      return 'block';
-    } else {
-      return 'none';
-    }
-  };
 
   return (
     <>
@@ -103,8 +97,8 @@ export const Cart: VFC = memo(() => {
                             })
                           );
                           {
-                            replaceCart({
-                              food: cart.food,
+                            updateCart({
+                              food_id: cart.food.id,
                               count: newCount,
                             });
                           }

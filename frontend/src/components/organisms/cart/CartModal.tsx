@@ -25,7 +25,7 @@ import { CartModalCard } from './CartModalCard';
 import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
-import { useReplaceCart } from 'hooks/useReplaceCart';
+import { useUpdateCart } from 'hooks/useUpdateCart';
 import { Food } from 'types/api/food';
 
 type Props = {
@@ -36,10 +36,33 @@ type Props = {
 };
 
 export const CartModal: VFC<Props> = memo((props) => {
-  const { food, count, isOpen, onClose } = props;
+  const { isOpen, onClose } = props;
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
-  const { replaceCart } = useReplaceCart();
+  const { updateCart } = useUpdateCart();
+  const history = useHistory();
+  const { deleteCartDetails } = useDeleteCartDetails();
+  const totalAmount = newCarts.reduce(
+    (total, newCart) => total + newCart.amount,
+    0
+  );
+  const display = (newCarts) => {
+    if (newCarts.length) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  };
+
+  const onCheckOutButton = useCallback(() => {
+    onClose();
+    history.push('/cart');
+  }, []);
+
+  const onDelete = (foodId: string) => {
+    deleteCartDetails(foodId);
+    setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
+  };
 
   useEffect(() => {
     if (carts.length)
@@ -54,34 +77,6 @@ export const CartModal: VFC<Props> = memo((props) => {
         }))
       );
   }, [carts]);
-
-  const history = useHistory();
-  const onCheckOutButton = useCallback(() => {
-    onClose();
-    history.push('/cart');
-  }, []);
-
-  // Calculate the total amount
-
-  const totalAmount = newCarts.reduce(
-    (total, newCart) => total + newCart.amount,
-    0
-  );
-
-  const { deleteCartDetails } = useDeleteCartDetails();
-
-  const onDelete = (foodId: string) => {
-    deleteCartDetails(foodId);
-    setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
-  };
-
-  const display = (newCarts) => {
-    if (newCarts.length) {
-      return 'block';
-    } else {
-      return 'none';
-    }
-  };
 
   return (
     <>
@@ -132,8 +127,8 @@ export const CartModal: VFC<Props> = memo((props) => {
                                 })
                               );
                               {
-                                replaceCart({
-                                  food: cart.food,
+                                updateCart({
+                                  food_id: cart.food.id,
                                   count: newCount,
                                 });
                               }
