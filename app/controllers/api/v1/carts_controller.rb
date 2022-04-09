@@ -14,7 +14,9 @@ module Api
       end
 
       def create
-        return render_not_acceptable if Cart.check_other_restaurant?(current_api_v1_user, @ordered_food)
+        if current_api_v1_user.cart_details.present? && Cart.check_other_restaurant?(current_api_v1_user, @ordered_food)
+          return render_not_acceptable
+        end
 
         cart_detail = Cart.create_cart_and_cart_details(current_api_v1_user, @ordered_food, @food_count)
         if cart_detail.save! && Cart.total_price_update(current_api_v1_user)

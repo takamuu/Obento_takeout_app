@@ -160,18 +160,15 @@ RSpec.describe "Api::V1::Carts", type: :request do
         before { @food = create(:food) }
 
         it "ok(200)がレスポンスされる" do
-          # binding.pry
           subject
           expect(response).to have_http_status(:ok)
         end
 
         it "カートが作成される" do
-          #  binding.pry
           expect { subject }.to change { Cart.count }.by(1)
         end
 
         it "カート詳細が作成される" do
-          #  binding.pry
           expect { subject }.to change { CartDetail.count }.by(1)
         end
       end

@@ -8,7 +8,7 @@ class Cart < ApplicationRecord
 
   # 追加するフードとカートにあるフードのレストランが違う場合
   def self.check_other_restaurant?(user, food)
-    user.cart_details.first.food.restaurant.id != food.restaurant.id if user.cart_details.present?
+    user.cart_details.first.food.restaurant.id != food.restaurant.id
   end
 
   def self.create_cart_and_cart_details(user, food, food_count)
