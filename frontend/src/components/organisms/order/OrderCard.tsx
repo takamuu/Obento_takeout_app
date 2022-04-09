@@ -117,14 +117,27 @@ export const OrderCard: VFC<Props> = memo((props) => {
               {progressStatus === 'delivered' ? (
                 <Text>受取済</Text>
               ) : (
-                <Button bg={'brand'} color={'white'} onClick={() => onRecipt()}>
+                <Button
+                  w={{ sm: '60px', md: '80px' }}
+                  h={{ sm: '8', md: '12' }}
+                  bg={'brand'}
+                  color={'white'}
+                  fontSize={{ sm: '11', md: '16' }}
+                  _hover={{ opacity: 0.8 }}
+                  onClick={() => onRecipt()}
+                >
                   {receiptNumber}
                 </Button>
               )}
             </Box>
           </VStack>
         </HStack>
-        <Divider borderColor={'brand'} border={'1px'} borderRadius={'lg'} />
+        <Divider
+          w={{ sm: '460px', md: '730px' }}
+          borderColor={'brand'}
+          border={'1px'}
+          borderRadius={'lg'}
+        />
       </VStack>
     </Wrap>
   );
