@@ -16,13 +16,14 @@ import { useDisclosure } from '@chakra-ui/react';
 import { ReceiptModal } from 'components/organisms/order/ReceiptModal';
 
 export const Cart: VFC = memo(() => {
-  const { carts, loading } = useCartIndex();
-  const [newCarts, setNewCarts] = useState<NewCarts>([]);
-  const { updateCart } = useUpdateCart();
-  const { loginUser } = useLoginUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { postOrders, order, loading: orderLoading } = usePostOrders();
+  const { loginUser } = useLoginUser();
+  const { carts, loading } = useCartIndex();
+  const { updateCart } = useUpdateCart();
   const { deleteCartDetails } = useDeleteCartDetails();
+  const { postOrders, order, loading: orderLoading } = usePostOrders();
+  const [newCarts, setNewCarts] = useState<NewCarts>([]);
+
   const totalAmount = newCarts.reduce(
     (total, newCart) => total + newCart.amount,
     0
