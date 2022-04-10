@@ -7,7 +7,7 @@ import { CartDetail } from 'types/api/cart';
 import { cartsUpdateUrl } from '../url';
 import { useMessage } from './useMessage';
 
-export const useUpdateCart = () => {
+export const useUpdateCartDetails = () => {
   const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<CartDetail>>();
