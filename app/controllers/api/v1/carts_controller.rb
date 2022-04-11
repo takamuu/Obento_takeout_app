@@ -36,7 +36,8 @@ module Api
         end
 
         def render_not_acceptable
-          render json: cart_details_params, status: :not_acceptable
+          @restaurants = Cart.fetch_restaurant(current_api_v1_user, @ordered_food)
+          render json: @restaurants, status: :not_acceptable
         end
     end
   end

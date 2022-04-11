@@ -19,7 +19,7 @@ class Cart < ApplicationRecord
     if food_exists_in_cart_details?(user, food)
       CartDetail.cart_details_new_instance(user, food, food_count)
     else
-      CartDetail.cart_details_update_instance(user, food, food_count)
+      CartDetail.cart_details_add_instance(user, food, food_count)
     end
   end
 
@@ -40,5 +40,9 @@ class Cart < ApplicationRecord
   # カートの合計金額を更新
   def self.total_price_update(user)
     user.cart.update!(total_price: CartDetail.calc_cart_details_total_price(user))
+  end
+
+  def self.fetch_restaurant(user, food)
+    { existing_restaurant_name: user.cart_details.first.food.restaurant.name, new_restaurant_name: food.restaurant.name }
   end
 end
