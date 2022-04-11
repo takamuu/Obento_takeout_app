@@ -16,12 +16,10 @@ export const foodsIndexUrl = (restaurantId: string) =>
 
 export const cartsUrl = `${DEFAULT_API_LOCALHOST}/carts`;
 
-export const cartDetailsDeleteUrl = (foodId: string) =>
+export const cartDetailsUrl = (foodId: string) =>
   `${DEFAULT_API_LOCALHOST}/cart_details/${foodId}`;
 
-export const cartsUpdateUrl = (foodId: string) =>
-  `${DEFAULT_API_LOCALHOST}/cart_details/${foodId}`;
-
-export const cartsReplaceUrl = `${DEFAULT_API_LOCALHOST}/cart_details/replace`;
+export const cartDetailsReplaceUrl = (foodId: string) =>
+  `${DEFAULT_API_LOCALHOST}/cart_details/replace/${foodId}`;
 
 export const ordersUrl = `${DEFAULT_API_LOCALHOST}/orders`;
