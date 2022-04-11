@@ -10,6 +10,12 @@ class CartDetail < ApplicationRecord
 
   def self.cart_details_update_instance(user, food, food_count)
     cart_detail = user.cart_details.find_by(food_id: food.id)
+    cart_detail.attributes = { count: food_count }
+    cart_detail
+  end
+
+  def self.cart_details_add_instance(user, food, food_count)
+    cart_detail = user.cart_details.find_by(food_id: food.id)
     cart_detail.attributes = { count: cart_detail.count + food_count }
     cart_detail
   end
