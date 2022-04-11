@@ -78,19 +78,22 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
 
         it "カートが更新されない" do
-          expect { subject }.not_to change { Cart.count }
+          expect { subject }.not_to change { @cart.reload.total_price }
         end
 
         it "カート詳細が作成されない" do
-          expect { subject }.not_to change { CartDetail.count }
+          expect { subject }.not_to change { @cart.cart_details.reload.count }
         end
       end
 
       context "カートが存在する && 追加するフードがカート詳細に含まれている場合" do
         before {
+          @restaurant = create(:restaurant)
+          @food = create(:food, restaurant_id: @restaurant.id)
+          @other_food = create(:food, restaurant_id: @restaurant.id)
           @cart = create(:cart, user_id: current_user.id)
-          @cart_details = create(:cart_detail, cart_id: current_user.cart.id)
-          @other_food_details = create(:cart_detail, cart_id: current_user.cart.id)
+          @cart_details = create(:cart_detail, food_id: @food.id, cart_id: current_user.cart.id)
+          @other_food_details = create(:cart_detail, food_id: @other_food.id, cart_id: current_user.cart.id)
         }
 
         it "ok(200)がレスポンスされる" do
@@ -160,18 +163,15 @@ RSpec.describe "Api::V1::Carts", type: :request do
         before { @food = create(:food) }
 
         it "ok(200)がレスポンスされる" do
-          # binding.pry
           subject
           expect(response).to have_http_status(:ok)
         end
 
         it "カートが作成される" do
-          #  binding.pry
           expect { subject }.to change { Cart.count }.by(1)
         end
 
         it "カート詳細が作成される" do
-          #  binding.pry
           expect { subject }.to change { CartDetail.count }.by(1)
         end
       end
