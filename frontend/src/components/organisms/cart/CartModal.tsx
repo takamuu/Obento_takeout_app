@@ -25,7 +25,7 @@ import { CartModalCard } from './CartModalCard';
 import { NewCarts } from 'types/api/newCarts';
 import { CartButton } from 'components/atoms/button/CartButton';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
-import { useUpdateCart } from 'hooks/useUpdateCart';
+import { useUpdateCartDetails } from 'hooks/useUpdateCartDetails';
 import { Food } from 'types/api/food';
 
 type Props = {
@@ -39,7 +39,7 @@ export const CartModal: VFC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
   const { carts, loading } = useCartIndex();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
-  const { updateCart } = useUpdateCart();
+  const { updateCart } = useUpdateCartDetails();
   const history = useHistory();
   const { deleteCartDetails } = useDeleteCartDetails();
   const totalAmount = newCarts.reduce(
