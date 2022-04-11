@@ -9,7 +9,7 @@ import { CartCard } from 'components/organisms/cart/CartCard';
 import { useCartIndex } from 'hooks/useCartIndex';
 import { NewCarts } from 'types/api/newCarts';
 import { useDeleteCartDetails } from 'hooks/useDeleteCartDetails';
-import { useUpdateCart } from 'hooks/useUpdateCart';
+import { useUpdateCartDetails } from 'hooks/useUpdateCartDetails';
 import { usePostOrders } from 'hooks/usePostOrders';
 import { useLoginUser } from 'hooks/useLoginUser';
 import { useDisclosure } from '@chakra-ui/react';
@@ -19,7 +19,7 @@ export const Cart: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loginUser } = useLoginUser();
   const { carts, loading } = useCartIndex();
-  const { updateCart } = useUpdateCart();
+  const { updateCart } = useUpdateCartDetails();
   const { deleteCartDetails } = useDeleteCartDetails();
   const { postOrders, order, loading: orderLoading } = usePostOrders();
   const [newCarts, setNewCarts] = useState<NewCarts>([]);
