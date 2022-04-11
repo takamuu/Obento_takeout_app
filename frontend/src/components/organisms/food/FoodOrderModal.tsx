@@ -19,9 +19,11 @@ import { CountUpButton } from 'components/atoms/button/CountUpButton';
 import { Food } from 'types/api/food';
 import { usePostCart } from 'hooks/usePostCart';
 import { CartModal } from '../cart/CartModal';
+import { NewCartConfirmModal } from '../cart/NewCartConfirmModal';
 import { FoodButton } from 'components/atoms/button/FoodButton';
 import { useLoginUser } from 'hooks/useLoginUser';
 import { useHistory } from 'react-router-dom';
+import { useReplaceCartDetails } from 'hooks/useReplaceCartDetails';
 
 type Props = {
   food: Food;
@@ -31,13 +33,9 @@ type Props = {
 
 export const FoodOrderModal: VFC<Props> = memo((props) => {
   const { food, isOpen, onClose } = props;
-
   const [count, setCount] = useState(1);
-
   const onUpCount = () => setCount(count + 1);
-
   const onDownCount = () => setCount(count - 1);
-
   const { postCart } = usePostCart();
 
   // For CartModal
@@ -46,18 +44,48 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     onOpen: onOpenCartModal,
     onClose: onCloseCartModal,
   } = useDisclosure();
+  // For NewCartConfirmModal
+  const {
+    isOpen: isOpenNewCartConfirmModal,
+    onOpen: onOpenNewCartConfirmModal,
+    onClose: onCloseNewCartConfirmModal,
+  } = useDisclosure();
+
+  const [existingRestaurantName, setExistingRestaurantName] = useState('');
+  const [newRestaurantName, setNewRestaurantName] = useState('');
 
   const history = useHistory();
   const { loginUser } = useLoginUser();
   const onCartButton = async ({ food, count }) => {
     if (loginUser) {
-      await postCart({ food: food, count: count }).then(() => {
-        onClose();
-        setCount(1);
-        onOpenCartModal();
-      });
+      await postCart({ food: food, count: count })
+        .then(() => {
+          onClose();
+          setCount(1);
+          onOpenCartModal();
+        })
+        .catch((e) => {
+          if (e.response.status === 406) {
+            setExistingRestaurantName(e.response.data.existing_restaurant_name),
+              setNewRestaurantName(e.response.data.new_restaurant_name),
+              onClose();
+            onOpenNewCartConfirmModal();
+          } else {
+            throw e;
+          }
+        });
     } else {
       history.push('/login');
+    }
+  };
+
+  const { replaceCartDetails, loading } = useReplaceCartDetails();
+  const onReplace = async ({ food, count }) => {
+    if (loginUser) {
+      await replaceCartDetails({ food: food, count: count }).then(() => {
+        onCloseNewCartConfirmModal();
+        onOpenCartModal();
+      });
     }
   };
 
@@ -131,6 +159,16 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
           count={count}
           isOpen={isOpenCartModal}
           onClose={onCloseCartModal}
+        />
+      )}
+      {isOpenNewCartConfirmModal && (
+        <NewCartConfirmModal
+          loading={loading}
+          existingRestaurantName={existingRestaurantName}
+          newRestaurantName={newRestaurantName}
+          isOpen={isOpenNewCartConfirmModal}
+          onClose={onCloseNewCartConfirmModal}
+          onReplace={() => onReplace({ food, count })}
         />
       )}
     </>
