@@ -5,10 +5,8 @@ import { useCallback, useState } from 'react';
 
 import { Cart } from 'types/api/cart';
 import { cartsUrl } from '../url';
-import { useMessage } from './useMessage';
 
 export const usePostCart = () => {
-  const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
   const [carts, setCarts] = useState<Array<Cart>>();
 
@@ -19,7 +17,6 @@ export const usePostCart = () => {
         cartsUrl,
         {
           food_id: params.food.id,
-          restaurant_id: params.food.restaurant_id,
           count: params.count,
         },
         {
@@ -32,10 +29,8 @@ export const usePostCart = () => {
       );
       setCarts(result.data);
     } catch (e) {
-      showMessage({
-        title: 'データの取得に失敗しました',
-        status: 'error',
-      });
+      console.log(e.data);
+      throw e;
     } finally {
       setLoading(false);
     }
