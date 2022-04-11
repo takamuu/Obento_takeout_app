@@ -12,7 +12,7 @@ export type Cart = {
   updated_at: string;
 };
 
-// useUpdateCart.tsで使用
+// useUpdateCartDetails.tsで使用
 export type CartDetail = {
   id?: string;
   cart_id?: string;

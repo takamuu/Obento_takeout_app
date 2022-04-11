@@ -1,6 +1,5 @@
 /* eslint-disable arrow-body-style */
 import { memo, VFC } from 'react';
-import { FormControl } from '@chakra-ui/form-control';
 import { Center, Stack, Text } from '@chakra-ui/layout';
 import {
   Modal,
@@ -8,31 +7,29 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/modal';
-import { CartButton } from 'components/atoms/button/CartButton';
 import { Spinner } from '@chakra-ui/spinner';
-import { usePostCart } from 'hooks/usePostCart';
+import { NewOrderButton } from 'components/atoms/button/NewOrderButton';
 
 type Props = {
+  loading?: boolean;
   isOpen: boolean;
   onClose: () => void;
-  existingResutaurautName: string;
-  newResutaurautName: string;
-  onClickSubmit: () => void;
+  existingRestaurantName: string;
+  newRestaurantName: string;
+  onReplace: () => void;
 };
 
 export const NewCartConfirmModal: VFC<Props> = memo((props) => {
   const {
+    loading,
     isOpen,
     onClose,
-    existingResutaurautName, // 他店舗の名前
-    newResutaurautName, // いま選択した店舗の名前
-    onClickSubmit, // 仮注文の置き換えAPIを呼ぶ
+    existingRestaurantName, // 他店舗の名前
+    newRestaurantName, // いま選択した店舗の名前
+    onReplace, // 仮注文の置き換えAPIを呼ぶ
   } = props;
-
-  const { loading } = usePostCart();
 
   return (
     <>
@@ -42,7 +39,7 @@ export const NewCartConfirmModal: VFC<Props> = memo((props) => {
         </Center>
       ) : (
         <Modal
-          size="lg"
+          size={'sm'}
           isOpen={isOpen}
           onClose={onClose}
           autoFocus={false}
@@ -55,21 +52,31 @@ export const NewCartConfirmModal: VFC<Props> = memo((props) => {
                 rounded="full"
                 _hover={{ opacity: 0.8 }}
               />
-              <ModalHeader>新規注文を開始しますか？</ModalHeader>
-              <ModalBody mx={2}>
-                <Stack spacing={2}>
-                  <FormControl>
-                    <Text>
-                      {`ご注文に ${existingResutaurautName} の商品が含まれています。
-                   新規の注文を開始して ${newResutaurautName} の商品を追加してください。`}
-                    </Text>
-                  </FormControl>
+              <ModalBody>
+                <Stack>
+                  <Text
+                    pt={4}
+                    pb={4}
+                    fontSize={'3xl'}
+                    fontWeight={'bold'}
+                    color={'brand'}
+                  >
+                    新規注文を開始しますか？
+                  </Text>
+                  <Text pt={2} fontSize={'xl'} color={'brand'}>
+                    ご注文に 【 {`${existingRestaurantName}`} 】
+                    の商品が含まれています。
+                  </Text>
+                  <Text fontSize={'xl'} color={'brand'}>
+                    新規の注文を開始して 【 {`${newRestaurantName}`} 】
+                    の商品を追加してください。
+                  </Text>
                 </Stack>
               </ModalBody>
-              <ModalFooter>
-                <CartButton onClick={() => onClickSubmit()}>
+              <ModalFooter pt={10} pb={6} justifyContent={'center'}>
+                <NewOrderButton loading={loading} onClick={() => onReplace()}>
                   <Text>新規注文</Text>
-                </CartButton>
+                </NewOrderButton>
               </ModalFooter>
             </ModalContent>
           </ModalOverlay>
