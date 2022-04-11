@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 
 import { CartDetail } from 'types/api/cart';
-import { cartsUpdateUrl } from '../url';
+import { cartDetailsUrl } from '../url';
 import { useMessage } from './useMessage';
 
 export const useUpdateCartDetails = () => {
@@ -14,10 +14,9 @@ export const useUpdateCartDetails = () => {
 
   const updateCart = useCallback(async (params) => {
     setLoading(true);
-    console.log(params);
     try {
-      const result = await axios.put<Array<CartDetail>>(
-        cartsUpdateUrl(params.food_id),
+      const result = await axios.patch<Array<CartDetail>>(
+        cartDetailsUrl(params.food_id),
         { cart_detail: params },
         {
           headers: {
