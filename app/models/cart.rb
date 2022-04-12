@@ -17,9 +17,9 @@ class Cart < ApplicationRecord
 
     # 追加するフードのカート詳細がない場合
     if food_exists_in_cart_details?(user, food)
-      CartDetail.cart_details_new_instance(user, food, food_count)
+      CartDetail.new_instance(user, food, food_count)
     else
-      CartDetail.cart_details_add_instance(user, food, food_count)
+      CartDetail.add_instance(user, food, food_count)
     end
   end
 
@@ -38,7 +38,7 @@ class Cart < ApplicationRecord
   end
 
   # カートの合計金額を更新
-  def self.total_price_update(user)
+  def self.total_price_update!(user)
     user.cart.update!(total_price: CartDetail.calc_cart_details_total_price(user))
   end
 

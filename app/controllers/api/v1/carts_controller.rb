@@ -17,7 +17,7 @@ module Api
         return render_not_acceptable if Cart.check_other_restaurant?(current_api_v1_user, @ordered_food)
 
         cart_detail = Cart.create_cart_and_cart_details(current_api_v1_user, @ordered_food, @food_count)
-        if cart_detail.save! && Cart.total_price_update(current_api_v1_user)
+        if cart_detail.save! && Cart.total_price_update!(current_api_v1_user)
           render json: current_api_v1_user.cart_details, status: :ok
         else
           render json: [], status: :internal_server_error

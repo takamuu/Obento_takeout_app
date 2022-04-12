@@ -4,20 +4,39 @@ class CartDetail < ApplicationRecord
 
   validates :count,  presence: true, numericality: { greater_than: 0 }
 
-  def self.cart_details_new_instance(user, food, food_count)
+  def self.new_instance(user, food, food_count)
     new(food_id: food.id, cart_id: user.cart.id, count: food_count)
   end
 
-  def self.cart_details_update_instance(user, food, food_count)
+  def self.update_instance(user, food, food_count)
     cart_detail = user.cart_details.find_by(food_id: food.id)
     cart_detail.attributes = { count: food_count }
     cart_detail
   end
 
-  def self.cart_details_add_instance(user, food, food_count)
+  def self.add_instance(user, food, food_count)
     cart_detail = user.cart_details.find_by(food_id: food.id)
     cart_detail.attributes = { count: cart_detail.count + food_count }
     cart_detail
+  end
+
+  def self.remove?(cart_detail)
+    ActiveRecord::Base.transaction do
+      cart_detail.destroy!
+      Cart.total_price_update!(cart_detail.cart.user)
+    end
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def self.remove_and_create?(user, food, food_count)
+    ActiveRecord::Base.transaction do
+      user.cart.cart_details.clear
+      new_instance(user, food, food_count).save!
+      Cart.total_price_update!(user)
+    end
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 
   # カート詳細の合計金額を計算

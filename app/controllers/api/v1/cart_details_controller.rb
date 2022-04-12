@@ -5,8 +5,8 @@ module Api
       before_action :set_food, only: %i[update replace]
 
       def update
-        @cart_detail = CartDetail.cart_details_update_instance(current_api_v1_user, @ordered_food, @food_count)
-        if @cart_detail.save! && Cart.total_price_update(current_api_v1_user)
+        @cart_detail = CartDetail.update_instance(current_api_v1_user, @ordered_food, @food_count)
+        if @cart_detail.save! && Cart.total_price_update!(current_api_v1_user)
           render json: @cart_detail, status: :ok
         else
           render json: [], status: :no_content
@@ -15,19 +15,16 @@ module Api
 
       def destroy
         @cart_detail = current_api_v1_user.cart_details.find_by(food_id: delete_params[:id].to_i)
-        if @cart_detail.destroy && Cart.total_price_update(current_api_v1_user)
-          @cart_details = current_api_v1_user.cart_details
-          render json: @cart_details, status: :ok
+        if CartDetail.remove?(@cart_detail)
+          render json: current_api_v1_user.cart_details, status: :ok
         else
           render json: [], status: :no_content
         end
       end
 
       def replace
-        current_api_v1_user.cart.cart_details.clear
-        @new_cart_details = CartDetail.cart_details_new_instance(current_api_v1_user, @ordered_food, @food_count)
-        if @new_cart_details.save! && Cart.total_price_update(current_api_v1_user)
-          render json: @new_cart_details, status: :ok
+        if CartDetail.remove_and_create?(current_api_v1_user, @ordered_food, @food_count)
+          render json: current_api_v1_user.cart_details, status: :ok
         else
           render json: [], status: :no_content
         end
