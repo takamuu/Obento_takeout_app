@@ -20,10 +20,10 @@ class CartDetail < ApplicationRecord
     cart_detail
   end
 
-  def self.remove?(cart_detail)
+  def remove?
     ActiveRecord::Base.transaction do
-      cart_detail.destroy!
-      Cart.total_price_update!(cart_detail.cart.user)
+      destroy!
+      cart.total_price_update!
     end
   rescue ActiveRecord::RecordInvalid
     false

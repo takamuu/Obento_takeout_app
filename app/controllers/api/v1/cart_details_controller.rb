@@ -15,7 +15,7 @@ module Api
 
       def destroy
         @cart_detail = current_api_v1_user.cart_details.find_by(food_id: delete_params[:id].to_i)
-        if CartDetail.remove?(@cart_detail)
+        if @cart_detail.remove?
           render json: current_api_v1_user.cart_details, status: :ok
         else
           render json: [], status: :no_content
