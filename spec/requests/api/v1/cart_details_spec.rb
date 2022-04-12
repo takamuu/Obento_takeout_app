@@ -110,11 +110,13 @@ RSpec.describe "Api::V1::CartDetails", type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it "存在していたカート詳細が全て削除され、別のレストランのカート詳細が作成されること" do
+        xit "存在していたカート詳細が全て削除され、別のレストランのカート詳細が作成されること" do
+          # TODO: @first_food,@second_foodが削除される事
+          # TODO: @other_restaurant_foodが作成される事
           expect { subject }.to change { CartDetail.count }.from(2).to(1)
         end
 
-        it "カートの合計金額が更新されること" do
+        xit "カートの合計金額が更新されること" do
           expect { subject }.to change { @cart.reload.total_price }.from(2000).to(1000)
         end
       end

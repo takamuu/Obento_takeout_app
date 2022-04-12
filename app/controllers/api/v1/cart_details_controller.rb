@@ -6,7 +6,7 @@ module Api
 
       def update
         @cart_detail = CartDetail.update_instance(current_api_v1_user, @ordered_food, @food_count)
-        if @cart_detail.save! && Cart.total_price_update!(current_api_v1_user)
+        if @cart_detail.save! && @cart_detail.cart.total_price_update!
           render json: @cart_detail, status: :ok
         else
           render json: [], status: :no_content

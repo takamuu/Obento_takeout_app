@@ -33,7 +33,7 @@ class CartDetail < ApplicationRecord
     ActiveRecord::Base.transaction do
       user.cart.cart_details.clear
       new_instance(user, food, food_count).save!
-      Cart.total_price_update!(user)
+      user.cart.total_price_update!
     end
   rescue ActiveRecord::RecordInvalid
     false
