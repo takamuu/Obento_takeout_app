@@ -43,6 +43,7 @@ export const NewCartConfirmModal: VFC<Props> = memo((props) => {
           isOpen={isOpen}
           onClose={onClose}
           autoFocus={false}
+          isCentered
           motionPreset="slideInBottom"
         >
           <ModalOverlay>
@@ -65,11 +66,11 @@ export const NewCartConfirmModal: VFC<Props> = memo((props) => {
                   </Text>
                   <Text pt={2} fontSize={'xl'} color={'brand'}>
                     ご注文に 【 {`${existingRestaurantName}`} 】
-                    の商品が含まれています。
+                    の商品が含まれていますが、削除してよろしいでしょうか？
                   </Text>
                   <Text fontSize={'xl'} color={'brand'}>
-                    新規の注文を開始して 【 {`${newRestaurantName}`} 】
-                    の商品を追加してください。
+                    よろしければ、新規注文を開始して 【 {`${newRestaurantName}`}{' '}
+                    】 の商品を追加してください。
                   </Text>
                 </Stack>
               </ModalBody>

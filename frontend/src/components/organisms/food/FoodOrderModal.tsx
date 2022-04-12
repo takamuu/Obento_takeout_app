@@ -96,6 +96,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
         isOpen={isOpen}
         onClose={onClose}
         autoFocus={false}
+        isCentered
         motionPreset="slideInBottom"
       >
         <ModalOverlay>
