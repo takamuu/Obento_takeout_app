@@ -38,8 +38,13 @@ class Cart < ApplicationRecord
   end
 
   # カートの合計金額を更新
-  def self.total_price_update!(user)
-    user.cart.update!(total_price: CartDetail.calc_cart_details_total_price(user))
+  def total_price_update!
+    update!(total_price: calc_cart_details_total_price)
+  end
+
+  # カート詳細の合計金額を計算
+  def calc_cart_details_total_price
+    cart_details.inject(0) {|result, detail| result + calc_total_price(detail.food, detail.count) }
   end
 
   def self.fetch_restaurant(user, food)

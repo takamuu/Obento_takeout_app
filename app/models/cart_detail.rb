@@ -38,14 +38,4 @@ class CartDetail < ApplicationRecord
   rescue ActiveRecord::RecordInvalid
     false
   end
-
-  # カート詳細の合計金額を計算
-  def self.calc_cart_details_total_price(user)
-    cart_details = fetch_array_of_cart_details(user)
-    cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
-  end
-
-  def self.fetch_array_of_cart_details(user)
-    where(cart_id: user.cart.id)
-  end
 end
