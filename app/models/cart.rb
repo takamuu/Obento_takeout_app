@@ -13,15 +13,13 @@ class Cart < ApplicationRecord
 
   def self.create_cart_and_cart_details(user, food, food_count)
     # カートがない場合は作成
-    user.build_cart(total_price: calc_total_price(food, food_count)).save! if user.cart.blank?
+    user.build_cart(total_price: food.price * food_count).save! if user.cart.blank?
 
     # 追加するフードのカート詳細がない場合
     if food_exists_in_cart_details?(user, food)
-      CartDetail.new(food_id: food.id, cart_id: user.cart.id, count: food_count)
+      CartDetail.new_instance(user, food, food_count)
     else
-      cart_detail = user.cart_details.find_by(food_id: food.id)
-      cart_detail.attributes = { count: cart_detail.count + food_count }
-      cart_detail
+      CartDetail.add_instance(user, food, food_count)
     end
   end
 
@@ -30,22 +28,17 @@ class Cart < ApplicationRecord
     user.cart.cart_details.find_by(food_id: food.id).blank?
   end
 
-  # カートを作成する
-  def self.create_cart(user, food, food_count)
-    create(user_id: user.id, total_price: calc_total_price(food, food_count))
-  end
-
-  def self.calc_total_price(food, food_count)
-    food.price * food_count
-  end
-
   # カートの合計金額を更新
-  def self.total_price_update(user)
-    user.cart.update!(total_price: calc_cart_details_total_price(user))
+  def total_price_update!
+    update!(total_price: calc_foods_total_price)
   end
 
   # カート詳細の合計金額を計算
-  def self.calc_cart_details_total_price(user)
-    user.cart.cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
+  def calc_foods_total_price
+    cart_details.inject(0) {|result, detail| result + (detail.food.price * detail.count) }
+  end
+
+  def self.fetch_restaurant(user, food)
+    { existing_restaurant_name: user.cart_details.first.food.restaurant.name, new_restaurant_name: food.restaurant.name }
   end
 end

@@ -25,51 +25,34 @@ import { Image } from '@chakra-ui/react';
 export const Foods: VFC = memo(() => {
   // For FoodModal
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const { getFoods, foods, loading } = useFoods();
-
   const { onSelectFood, selectedFood } = useSelectFood();
-
   const { restaurantId } = useParams<{ restaurantId: string }>();
-
   const history = useHistory();
-
   // レストランページから店舗情報を受取る
   const resultState = history.location.state;
-
   const restaurant = resultState['restaurant'];
-
-  useEffect(() => {
-    getFoods(restaurantId);
-  }, []);
-
   const onClickFood = useCallback(
     (selectFoodId: number) => {
       onSelectFood({ selectFoodId, foods, onOpen });
     },
     [foods, onSelectFood, onOpen]
-  );
-
+    );
   const onClickHome = () => history.push(`/`);
-
   // Setting Google map
   const containerStyle = {
-    width: '400px',
+      width: '400px',
     height: '267px',
   };
-
   const center = {
     lat: 34.6663,
     lng: 133.91779,
   };
-
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
   });
-
   const [map, setMap] = useState(null);
-
   const onLoad = (map) => {
     const sw = new window.google.maps.LatLng(34.6653, 133.91769);
     const ne = new window.google.maps.LatLng(34.6673, 133.91789);
@@ -77,10 +60,13 @@ export const Foods: VFC = memo(() => {
     map.fitBounds(bounds);
     setMap(map);
   };
-
   const onUnmount = (map) => {
     setMap(null);
   };
+
+  useEffect(() => {
+    getFoods(restaurantId);
+  }, []);
 
   return (
     <>

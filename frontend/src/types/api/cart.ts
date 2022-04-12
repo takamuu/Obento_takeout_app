@@ -11,3 +11,11 @@ export type Cart = {
   created_at: string;
   updated_at: string;
 };
+
+// useUpdateCartDetails.tsで使用
+export type CartDetail = {
+  id?: string;
+  cart_id?: string;
+  food_id?: string;
+  count?: number;
+};

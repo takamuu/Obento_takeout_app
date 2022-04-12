@@ -3,25 +3,21 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useCallback, useState } from 'react';
 
-import { Cart } from 'types/api/cart';
-import { cartsReplaceUrl } from '../url';
+import { CartDetail } from 'types/api/cart';
+import { cartDetailsReplaceUrl } from '../url';
 import { useMessage } from './useMessage';
 
-export const useReplaceCart = () => {
+export const useReplaceCartDetails = () => {
   const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
-  const [carts, setCarts] = useState<Array<Cart>>();
+  const [carts, setCarts] = useState<Array<CartDetail>>();
 
-  const replaceCart = useCallback(async (params) => {
+  const replaceCartDetails = useCallback(async (params) => {
     setLoading(true);
     try {
-      const result = await axios.put<Array<Cart>>(
-        cartsReplaceUrl,
-        {
-          food_id: params.food.id,
-          restaurant_id: params.food.restaurant_id,
-          count: params.count,
-        },
+      const result = await axios.put<Array<CartDetail>>(
+        cartDetailsReplaceUrl(params.food.id),
+        { cart_detail: { food_id: params.food.id, count: params.count } },
         {
           headers: {
             'access-token': Cookies.get('_access_token'),
@@ -31,6 +27,10 @@ export const useReplaceCart = () => {
         }
       );
       setCarts(result.data);
+      showMessage({
+        title: 'フードを更新しました',
+        status: 'success',
+      });
     } catch (e) {
       showMessage({
         title: 'データの取得に失敗しました',
@@ -41,5 +41,5 @@ export const useReplaceCart = () => {
     }
   }, []);
 
-  return { replaceCart, loading, carts };
+  return { replaceCartDetails, loading, carts };
 };

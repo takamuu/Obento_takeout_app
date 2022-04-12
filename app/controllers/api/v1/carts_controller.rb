@@ -19,7 +19,7 @@ module Api
         end
 
         cart_detail = Cart.create_cart_and_cart_details(current_api_v1_user, @ordered_food, @food_count)
-        if cart_detail.save! && Cart.total_price_update(current_api_v1_user)
+        if cart_detail.save! && current_api_v1_user.cart.total_price_update!
           render json: current_api_v1_user.cart_details, status: :ok
         else
           render json: [], status: :internal_server_error
@@ -38,7 +38,8 @@ module Api
         end
 
         def render_not_acceptable
-          render json: cart_details_params, status: :not_acceptable
+          @restaurants = Cart.fetch_restaurant(current_api_v1_user, @ordered_food)
+          render json: @restaurants, status: :not_acceptable
         end
     end
   end
