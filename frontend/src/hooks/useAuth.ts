@@ -66,6 +66,7 @@ export const useAuth = () => {
         Cookies.remove('_client');
         Cookies.remove('_uid');
         setLoginUser(null);
+        history.push('/');
         showMessage({
           title: 'ログアウトしました',
           status: 'error',
@@ -76,6 +77,6 @@ export const useAuth = () => {
           status: 'error',
         });
       }
-  }, [showMessage, setLoginUser]);
+  }, [setLoginUser, history, showMessage]);
   return { login, logout, loading };
 };
