@@ -77,6 +77,6 @@ export const useAuth = () => {
           status: 'error',
         });
       }
-  }, [setLoginUser, history, showMessage]);
+  }, [history, setLoginUser, showMessage]);
   return { login, logout, loading };
 };
