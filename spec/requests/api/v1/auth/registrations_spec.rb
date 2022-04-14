@@ -47,4 +47,129 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       end
     end
   end
+
+  describe "GET api/v1/auth/registrations#edit" do
+    let(:current_user) { create(:user) }
+    let(:headers) { current_user.create_new_auth_token }
+    let(:new_user) { create(:user) }
+
+    let(:account_update_params) {
+      { user:
+        {  id: current_user.id,
+           name: current_user.name,
+           email: current_user.email,
+           kana: current_user.kana,
+           phone_number: current_user.phone_number } }
+    }
+    context "トークン認証情報がある場合" do
+      subject { get(edit_api_v1_user_registration_path(account_update_params), headers: headers) }
+
+      context "ユーザーが存在する場合" do
+        it "ok(200)がレスポンスされる" do
+          subject
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "取得したユーザー情報がレスポンスされる" do
+          subject
+          json = JSON.parse(response.body)
+          expect(json.keys).to eq %w[id name email kana phone_number]
+        end
+      end
+
+      context ":idに対応するユーザーが存在しないとき" do
+        let(:account_update_params) { { user: { id: 1 }, id: 1 } }
+
+        it "no_content(204)がレスポンスされる" do
+          subject
+          expect(response).to have_http_status(:no_content)
+        end
+      end
+    end
+  end
+
+  describe "PATCH api/v1/auth/registrations#update" do
+    subject { put(api_v1_user_registration_path(account_update_params), headers: headers) }
+
+    let(:headers) { @current_user.create_new_auth_token }
+    let(:account_update_params) {
+      { user:
+        {
+          id: @current_user.id,
+          name: @new_user.name,
+          kana: @new_user.kana,
+          phone_number: @new_user.phone_number,
+        } }
+    }
+
+    before do
+      @current_user = create(:user)
+      @new_user = create(:user)
+    end
+
+    context "パラメータが正常な場合" do
+      it "ok(200)がレスポンスされる" do
+        subject
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "name が更新される" do
+        origin_name = @current_user.name
+        new_name = account_update_params[:user][:name]
+        expect { subject }.to change { @current_user.reload.name }.from(origin_name).to(new_name)
+      end
+
+      it "kana が更新される" do
+        origin_kana = @current_user.kana
+        new_kana = account_update_params[:user][:kana]
+        expect { subject }.to change { @current_user.reload.kana }.from(origin_kana).to(new_kana)
+      end
+
+      it "phone_number が更新される" do
+        origin_phone_number = @current_user.phone_number
+        new_phone_number = account_update_params[:user][:phone_number]
+        expect { subject }.to change { @current_user.reload.phone_number }.from(origin_phone_number).to(new_phone_number)
+      end
+    end
+
+    context "トークン認証情報がない場合" do
+      subject { patch(api_v1_user_registration_path(account_update_params)) }
+
+      it "認証不可(404)がレスポンスされる" do
+        subject
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe "DELETE api/v1/auth/registrations#destroy" do
+    subject { delete(api_v1_user_registration_path, headers: headers) }
+
+    let(:headers) { @current_user.create_new_auth_token }
+    let(:sign_up_params) {
+      { user:
+        { id: @current_user.id } }
+    }
+    before { @current_user = create(:user) }
+
+    context "パラメータが正常な場合" do
+      it "ok(200)がレスポンスされる" do
+        subject
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "ユーザーが削除される" do
+        expect { subject }.to change { User.count }.from(1).to(0)
+      end
+    end
+
+    context "トークン認証情報がない場合" do
+      subject { delete(api_v1_user_registration_path) }
+
+      it "認証不可(404)がレスポンスされる" do
+        subject
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
