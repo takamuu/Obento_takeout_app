@@ -15,7 +15,7 @@ module Api
         private
 
           def set_user
-            @user = User.find_by(id: account_update_params[:id].to_i)
+            @user = current_api_v1_user
           end
 
           def account_update_params
