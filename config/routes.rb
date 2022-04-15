@@ -13,8 +13,6 @@ Rails.application.routes.draw do
         resources :sessions, only: %i[index]
       end
 
-      resources :users, only: %i[show]
-
       resources :restaurants do
         resources :foods, only: %i[index]
       end
