@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Api::V1::Users", type: :request do
   let(:current_user) { create(:user) }
   let(:headers) { current_user.create_new_auth_token }
-  let(:user) { create(:user) }
+  let(:new_user) { create(:user) }
 
   describe "GET #show" do
     let(:user_params) {
@@ -11,7 +11,6 @@ RSpec.describe "Api::V1::Users", type: :request do
         {  id: current_user.id,
            name: current_user.name,
            email: current_user.email,
-           password: current_user.password,
            kana: current_user.kana,
            phone_number: current_user.phone_number }, id: current_user.id }
     }
