@@ -4,7 +4,7 @@ import { Box, Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/layout';
 
 export const Policy: VFC = memo(() => {
   return (
-    <Flex align="center" justify="center" height={{ sm: '870vh', md: '740vh' }}>
+    <Flex align="center" justify="center" height={{ sm: '890vh', md: '740vh' }}>
       <Stack w={{ sm: 'md', md: '2xl' }}>
         <Text
           paddingTop="3"
