@@ -1,45 +1,426 @@
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
-import { Button, Checkbox, Input, Textarea } from '@chakra-ui/react';
-import {
-  Box,
-  Divider,
-  Flex,
-  HStack,
-  Spacer,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/layout';
+import { memo, VFC } from 'react';
+import { Box, Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/layout';
 
 export const Policy: VFC = memo(() => {
-  const [contactTitle, setContactTitle] = useState('');
-  const [isChecked, setisChecked] = useState(false);
-
-  const onChangeContactTitle = (e: ChangeEvent<HTMLInputElement>) =>
-    setContactTitle(e.target.value);
-
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="70vh">
-      <Box bg="white" w={'md'} h={'lg'} p={2} borderRadius="md" shadow="md">
-        <VStack
+    <Flex align="center" justify="center" height={{ sm: '870vh', md: '730vh' }}>
+      <Stack w={{ sm: 'md', md: '2xl' }}>
+        <Text
+          paddingTop="3"
+          fontSize="26px"
+          fontWeight="bold"
+          color="brand"
+          spacing="12px"
+          textAlign={'center'}
+        >
+          プライバシーポリシー
+        </Text>
+        <Divider borderColor="brand" p={4} />
+        <Spacer p={2} />
+        <Text>
+          弁テク（以下「当社」といいます）では、当社が取扱う全ての個人情報の保護について、本人の権利の保護、個人情報に関する法規制等を遵守します。また、以下に示す方針を具現化するための個人情報保護マネジメントシステムを構築し、最新のＩＴ技術の動向、社会的要請の変化、経営環境の変動等を常に認識しながら、その継続的改善に、全社を挙げて取り組むことをここに宣言します。
+        </Text>
+        <Spacer p={2} />
+        <Text>
+          1.個人情報は、当社の正当な事業遂行上並びに従業員の雇用、人事管理上必要な範囲に限定して、取得・利用及び提供をし、特定された利用目的の達成に必要な範囲を超えた個人情報の取扱い（目的外利用）を行いません。また、目的外利用を行わないための措置を講じます。
+        </Text>
+        <Spacer p={2} />
+        <Text>
+          2.個人情報保護に関する法令、国が定める指針及びその他の規範を遵守いたします。
+        </Text>
+        <Spacer p={2} />
+        <Text>
+          3.個人情報の漏えい、滅失、き損などのリスクに対しては、合理的な安全対策を講じて防止すべく事業の実情に合致した経営資源を注入し個人情報セキュリティ体制を継続的に向上させます。また、万一の際には速やかに是正措置を講じます。
+        </Text>
+        <Spacer p={2} />
+        <Text>
+          4.個人情報取扱いに関する苦情及び相談に対しては、迅速かつ誠実に、適切な対応をさせていただきます。
+        </Text>
+        <Spacer p={2} />
+        <Text>
+          5.個人情報保護マネジメントシステムは、当社を取り巻く環境の変化を踏まえ、適時・適切に見直してその改善を継続的に推進します。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>
+          プライバシーポリシーに関するお問い合わせについて
+        </Text>
+        <Box p={4} bg={'gray.100'} border={'1px'} borderRadius={'md'}>
+          <Text>弁テク 個人情報お問い合わせ窓口</Text>
+          <Text>メールアドレス：obento-takeout@XXXXXX.com</Text>
+          <Text>
+            ※土・日曜日、祝日、年末年始、ゴールデンウィーク、お盆期間は翌営業日以降の対応とさせていただきます。
+          </Text>
+        </Box>
+        {/* <Spacer p={4} /> */}
+        <Text textAlign={'right'}>制定 2022年〇月〇〇日 </Text>
+        <Text textAlign={'right'}> 改訂 2022年〇月〇〇日</Text>
+        <Text textAlign={'right'}>弁テク〇〇会社 </Text>
+        <Text textAlign={'right'}>代表取締役 〇〇 〇〇</Text>
+        <Spacer p={4} />
+        <Text textAlign={'right'}>以上</Text>
+        <Spacer p={10} />
+        <Text
           paddingTop="3"
           fontSize="23px"
           fontWeight="bold"
           color="brand"
           spacing="12px"
+          textAlign={'center'}
         >
-          <Text>個人情報保護方針</Text>
-        </VStack>
-        <Divider borderColor="brand" my={4} />
-        <Stack spacing={4} py={4} px={10}>
-          <Divider borderColor="brand" my={4} />
-          <Spacer />
-          <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
-            戻る
-          </Button>
-        </Stack>
-      </Box>
+          個人情報保護方針
+        </Text>
+        <Divider borderColor="brand" p={4} />
+        <Spacer p={2} />
+        <Text>
+          当社は、プライバシーポリシーに基づき、お客様、お取引先様、従業員の方々の個人情報を適切に管理し、個人情報の保護に努めております。具体的には以下の内容に従って個人情報の取扱いを行います。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>
+          1.事業者の氏名又は名称及び住所並びに代表者の氏名
+        </Text>
+        <Text pl={4}> 事業者名：弁テク 住所：〇〇</Text>
+        <Text pl={4}>代表者の氏名：代表取締役 〇〇</Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>
+          2.個人情報保護管理者の所属、職名及び連絡先
+        </Text>
+        <Text pl={4}>・〒〇〇 〇〇県〇〇市</Text>
+        <Text pl={4}>・個人情報保護責任者名：〇〇</Text>
+        <Text pl={4}>・メールアドレス：〇〇@〇〇.com</Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>3.個人情報の利用目的 制定</Text>
+        <Text pl={4}>
+          当社は、以下の利用目的のためにユーザーの個人情報を収集します。
+        </Text>
+        <Text pl={4}>
+          ※以降「当社」とは「当社及び当社グループ会社」を意味します。
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (1)弁テク利用者様の情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>
+            a.ご利用登録に関する各種手続き、認証、履歴管理、その他当社サービスの運営に必要な管理
+          </Text>
+          <Text pl={4}> b.緊急時その他の必要な、お客様へのご連絡</Text>
+          <Text pl={4}>
+            c.利用料金の請求や報酬金額などのお支払い等、緊急事態が発生した際のご連絡
+          </Text>
+          <Text pl={4}>
+            d.当社サービスの利用規約に違反する行為への対応、及び当該違反行為の防止
+          </Text>
+          <Text pl={4}>
+            e.当社サービスに関する当社の規約、ポリシー等の変更等をお客様に通知
+          </Text>
+          <Text pl={4}>
+            f.当社に希望されたサービスの提供 g.当社からのメールマガジン配信
+          </Text>
+          <Text pl={4}>
+            h.当社サービス・イベント・キャンペーン等に関するご案内、景品その他の物品の送付
+          </Text>
+          <Text pl={4}>i.お客様からのお問い合わせ等への対応</Text>
+          <Text pl={4}>j.個人を特定できない範囲での統計利用</Text>
+          <Text pl={4}>k.ターゲティング広告の配信・表示</Text>
+          <Text pl={4}>l.その他、上記業務に関連又は付随する業務</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (2)お取引先の情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>
+            a.当社のサービスや関連する情報のご案内・ご提供、ご要望の聴取
+          </Text>
+          <Text pl={4}>
+            b.お取引に関する義務の履行及び権利の行使 c.お取引の履歴管理
+          </Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (3)お問合せ時の情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.当社へのお問合せ内容への適切な対応</Text>
+          <Text pl={4}>b.個人を特定できない範囲での統計利用</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (4)お取引先等からの受託業務を行うための情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.データ入力・加工業務</Text>
+          <Text pl={4}>b.各種事務に係る書類作成、発行、手続き等の業務</Text>
+          <Text pl={4}>c.その他委託元から依頼を受けた業務遂行</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (5)当社求人へ応募された方の情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.採用選考、内定者管理及びそれに関するご連絡</Text>
+          <Text pl={4}>b.採用活動PRのための情報発信（映像・音声を含む）</Text>
+          <Text pl={4}>c.個人を特定できない範囲での統計利用</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (6)当社主催のイベント・セミナー等への参加者の情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.当該イベント等の運営管理</Text>
+          <Text pl={4}>b.当該イベント等に関する情報のご提供</Text>
+          <Text pl={4}>
+            c.当社のサービス・イベント・キャンペーン等のご案内、景品その他の物品の送付
+          </Text>
+          <Text pl={4}>d.当社事業に関する情報発信（映像・音声を含む）</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (7)アンケートで取得した情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.アンケートの対象となったサービス等の改良・改善</Text>
+          <Text pl={4}>
+            b.当社事業活動におけるマーケティングや、より良いサービスの提供・開発
+          </Text>
+          <Text pl={4}>
+            c.当社のサービス・イベント・キャンペーン等のご案内、景品その他の物品の送付
+          </Text>
+
+          <Text pl={4}>d.当社事業に関する情報発信（映像・音声を含む）</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (8)広報活動等における取材によって取得した情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.当社の広報媒体及び各種メディアへの掲載</Text>
+          <Text pl={4}>b.広報活動にあたって必要なご連絡</Text>
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (9)オフィス来訪者の情報
+        </Text>
+
+        <Text pl={8}>a.施設防犯管理</Text>
+
+        <Text pl={4} fontWeight={'bold'}>
+          (10)書面以外で取得する際の情報
+        </Text>
+        <Text pl={4}>
+          <Text pl={4}>a.お問い合わせ内容確認のため（通話記録）</Text>
+          <Text pl={4}>b.オンライン会議システムの録画（会議記録）</Text>
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>4.個人情報の第三者への提供</Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (1)サービスのご利用にあたっての第三者への提供
+        </Text>
+        <Text pl={8}>
+          ご登録いただいた情報については、以下の場合に、サービスのご提供その他のご要望への対応に必要な範囲で、第三者へ提供することがあります。
+        </Text>
+        <Text pl={4} fontWeight={'bold'}>
+          (2)法令に基づく場合などにおける第三者への提供
+        </Text>
+        <Text pl={8}>
+          個人情報の保護に関する法律第23条第1項各号により提供する場合（法令に基づく場合など）には、第三者に提供することがあります。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>5.個人情報を取扱う委託</Text>
+        <Text pl={4}>
+          弊社は事業運営上、前項利用目的の範囲に限って個人情報を外部に委託することがあります。この場合、個人情報保護水準の高い委託先を選定し、個人情報の適正管理・機密保持について適切な管理を実施させます。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>6.個人情報の開示等の請求</Text>
+        <Text pl={4}>
+          ご本人様は、当社に対してご自身の個人情報又は第三者提供記録について利用目的の通知、開示、内容の訂正、追加又は削除、利用の停止、消去及び第三者への提供の停止（以下「開示等」という）に関して、下記の当社問合わせ窓口に申し出ることができます。その際、当社はお客様ご本人を確認させていただいたうえで、合理的な期間内に対応いたします。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>7.開示等の求めの申し出先</Text>
+        <Text pl={4}>
+          <Text>保有個人データの取扱いに関する苦情の申し出先</Text>
+          <Text>
+            開示等のお求めは、下記個人情報お問い合わせ窓口にお申し出ください。
+          </Text>
+          <Text>
+            ※電磁的手続きによる開示等をご希望の方は、その旨お申し出ください。原則としてご希望に沿って処理させていただきます。
+          </Text>
+          <Text>・弁テク 個人情報お問い合わせ窓口</Text>
+          <Text>・メールアドレス：〇〇@〇〇.com ※</Text>
+          <Text>
+            ※土・日曜日、祝日、年末年始、ゴールデンウィーク、お盆期間は翌営業日以降の対応とさせていただきます。
+          </Text>
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}> 8.開示等の求めに応じる手続き</Text>
+        <Text pl={4}>
+          <Text>
+            (1)
+            お申し出受付け後、当社から「保有個人データ開示等請求書」を郵送いたします。
+          </Text>
+          <Text>
+            (2)
+            ご記入いただいた請求書、手数料分の郵便為替（利用目的の通知並びに開示の請求の場合のみ）を上記個人情報問合せ係までご郵送ください。
+          </Text>
+          <Text>
+            (3)
+            上記請求書を受領後、ご本人確認のため、当社に登録していただいている個人情報のうちご本人確認可能な2項目程度（例：電話番号と生年月日等）の情報をお問合せさせていただきます。
+          </Text>
+          <Text>
+            (4)
+            P回答は原則としてご本人に対して書面（封書郵送）にておこないます。
+          </Text>
+          <Text>
+            (5)
+            開示等をお求めになる方が代理人様である場合は、下記の代理人である事を証明する資料(No.1)及び代理人様ご自身を証明する資料(No.2)を同封してください。各資料に含まれる本籍地情報は都道府県までとし、それ以降の情報は黒塗り等の処理をしてください。また各資料は個人番号を含まないものをお送りいただくか、全桁を墨塗り等の処理をしてください。
+          </Text>
+          <Text>
+            ※1回のお求めにつき1,000円（紙面でのご請求の場合は、お送りいただく請求書等に郵便為替を同封していただきます。その他の方法でご請求いただく場合は、ご請求時にご相談させていただきます。）
+          </Text>
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}> 9.個人情報の利用停止・削除・消去</Text>
+        <Text pl={4}>
+          <Text>
+            (1)
+            利用目的が達成され、継続して個人情報を保管する必要がなくなったと判断した場合には、一定期間経過後、お客様の個人情報を消去いたします。
+          </Text>
+          <Text>
+            (2)
+            お客様から個人情報の利用停止、削除及び消去を求められた場合には、これを適切に対応します。但し、個人情報保護法、その他の法令に基づき、当社がこれらの義務を負わない場合は、この限りではありません。
+          </Text>
+          <Text>
+            (3)
+            この削除及び消去されたデータにつきましては、後日お客様から、開示・変更請求があった場合でも、対応できません。
+          </Text>
+          <Text>
+            ※利用停止、削除、消去により、ご要望に沿ったサービスの提供ができなくなることがありますので、あらかじめご了承の上ご請求ください。
+          </Text>
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>
+          10.個人情報を提供されることの任意性について
+        </Text>
+        <Text pl={4}>
+          ご本人様が当社に個人情報を提供されるかどうかは任意によるものです。
+        </Text>
+        <Text pl={4}>
+          ただし、必要な項目をいただけない場合、適切な対応ができない場合があります。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}> 11.共同利用に関する事項について</Text>
+        <Text pl={4}>
+          当社は、保有する個人情報を以下のとおり当社のグループ会社と共同利用する場合があります。
+        </Text>
+        <Text fontWeight={'bold'}> (1)共同利用する個人データの項目</Text>
+        <Text pl={4}>
+          氏名、住所、性別、電話番号、電子メールアドレス等ご本人様の属性に関する事項。
+        </Text>
+        <Text fontWeight={'bold'}>(2)共同利用する者の範囲</Text>
+        <Text pl={4}>
+          <Text pl={4}>a.AA株式会社</Text>
+          <Text pl={4}>b.BB株式会社</Text>
+        </Text>
+        <Text fontWeight={'bold'}>(3)利用目的</Text>
+        <Text pl={4}>
+          a.共通
+          <Text pl={4}>・お問い合わせに対するご連絡</Text>
+          <Text pl={4}>・個人情報を特定できない形式での統計資料の利用</Text>
+          <Text pl={4}>・案件提案サービスの提供</Text>
+          <Text pl={4}>
+            ・アンケートのご協力依頼や結果の報告、キャンペーンの告知
+          </Text>
+          <Text pl={4}>
+            ・モニター等への応募、プレゼント発送、イベントのご案内等
+          </Text>
+          <Text pl={4}>・提供するサービスのご案内や資料の送付</Text>
+          <Text pl={4}>・広報活動にあたっての必要なご連絡</Text>
+          <Text pl={4}>
+            ・グループ会社間でのサービスの開発、提供、メンテナンス及び向上に役立てるため
+          </Text>
+          <Text pl={4}>・その他、上記業務に関連又は付随する業務</Text>
+        </Text>
+        <Text pl={4}>
+          b.就業・人材紹介希望者
+          <Text pl={4}>
+            ・ご本人の承諾に基づき、当社技術者紹介サービス利用企業へのスキル情報等の提供
+          </Text>
+          <Text pl={4}>・内定者管理及びそれに関する連絡 </Text>
+        </Text>
+        <Text pl={4}>
+          c.お取引先
+          <Text pl={4}>・営業活動全般</Text>
+        </Text>
+        <Text fontWeight={'bold'}>
+          (4)共同利用する個人データの管理責任者の氏名又は名称及び住所並びに法人にあっては、その代表者の氏名
+        </Text>
+        <Text>〇〇 住所：〇〇</Text>
+        <Text>代表者の氏名：代表取締役 〇〇</Text>
+        <Text fontWeight={'bold'}>(5)取得方法</Text>
+        <Text>
+          共同利用する者が保有する個人情報を書面、電子媒体、Web等により取得します。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>12.クッキー（Cookie）について</Text>
+        <Text fontWeight={'bold'}>
+          (1)当社は、以下の目的でクッキーを利用いたします。
+        </Text>
+        <Text pl={4}>a.設定内容の保存等利便性向上のため</Text>
+        <Text pl={4}>b.セッションの維持及び保護等セキュリティのため</Text>
+        <Text pl={4}>c.広告の効果を計測、より関心の強いご案内提供のため</Text>
+        <Text pl={4}>
+          d.本サービスに対する訪問回数及び利用形態等の把握による、サービス拡充のため
+        </Text>
+        <Text fontWeight={'bold'}>(2)本人を特定されないクッキー情報</Text>
+        <Text pl={4}>
+          クッキーは、皆さまがページをご覧いただく際に必要なシステム情報や、ご利用中の皆さまを同一人物であると確認するための情報としてのみ使用しており、個人が特定されるような情報は含んでおりません。
+        </Text>
+        <Text fontWeight={'bold'}>(3)本人の情報と紐付けるクッキー情報</Text>
+        <Text pl={4}>
+          パートナー企業より受領するクッキー情報について、当社の保有する個人データと紐づけた上で利用することがあります。ただし、当該紐づけにあたり、個人情報保護法によりお客様等の同意が必要な場合には、個人情報保護法及び関連するガイドラインに従った上で、紐づけを行います。
+        </Text>
+        <Text pl={4}>
+          ※クッキーの使用可否については自由にご選択いただけますが、クッキーの保存を拒否される場合にはログインが必要なサービス等、本サービスの一部をご利用いただけない場合があります。
+        </Text>
+        <Spacer p={2} />
+        <Text fontWeight={'bold'}>
+          13.個人情報の取扱い体制や講じている措置の内容
+        </Text>
+        <Text fontWeight={'bold'}>(1)基本方針の策定</Text>
+        <Text pl={4}>
+          個人データの適正な取扱いの確保のため、「関係法令・ガイドライン等の遵守」、「質問及び苦情処理の窓口」等について「プライバシーポリシー」を策定しています。
+        </Text>
+        <Text fontWeight={'bold'}>(2)個人データの取扱いに係る規律の整備</Text>
+        <Text pl={4}>
+          取得、利用、保存、提供、削除・廃棄等の段階ごとに、取扱方法、責任者・担当者及びその任務等について個人情報保護規程を策定しています。
+        </Text>
+        <Text fontWeight={'bold'}>(3)組織的安全管理措置</Text>
+        <Text pl={4}>
+          a.個人データの取扱いに関する責任者を設置するとともに、個人データを取扱う従業者及び当該従業者が取扱う個人データの範囲を明確化し、法や取扱規程に違反している事実又は兆候を把握した場合の責任者への報告連絡体制を整備しています。
+        </Text>
+        <Text pl={4}>
+          b.個人データの取扱状況について、定期的に自己点検を実施するとともに、他部署や外部の者による監査を実施しています。
+        </Text>
+        <Text fontWeight={'bold'}>(4)人的安全管理措置</Text>
+        <Text pl={4}>
+          a.個人データの取扱いに関する留意事項について、従業者に定期的な研修を実施しています。
+        </Text>
+        <Text pl={4}>
+          b.個人データについての秘密保持に関する事項を就業規則に記載しています。
+        </Text>
+        <Text fontWeight={'bold'}>(5)物理的安全管理措置</Text>
+        <Text pl={4}>
+          a.個人データを取扱う区域において、従業者の入退室管理及び持ち込む機器等の制限を行うとともに、権限を有しない者による個人データの閲覧を防止する措置を講じています。
+        </Text>
+        <Text pl={4}>
+          b.個人データを取扱う機器、電子媒体及び書類等の盗難又は紛失等を防止するための措置を講じるとともに、事業所内の移動を含め、当該機器、電子媒体等を持ち運ぶ場合、容易に個人データが判明しないよう措置を講じています。
+        </Text>
+        <Text fontWeight={'bold'}>(6)技術的安全管理措置</Text>
+        <Text pl={4}>
+          アクセス制御を実施して、担当者及び取扱う個人情報データベース等の範囲を限定しています。
+        </Text>
+        <Spacer p={2} />
+        <Text textAlign={'right'}>以上</Text>
+        <Spacer p={2} />
+        <Text textAlign={'right'}>制定 2022年〇月〇〇日 </Text>
+        <Text textAlign={'right'}> 改訂 2022年〇月〇〇日</Text>
+        <Text textAlign={'right'}>弁テク〇〇会社 </Text>
+        <Text textAlign={'right'}>代表取締役 〇〇 〇〇</Text>
+        <Spacer p={4} />
+        <Spacer p={4} />
+      </Stack>
     </Flex>
   );
 });
