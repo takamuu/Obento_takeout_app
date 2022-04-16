@@ -4,7 +4,7 @@ import { Box, Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/layout';
 
 export const Policy: VFC = memo(() => {
   return (
-    <Flex align="center" justify="center" height={{ sm: '870vh', md: '730vh' }}>
+    <Flex align="center" justify="center" height={{ sm: '870vh', md: '740vh' }}>
       <Stack w={{ sm: 'md', md: '2xl' }}>
         <Text
           paddingTop="3"
@@ -52,14 +52,13 @@ export const Policy: VFC = memo(() => {
             ※土・日曜日、祝日、年末年始、ゴールデンウィーク、お盆期間は翌営業日以降の対応とさせていただきます。
           </Text>
         </Box>
-        {/* <Spacer p={4} /> */}
         <Text textAlign={'right'}>制定 2022年〇月〇〇日 </Text>
         <Text textAlign={'right'}> 改訂 2022年〇月〇〇日</Text>
         <Text textAlign={'right'}>弁テク〇〇会社 </Text>
         <Text textAlign={'right'}>代表取締役 〇〇 〇〇</Text>
         <Spacer p={4} />
         <Text textAlign={'right'}>以上</Text>
-        <Spacer p={10} />
+        <Spacer p={16} />
         <Text
           paddingTop="3"
           fontSize="23px"
