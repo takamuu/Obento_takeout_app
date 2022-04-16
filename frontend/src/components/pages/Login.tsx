@@ -23,7 +23,8 @@ import { useGuestAuth } from 'hooks/useGuestAuth';
 
 export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
-  const { newUserRegistrationLoading } = useNewUserRegistration();
+  const [newUserRegistrationLoading, setNewUserRegistrationLoading] =
+    useState(false);
   const { guestLogin, loading: guestLoading } = useGuestAuth();
 
   const history = useHistory();
@@ -44,10 +45,10 @@ export const Login: VFC = memo(() => {
   };
   const onLogin = () => login(params);
 
-  const onNewUserRegistration = useCallback(
-    () => history.push('/new_user_registration'),
-    [history]
-  );
+  const onNewUserRegistration = useCallback(() => {
+    setNewUserRegistrationLoading(true);
+    history.push('/new_user_registration');
+  }, [history]);
 
   const onGuestLogin = () => guestLogin();
   return (
@@ -85,16 +86,27 @@ export const Login: VFC = memo(() => {
             onChange={onChangePassword}
           />
           <PrimaryButton
-            disabled={!userId || !userPassword}
+            disabled={
+              !userId ||
+              !userPassword ||
+              loading ||
+              guestLoading ||
+              newUserRegistrationLoading
+            }
             loading={loading}
             onClick={onLogin}
           >
             ログイン
           </PrimaryButton>
-          <GuestButton loading={guestLoading} onClick={onGuestLogin}>
+          <GuestButton
+            disabled={loading || guestLoading || newUserRegistrationLoading}
+            loading={guestLoading}
+            onClick={onGuestLogin}
+          >
             ゲストログイン
           </GuestButton>
           <NewUserRegistrationButton
+            disabled={loading || guestLoading || newUserRegistrationLoading}
             loading={newUserRegistrationLoading}
             onClick={onNewUserRegistration}
           >
