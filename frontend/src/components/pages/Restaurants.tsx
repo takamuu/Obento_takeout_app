@@ -100,7 +100,7 @@ export const Restaurants: VFC = memo(() => {
             spacing="0"
             justify="space-evenly"
             paddingTop={6}
-            paddingBottom={10}
+            paddingBottom={32}
           >
             {restaurants.map((restaurant) => (
               <WrapItem key={restaurant.id}>

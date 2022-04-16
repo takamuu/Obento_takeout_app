@@ -99,35 +99,37 @@ export const OrderHistory: VFC = memo(() => {
               受取番号
             </Box>
           </HStack>
-          <Divider
-            w={{ sm: '460px', md: '730px' }}
-            borderColor={'brand'}
-            border={'1px'}
-          />
-          <Wrap>
-            {orders.length ? (
-              <>
-                <VStack>
-                  {orders.map((order, i) => (
-                    <WrapItem key={i}>
-                      <OrderCard
-                        createdAt={order.created_at}
-                        restaurantName={order.restaurant_name}
-                        totalPrice={order.total_price}
-                        orderDetails={order.order_details}
-                        progressStatus={order.progress_status}
-                        receiptNumber={order.rceipt_number}
-                      />
-                    </WrapItem>
-                  ))}
-                </VStack>
-              </>
-            ) : (
-              <Text fontSize={'xl'} fontWeight={'bold'}>
-                購入履歴はありません
-              </Text>
-            )}
-          </Wrap>
+          <VStack>
+            <Divider
+              w={{ sm: '460px', md: '730px' }}
+              borderColor={'brand'}
+              border={'1px'}
+            />
+            <Wrap>
+              {orders.length ? (
+                <>
+                  <VStack>
+                    {orders.map((order, i) => (
+                      <WrapItem key={i}>
+                        <OrderCard
+                          createdAt={order.created_at}
+                          restaurantName={order.restaurant_name}
+                          totalPrice={order.total_price}
+                          orderDetails={order.order_details}
+                          progressStatus={order.progress_status}
+                          receiptNumber={order.rceipt_number}
+                        />
+                      </WrapItem>
+                    ))}
+                  </VStack>
+                </>
+              ) : (
+                <Box p={10} fontSize={'xl'} fontWeight={'bold'}>
+                  購入履歴はありません
+                </Box>
+              )}
+            </Wrap>
+          </VStack>
           <Flex w={'100%'} pt={20} pb={28} justify="center" align="center">
             <Button
               w={200}

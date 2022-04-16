@@ -7,7 +7,11 @@ export const signOutUrl = `${DEFAULT_API_LOCALHOST}/auth/sign_out`;
 
 export const signUpUrl = `${DEFAULT_API_LOCALHOST}/auth`;
 
+export const currentUserUrl = `${DEFAULT_API_LOCALHOST}/auth/validate_token`;
+
 export const guestSignInUrl = `${DEFAULT_API_LOCALHOST}/auth/guest_sign_in`;
+
+export const myPageUrl = `${DEFAULT_API_LOCALHOST}/auth/edit`;
 
 export const restaurantsIndexUrl = `${DEFAULT_API_LOCALHOST}/restaurants`;
 

@@ -3,17 +3,19 @@ import { Button } from '@chakra-ui/button';
 
 type Props = {
   children: ReactNode;
+  disabled: boolean;
   loading: boolean;
   onClick: () => void;
 };
 
 export const NewUserRegistrationButton: VFC<Props> = memo((props) => {
-  const { children, loading = false, onClick } = props;
+  const { children, disabled = false, loading = false, onClick } = props;
   return (
     <Button
       bg="teal.500"
       color="white"
       _hover={{ opacity: 0.8 }}
+      disabled={disabled}
       isLoading={loading}
       onClick={onClick}
     >
