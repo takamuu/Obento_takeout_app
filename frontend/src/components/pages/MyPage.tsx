@@ -22,10 +22,14 @@ export const MyPage: VFC = memo(() => {
   const [userEmail, setUserEmail] = useState('');
   const [userPhoneNumber, setUserPhoneNumber] = useState('');
   const [isEdit, setEdit] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+  const [orderHistoryLoading, setOrderHistoryLoading] = useState(false);
   const history = useHistory();
-  const { updateMyPage, deleteMyPage, loading } = useMyPage();
+  const { updateMyPage, deleteMyPage, updateLoading, deleteLoading } =
+    useMyPage();
 
   const onEditButton = () => {
+    setEditLoading(true);
     !isEdit ? setEdit(true) : setEdit(false);
   };
 
@@ -43,7 +47,11 @@ export const MyPage: VFC = memo(() => {
     }
   };
 
-  const onOrderHistoryButton = () => history.push('/order_history');
+  const onOrderHistoryButton = () => {
+    setOrderHistoryLoading(true);
+    history.push('/order_history');
+  };
+
   const onUnsubscribeButton = useCallback(async () => {
     if (userName === 'ゲストユーザー')
       alert(
@@ -178,8 +186,8 @@ export const MyPage: VFC = memo(() => {
             <Spacer p={4}></Spacer>
             {!isEdit && (
               <PrimaryButton
-                disabled={loading}
-                loading={loading}
+                disabled={editLoading || orderHistoryLoading || deleteLoading}
+                loading={editLoading}
                 onClick={() => onEditButton()}
               >
                 編集する
@@ -187,8 +195,8 @@ export const MyPage: VFC = memo(() => {
             )}
             {isEdit && (
               <PrimaryButton
-                disabled={loading}
-                loading={loading}
+                disabled={updateLoading || orderHistoryLoading || deleteLoading}
+                loading={updateLoading}
                 onClick={() => onUpdateButton(params)}
               >
                 変更を保存する
@@ -196,16 +204,26 @@ export const MyPage: VFC = memo(() => {
             )}
             <Spacer p={4} />
             <PrimaryButton
-              disabled={loading}
-              loading={loading}
+              disabled={
+                editLoading ||
+                updateLoading ||
+                orderHistoryLoading ||
+                deleteLoading
+              }
+              loading={orderHistoryLoading}
               onClick={() => onOrderHistoryButton()}
             >
               購入履歴
             </PrimaryButton>
             <Spacer p={4} />
             <PrimaryButton
-              disabled={loading}
-              loading={loading}
+              disabled={
+                editLoading ||
+                updateLoading ||
+                orderHistoryLoading ||
+                deleteLoading
+              }
+              loading={deleteLoading}
               onClick={() => onUnsubscribeButton()}
             >
               退会する

@@ -10,12 +10,13 @@ import { useMessage } from './useMessage';
 
 export const useMyPage = () => {
   const { showMessage } = useMessage();
-  const [loading, setLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [updateUser, setUpdateUser] = useState<User>();
   const [deleteUser, setDeleteUser] = useState<User>();
 
   const updateMyPage = useCallback(async (params: User) => {
-    setLoading(true);
+    setUpdateLoading(true);
     try {
       const result = await axios.patch<User>(
         signUpUrl,
@@ -47,12 +48,12 @@ export const useMyPage = () => {
         status: 'error',
       });
     } finally {
-      setLoading(false);
+      setUpdateLoading(false);
     }
   }, []);
 
   const deleteMyPage = useCallback(async () => {
-    setLoading(true);
+    setDeleteLoading(true);
     try {
       const result = await axios.delete<User>(signUpUrl, {
         headers: {
@@ -72,8 +73,15 @@ export const useMyPage = () => {
         status: 'error',
       });
     } finally {
-      setLoading(false);
+      setDeleteLoading(false);
     }
   }, []);
-  return { updateMyPage, updateUser, deleteMyPage, deleteUser, loading };
+  return {
+    updateMyPage,
+    updateUser,
+    updateLoading,
+    deleteMyPage,
+    deleteUser,
+    deleteLoading,
+  };
 };
