@@ -418,7 +418,6 @@ export const Policy: VFC = memo(() => {
         <Text textAlign={'right'}>弁テク〇〇会社 </Text>
         <Text textAlign={'right'}>代表取締役 〇〇 〇〇</Text>
         <Spacer p={4} />
-        <Spacer p={4} />
       </Stack>
     </Flex>
   );
