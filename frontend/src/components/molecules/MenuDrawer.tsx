@@ -7,6 +7,7 @@ import {
   DrawerContent,
   DrawerOverlay,
 } from '@chakra-ui/modal';
+import { useLoginUser } from 'hooks/useLoginUser';
 import { memo, VFC } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -15,15 +16,16 @@ type Props = {
   isOpen: boolean;
   onHome: () => void;
   onLogin: () => void;
+  onLogout: () => void;
 };
 
 export const MenuDrawer: VFC<Props> = memo((props) => {
-  const { onClose, isOpen, onHome, onLogin } = props;
+  const { onClose, isOpen, onHome, onLogin, onLogout } = props;
   const history = useHistory();
+  const { loginUser } = useLoginUser();
 
   const onHowToUseBenteku = () => history.push('/how_to_use_benteku');
   const onMyPage = () => history.push('/my_page');
-  const onOrderHistory = () => history.push('/order_history');
 
   return (
     <Drawer placement="left" size="xs" onClose={onClose} isOpen={isOpen}>
@@ -31,23 +33,32 @@ export const MenuDrawer: VFC<Props> = memo((props) => {
         <DrawerContent>
           <DrawerBody p={0} bg="gray.100">
             <Button w="100%" onClick={onHome}>
-              TOP
+              トップページ
             </Button>
             <Button w="100%" onClick={onHowToUseBenteku}>
               弁テクの使い方
             </Button>
-            <Button w="100%" onClick={onLogin}>
-              ログイン
-            </Button>
-            <Button w="100%">ゲストログイン</Button>
-            <Button w="100%" onClick={onMyPage}>
-              マイページ
-            </Button>
-            <Button w="100%">受取票を表示する</Button>
-            <Button w="100%" onClick={onOrderHistory}>
-              購入履歴
-            </Button>
-            <Button w="100%">サインアウト</Button>
+            <>
+              {loginUser && (
+                <Button w="100%" onClick={onMyPage}>
+                  マイページ
+                </Button>
+              )}
+              {loginUser ? (
+                <Button w="100%" onClick={onLogout}>
+                  ログアウト
+                </Button>
+              ) : (
+                <Button w="100%" onClick={onLogin}>
+                  ログイン
+                </Button>
+              )}
+              {!loginUser && (
+                <Button w="100%" onClick={onLogin}>
+                  ゲストログイン
+                </Button>
+              )}
+            </>
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>

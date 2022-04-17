@@ -28,16 +28,15 @@ export const Header: VFC = memo(() => {
     onClose: onCloseCartModal,
   } = useDisclosure();
 
+  const history = useHistory();
   const { loginUser } = useLoginUser();
   const { logout } = useAuth();
-  const history = useHistory();
 
   const onHome = () => history.push('/');
-  const onLogin = () => history.push('/login');
   const onContact = () => history.push('/contact');
   const onHowToUseBenteku = () => history.push('/how_to_use_benteku');
   const onMyPage = () => history.push('/my_page');
-
+  const onLogin = () => history.push('/login');
   const onLogout = () => logout();
 
   const onCartModal = () => {
@@ -119,6 +118,7 @@ export const Header: VFC = memo(() => {
         isOpen={isOpenMenuDrawer}
         onHome={onHome}
         onLogin={onLogin}
+        onLogout={onLogout}
       />
       {isOpenCartModal && (
         <CartModal isOpen={isOpenCartModal} onClose={onCloseCartModal} />
