@@ -7,6 +7,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import {
   Center,
   HStack,
+  Spacer,
   Text,
   VStack,
   Wrap,
@@ -37,11 +38,11 @@ export const Foods: VFC = memo(() => {
       onSelectFood({ selectFoodId, foods, onOpen });
     },
     [foods, onSelectFood, onOpen]
-    );
+  );
   const onClickHome = () => history.push(`/`);
   // Setting Google map
   const containerStyle = {
-      width: '400px',
+    width: '400px',
     height: '267px',
   };
   const center = {
@@ -150,6 +151,7 @@ export const Foods: VFC = memo(() => {
               </WrapItem>
             ))}
           </Wrap>
+          <Spacer p={6} />
         </Wrap>
       )}
       <FoodOrderModal

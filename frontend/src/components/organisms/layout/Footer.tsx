@@ -31,7 +31,7 @@ export const Footer: VFC = memo(() => {
         <Box w="40%" align="stretch"></Box>
         <VStack w="300px" spacing={6} align="left">
           <Link onClick={onClickContact}>お問い合わせ</Link>
-          <Link onClick={onClickPolicy}>個人情報保護方針</Link>
+          <Link onClick={onClickPolicy}>プライバシーポリシー</Link>
           <Link onClick={onClickTermsOfUse}>利用規約</Link>
         </VStack>
       </Flex>
