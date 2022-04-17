@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
-import { Button, Checkbox, Input, Textarea } from '@chakra-ui/react';
+import { memo, VFC } from 'react';
+import { Button } from '@chakra-ui/react';
 import {
   Box,
   Divider,
@@ -13,12 +13,6 @@ import {
 } from '@chakra-ui/layout';
 
 export const HowToUseBenteku: VFC = memo(() => {
-  const [contactTitle, setContactTitle] = useState('');
-  const [isChecked, setisChecked] = useState(false);
-
-  const onChangeContactTitle = (e: ChangeEvent<HTMLInputElement>) =>
-    setContactTitle(e.target.value);
-
   return (
     <Flex bg="gray.200" align="center" justify="center" height="70vh">
       <Box bg="white" w={'md'} h={'lg'} p={2} borderRadius="md" shadow="md">

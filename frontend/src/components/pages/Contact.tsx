@@ -1,11 +1,10 @@
 /* eslint-disable arrow-body-style */
 import { ChangeEvent, memo, useState, VFC } from 'react';
-import { Button, Checkbox, Input, Textarea } from '@chakra-ui/react';
+import { Button, Input, Textarea } from '@chakra-ui/react';
 import {
   Box,
   Divider,
   Flex,
-  HStack,
   Spacer,
   Stack,
   Text,
@@ -14,7 +13,6 @@ import {
 
 export const Contact: VFC = memo(() => {
   const [contactTitle, setContactTitle] = useState('');
-  const [isChecked, setisChecked] = useState(false);
 
   const onChangeContactTitle = (e: ChangeEvent<HTMLInputElement>) =>
     setContactTitle(e.target.value);
