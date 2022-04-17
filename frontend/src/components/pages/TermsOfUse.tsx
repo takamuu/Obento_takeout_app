@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, VFC } from 'react';
+import { memo, useEffect, VFC } from 'react';
 import {
   Divider,
   Flex,
@@ -11,15 +11,18 @@ import {
 } from '@chakra-ui/layout';
 
 export const TermsOfUse: VFC = memo(() => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
-    <Flex align="center" justify="center" height={{ sm: '600vh', md: '470vh' }}>
+    <Flex align="center" justify="center" height={{ sm: '590vh', md: '465vh' }}>
       <Stack w={{ sm: 'md', md: '2xl' }}>
         <Text
           paddingTop="3"
           fontSize="26px"
           fontWeight="bold"
           color="brand"
-          spacing="12px"
           textAlign={'center'}
         >
           利用規約
