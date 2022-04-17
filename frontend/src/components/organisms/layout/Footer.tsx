@@ -13,10 +13,6 @@ export const Footer: VFC = memo(() => {
   const onClickHome = useCallback(() => history.push('/'), []);
   const onClickContact = useCallback(() => history.push('/contact'), []);
   const onClickPolicy = useCallback(() => history.push('/policy'), []);
-  const onClickCommercialTransactionsLaw = useCallback(
-    () => history.push('/commercial_transactions_law'),
-    []
-  );
   const onClickTermsOfUse = useCallback(
     () => history.push('/terms_of_use'),
     []
@@ -36,9 +32,6 @@ export const Footer: VFC = memo(() => {
         <VStack w="300px" spacing={6} align="left">
           <Link onClick={onClickContact}>お問い合わせ</Link>
           <Link onClick={onClickPolicy}>個人情報保護方針</Link>
-          <Link onClick={onClickCommercialTransactionsLaw}>
-            特定商取引法に基づく表記
-          </Link>
           <Link onClick={onClickTermsOfUse}>利用規約</Link>
         </VStack>
       </Flex>
