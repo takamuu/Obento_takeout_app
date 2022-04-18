@@ -65,12 +65,12 @@ RSpec.describe "Api::V1::Carts", type: :request do
       context "カートが存在する場合 && 追加するフードが他のレストランの場合" do
         before {
           @food = create(:food)
-          @other_food = create(:food)
+          @other_restaurant_food = create(:food)
           @cart = create(:cart, user_id: current_user.id)
           @cart_details = create(:cart_detail, food_id: @food.id, cart_id: current_user.cart.id)
         }
 
-        let(:food_params) { { food_id: @other_food.id, count: 1 } }
+        let(:food_params) { { food_id: @other_restaurant_food.id, count: 1 } }
 
         it "not_acceptable(406)がレスポンスされる" do
           subject
@@ -91,7 +91,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
           @restaurant = create(:restaurant)
           @food = create(:food, restaurant_id: @restaurant.id)
           @other_food = create(:food, restaurant_id: @restaurant.id)
-          @cart = create(:cart, user_id: current_user.id)
+          @cart = create(:cart, user_id: current_user.id, total_price: 2000)
           @cart_details = create(:cart_detail, food_id: @food.id, cart_id: current_user.cart.id)
           @other_food_details = create(:cart_detail, food_id: @other_food.id, cart_id: current_user.cart.id)
         }
@@ -102,7 +102,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
         end
 
         it "カートが更新される" do
-          expect { subject }.to change { @cart.reload.total_price }.from(0).to(3000)
+          expect { subject }.to change { @cart.reload.total_price }.from(2000).to(3000)
         end
 
         it "カート詳細が更新される" do
