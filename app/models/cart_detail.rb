@@ -32,8 +32,9 @@ class CartDetail < ApplicationRecord
   def self.remove_and_create?(user, food, food_count)
     ActiveRecord::Base.transaction do
       user.cart.cart_details.clear
-      new_instance(user, food, food_count).save!
-      user.cart.total_price_update!
+      cart_detail = new_instance(user, food, food_count)
+      cart_detail.save!
+      cart_detail.cart.total_price_update!
     end
   rescue ActiveRecord::RecordInvalid
     false
