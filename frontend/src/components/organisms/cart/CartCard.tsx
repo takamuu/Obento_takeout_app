@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import { memo, VFC } from 'react';
-import { Divider, HStack, Text, VStack } from '@chakra-ui/layout';
+import { HStack, Text, VStack } from '@chakra-ui/layout';
 import { DeleteButton } from 'components/atoms/button/DeleteButton';
 import { Select } from '@chakra-ui/react';
 
@@ -70,7 +70,6 @@ export const CartCard: VFC<Props> = memo((props) => {
           <DeleteButton onClick={() => onDelete(foodId)}>削除</DeleteButton>
         </VStack>
       </HStack>
-      {/* <Divider w={'360px'} borderColor="brand" my={4} /> */}
     </VStack>
   );
 });

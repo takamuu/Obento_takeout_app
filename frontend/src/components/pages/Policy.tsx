@@ -1,17 +1,20 @@
 /* eslint-disable arrow-body-style */
-import { memo, VFC } from 'react';
+import { memo, useEffect, VFC } from 'react';
 import { Box, Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/layout';
 
 export const Policy: VFC = memo(() => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
-    <Flex align="center" justify="center" height={{ sm: '890vh', md: '740vh' }}>
+    <Flex align="center" justify="center" height={{ sm: '880vh', md: '735vh' }}>
       <Stack w={{ sm: 'md', md: '2xl' }}>
         <Text
           paddingTop="3"
           fontSize="26px"
           fontWeight="bold"
           color="brand"
-          spacing="12px"
           textAlign={'center'}
         >
           プライバシーポリシー

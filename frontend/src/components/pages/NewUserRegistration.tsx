@@ -17,10 +17,12 @@ import {
 import { SignUpParams } from 'types/api/sign';
 import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
+import { useHistory } from 'react-router-dom';
 
 export const NewUserRegistration: VFC = memo(() => {
   const { newUserRegistration, newUserRegistrationLoading } =
     useNewUserRegistration();
+  const history = useHistory();
 
   const [userName, setUserName] = useState('');
   const [userKana, setUserKana] = useState('');
@@ -58,6 +60,8 @@ export const NewUserRegistration: VFC = memo(() => {
   };
 
   const onClickNewRegistration = () => newUserRegistration(params);
+  const onClickPolicy = () => history.push('/policy');
+  const onClickTermsOfUse = () => history.push('/terms_of_use');
 
   return (
     <Flex bg="gray.200" align="center" justify="center" height="95vh">
@@ -124,14 +128,13 @@ export const NewUserRegistration: VFC = memo(() => {
             value={userPhoneNumber}
             onChange={onChangePhoneNumber}
           />
-          {/* <Spacer /> */}
           <Divider borderColor="brand" my={4} />
           <VStack spacing={2} align="center">
-            <Button color="brand" variant="link">
-              利用規約
-            </Button>
-            <Button color="brand" variant="link">
+            <Button color="brand" variant="link" onClick={onClickPolicy}>
               プライバシーポリシー
+            </Button>
+            <Button color="brand" variant="link" onClick={onClickTermsOfUse}>
+              利用規約
             </Button>
           </VStack>
           <Checkbox

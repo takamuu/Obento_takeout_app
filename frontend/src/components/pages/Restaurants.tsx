@@ -59,7 +59,7 @@ export const Restaurants: VFC = memo(() => {
                 <Text
                   w="full"
                   fontFamily={'sans-serif'}
-                  fontSize={['', '', '24px', '38px']}
+                  fontSize={{ md: '24px', lg: '38px' }}
                   fontWeight={'bold'}
                   color="brand"
                   paddingLeft={'px'}
@@ -69,7 +69,7 @@ export const Restaurants: VFC = memo(() => {
                 <Text
                   w="full"
                   fontFamily={'sans-serif'}
-                  fontSize={['', '', '24px', '38px']}
+                  fontSize={{ md: '24px', lg: '38px' }}
                   fontWeight={'bold'}
                   color="brand"
                   paddingLeft={5}
@@ -79,7 +79,7 @@ export const Restaurants: VFC = memo(() => {
                 <Text
                   w="full"
                   fontFamily={'sans-serif'}
-                  fontSize={['', '', '24px', '38px']}
+                  fontSize={{ md: '24px', lg: '38px' }}
                   fontWeight={'bold'}
                   color="brand"
                   paddingLeft={10}
