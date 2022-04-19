@@ -1,6 +1,5 @@
 /* eslint-disable arrow-body-style */
 import { memo, VFC } from 'react';
-import { Button } from '@chakra-ui/react';
 import {
   Box,
   Divider,
@@ -10,35 +9,36 @@ import {
   Stack,
   Text,
   VStack,
+  Wrap,
 } from '@chakra-ui/layout';
+import { Image } from '@chakra-ui/react';
+import SelectADish from 'images/SelectADish.jpg';
+import PlaceOrder from 'images/PlaceOrder.jpg';
+import PickUp from 'images/PickUp.jpg';
 
 export const HowToUseBenteku: VFC = memo(() => {
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="70vh">
-      <Box bg="white" w={'md'} h={'lg'} p={2} borderRadius="md" shadow="md">
-        <VStack
-          paddingTop="3"
-          fontSize="23px"
-          fontWeight="bold"
-          color="brand"
-          spacing="12px"
-        >
-          <Text>弁テクの使い方</Text>
-        </VStack>
-        <Divider borderColor="brand" my={4} />
-        <Stack spacing={4} py={4} px={10}>
-          <HStack>
-            <Text h="2">お店を選ぶ</Text>
-            <Text h="2">注文する</Text>
-            <Text h="2">テイクアウト！</Text>
-          </HStack>
-          <Divider borderColor="brand" my={4} />
-          <Spacer />
-          <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
-            戻る
-          </Button>
-        </Stack>
-      </Box>
-    </Flex>
+    <VStack h={{ sm: '110vh', md: '60vh' }}>
+      <Text
+        paddingTop={{ sm: '12', md: '20' }}
+        paddingBottom={{ sm: '16' }}
+        fontSize="28px"
+        fontWeight="bold"
+        color="brand"
+      >
+        弁テクの使い方
+      </Text>
+      <HStack display={{ sm: 'none', md: 'flex' }} spacing={4}>
+        <Image w={{ md: '250px' }} src={SelectADish} />
+        <Image w={{ md: '250px' }} src={PlaceOrder} />
+        <Image w={{ md: '250px' }} src={PickUp} />
+      </HStack>
+      <VStack display={{ sm: 'flex', md: 'none' }} spacing={4}>
+        <Image w={{ sm: '250px' }} src={SelectADish} />
+        <Image w={{ sm: '250px' }} src={PlaceOrder} />
+        <Image w={{ sm: '250px' }} src={PickUp} />
+      </VStack>
+      <Spacer p={6} />
+    </VStack>
   );
 });
