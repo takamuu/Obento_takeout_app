@@ -3,6 +3,7 @@
 import { memo, useCallback, useEffect, VFC } from 'react';
 import {
   Center,
+  Flex,
   HStack,
   Text,
   VStack,
@@ -16,6 +17,7 @@ import { Image } from '@chakra-ui/react';
 import { useRestaurants } from 'hooks/useRestaurants';
 import { RestaurantCard } from 'components/organisms/restaurant/RestaurantCard';
 import Toppageimage from 'images/Toppageimage.svg';
+import CafeTime from 'images/CafeTime.jpg';
 
 export const Restaurants: VFC = memo(() => {
   const { getRestaurants, restaurants, loading } = useRestaurants();
@@ -40,7 +42,7 @@ export const Restaurants: VFC = memo(() => {
         </Center>
       ) : (
         <>
-          <Wrap justify={'center'}>
+          <Wrap h={'48vh'} justify={'center'} paddingTop={10}>
             <Text
               paddingTop="5"
               paddingBottom="5"
@@ -113,6 +115,14 @@ export const Restaurants: VFC = memo(() => {
               </WrapItem>
             ))}
           </Wrap>
+          <Flex
+            marginRight={{ sm: '0', md: '20' }}
+            marginBottom={4}
+            justify={{ sm: 'center', md: 'right' }}
+            aligin={{ sm: 'center', md: 'right' }}
+          >
+            <Image w={{ sm: '300px', md: '340px' }} src={CafeTime} />
+          </Flex>
         </>
       )}
     </>
