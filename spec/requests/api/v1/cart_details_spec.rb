@@ -97,11 +97,11 @@ RSpec.describe "Api::V1::CartDetails", type: :request do
       context "カートが存在する場合 && カート詳細が存在する場合" do
         before do
           @restaurant = create(:restaurant)
-          @first_food = create(:food, restaurant_id: @restaurant.id)
-          @second_food = create(:food, restaurant_id: @restaurant.id)
+          @food_from_before1 = create(:food, restaurant_id: @restaurant.id)
+          @food_from_before2 = create(:food, restaurant_id: @restaurant.id)
           @cart = create(:cart, user_id: current_user.id, total_price: 2000)
-          create(:cart_detail, food_id: @first_food.id, cart_id: @cart.id)
-          create(:cart_detail, food_id: @second_food.id, cart_id: @cart.id)
+          create(:cart_detail, food_id: @food_from_before1.id, cart_id: @cart.id)
+          create(:cart_detail, food_id: @food_from_before2.id, cart_id: @cart.id)
           @other_restaurant_food = create(:food)
         end
 
@@ -110,13 +110,17 @@ RSpec.describe "Api::V1::CartDetails", type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        xit "存在していたカート詳細が全て削除され、別のレストランのカート詳細が作成されること" do
-          # TODO: @first_food,@second_foodが削除される事
-          # TODO: @other_restaurant_foodが作成される事
-          expect { subject }.to change { CartDetail.count }.from(2).to(1)
+        it "存在していたフードのカート詳細が全て削除されること" do
+          expect { subject }.to change {
+                                  CartDetail.exists?(food_id: @food_from_before1.id) && CartDetail.exists?(food_id: @food_from_before2.id)
+                                }.from(true).to(false)
         end
 
-        xit "カートの合計金額が更新されること" do
+        it "別のレストランフードのカート詳細が作成されること" do
+          expect { subject }.to change { CartDetail.exists?(food_id: @other_restaurant_food.id) }.from(false).to(true)
+        end
+
+        it "カートの合計金額が更新されること" do
           expect { subject }.to change { @cart.reload.total_price }.from(2000).to(1000)
         end
       end

@@ -10,7 +10,6 @@ import {
   WrapItem,
 } from '@chakra-ui/layout';
 import { OrderDetail } from 'types/api/orders';
-import { Button } from '@chakra-ui/react';
 
 type Props = {
   createdAt: string;
@@ -33,9 +32,13 @@ export const OrderCard: VFC<Props> = memo((props) => {
 
   const dateTime = new Date(createdAt).toLocaleDateString();
 
-  const onRecipt = () => {
-    alert(receiptNumber);
-  };
+  const today = new Date();
+  const dateOfPurchase = new Date(createdAt);
+  const dayAfterPurchase = new Date();
+  dayAfterPurchase.setDate(dateOfPurchase.getDate() + 1);
+  dayAfterPurchase.setHours(0);
+  dayAfterPurchase.setMinutes(0);
+  dayAfterPurchase.setSeconds(0);
 
   return (
     <Wrap>
@@ -114,20 +117,12 @@ export const OrderCard: VFC<Props> = memo((props) => {
               fontSize={{ sm: 'xs', md: 'lg' }}
               fontWeight={'bold'}
             >
-              {progressStatus === 'delivered' ? (
+              {progressStatus === 'delivered' || dayAfterPurchase < today ? (
                 <Text>受取済</Text>
               ) : (
-                <Button
-                  w={{ sm: '60px', md: '80px' }}
-                  h={{ sm: '8', md: '12' }}
-                  bg={'brand'}
-                  color={'white'}
-                  fontSize={{ sm: '11', md: '16' }}
-                  _hover={{ opacity: 0.8 }}
-                  onClick={() => onRecipt()}
-                >
+                <Text color={'brand'} fontSize={{ sm: 'xs', md: 'lg' }}>
                   {receiptNumber}
-                </Button>
+                </Text>
               )}
             </Box>
           </VStack>
