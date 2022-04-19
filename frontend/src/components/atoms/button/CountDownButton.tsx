@@ -10,9 +10,11 @@ export const CountDownButton: VFC<Props> = memo((props) => {
   const { onClick, isDisabled } = props;
   return (
     <Button
+      bg={'gray.100'}
+      w={'48px'}
+      h={'48px'}
       fontSize="2xl"
       fontWeight={'bold'}
-      bg={'gray.100'}
       shadow="md"
       rounded="full"
       _hover={{ opacity: 0.8 }}
