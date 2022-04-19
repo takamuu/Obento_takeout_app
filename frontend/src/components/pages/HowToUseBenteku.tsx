@@ -1,24 +1,14 @@
 /* eslint-disable arrow-body-style */
 import { memo, VFC } from 'react';
-import {
-  Box,
-  Divider,
-  Flex,
-  HStack,
-  Spacer,
-  Stack,
-  Text,
-  VStack,
-  Wrap,
-} from '@chakra-ui/layout';
+import { HStack, Spacer, Text, VStack } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
-import SelectADish from 'images/SelectADish.jpg';
-import PlaceOrder from 'images/PlaceOrder.jpg';
-import PickUp from 'images/PickUp.jpg';
+import SelectADish from 'images/SelectADish.svg';
+import PlaceOrder from 'images/PlaceOrder.svg';
+import PickUp from 'images/PickUp.svg';
 
 export const HowToUseBenteku: VFC = memo(() => {
   return (
-    <VStack h={{ sm: '118vh', md: '60vh' }}>
+    <VStack h={{ sm: '140vh', md: '72vh' }}>
       <Text
         paddingTop={{ sm: '12', md: '20' }}
         paddingBottom={{ sm: '16' }}
@@ -28,18 +18,20 @@ export const HowToUseBenteku: VFC = memo(() => {
       >
         弁テクの使い方
       </Text>
-      <HStack display={{ sm: 'none', md: 'flex' }}>
-        <Image w={{ md: '250px' }} src={SelectADish} />
-        <Spacer p={2} />
-        <Image w={{ md: '250px' }} src={PlaceOrder} />
-        <Image w={{ md: '250px' }} src={PickUp} />
+      <HStack
+        display={{ sm: 'none', md: 'flex' }}
+        spacing={{ md: '10', lg: '20' }}
+      >
+        <Image w={{ md: '220px' }} src={SelectADish} />
+        <Image w={{ md: '220px' }} src={PlaceOrder} />
+        <Image w={{ md: '220px' }} src={PickUp} />
       </HStack>
       <VStack display={{ sm: 'flex', md: 'none' }} spacing={10}>
         <Image w={{ sm: '250px' }} src={SelectADish} />
         <Image w={{ sm: '250px' }} src={PlaceOrder} />
         <Image w={{ sm: '250px' }} src={PickUp} />
       </VStack>
-      <Spacer p={6} />
+      <Spacer p={20} />
     </VStack>
   );
 });
