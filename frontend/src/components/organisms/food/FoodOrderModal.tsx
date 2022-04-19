@@ -92,7 +92,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
   return (
     <>
       <Modal
-        size="lg"
+        size={'lg'}
         isOpen={isOpen}
         onClose={onClose}
         autoFocus={false}
@@ -145,8 +145,8 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
               />
               <Spacer />
               <FoodButton onClick={() => onCartButton({ food, count })}>
-                <Text m={2}>{`${count}点をカートに追加 `}</Text>
-                <Text m={2}>{`¥${(
+                <Text>{`${count}点をカートに追加 `}</Text>
+                <Text ml={4}>{`¥${(
                   count * food?.price
                 ).toLocaleString()}`}</Text>
               </FoodButton>

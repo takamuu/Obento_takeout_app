@@ -20,7 +20,7 @@ export const Footer: VFC = memo(() => {
 
   return (
     <>
-      <Flex bg="brand" w="100%" h="340px" padding={20} color="white">
+      <Flex bg="brand" w="100%" h="300px" padding={20} color="white">
         <Image
           boxSize="60px"
           src={MainLogoReversed}

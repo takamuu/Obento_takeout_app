@@ -12,6 +12,7 @@ export const FoodButton: VFC<Props> = memo((props) => {
   const { children, disabled = false, loading = false, onClick } = props;
   return (
     <Button
+      m={2}
       size="lg"
       bg="brand"
       color="white"
