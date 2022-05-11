@@ -1,15 +1,28 @@
 /* eslint-disable arrow-body-style */
-import { memo, useState, VFC } from 'react';
-import { Button, Input, Textarea } from '@chakra-ui/react';
+import { ChangeEvent, memo, useState, VFC } from 'react';
+import { Input, Textarea } from '@chakra-ui/react';
 import { Divider, Spacer, Stack, Text, VStack } from '@chakra-ui/layout';
+import { usePostContact } from 'hooks/usePostContact';
+import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
+import { ContactParams } from 'types/api/contact';
 
 export const Contact: VFC = memo(() => {
-  const [value, setValue] = useState('');
+  const { postContact, loading } = usePostContact();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-  const handleInputChange = (e) => {
-    const inputValue = e.target.value;
-    setValue(inputValue);
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+
+  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setContent(e.target.value);
+
+  const params: ContactParams = {
+    title: title,
+    content: content,
   };
+
+  const onContact = () => postContact(params);
 
   return (
     <>
@@ -30,6 +43,8 @@ export const Contact: VFC = memo(() => {
             borderColor="gray.300"
             placeholder="件名を入力してください"
             _placeholder={{ color: 'gray.300' }}
+            value={title}
+            onChange={onChangeTitle}
           />
           <Spacer />
           <Text>お問い合わせ内容（必須）</Text>
@@ -39,12 +54,17 @@ export const Contact: VFC = memo(() => {
             placeholder="お問い合わせ内容を入力してください"
             _placeholder={{ color: 'gray.300' }}
             _hover={{ color: 'gray.600' }}
-            onChange={handleInputChange}
+            value={content}
+            onChange={onChangeContent}
           />
           <Spacer p={2} />
-          <Button bg="brand" color="white" _hover={{ opacity: 0.8 }}>
+          <PrimaryButton
+            disabled={!title || !content}
+            loading={loading}
+            onClick={onContact}
+          >
             送信する
-          </Button>
+          </PrimaryButton>
           <Spacer p={10} />
         </Stack>
       </VStack>
