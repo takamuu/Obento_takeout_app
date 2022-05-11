@@ -1,4 +1,4 @@
 export type ContactParams = {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
 };
