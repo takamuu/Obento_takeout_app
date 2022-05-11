@@ -3,7 +3,7 @@ class ContactMailer < ApplicationMailer
 
   def user_email(contact)
     @contact = contact
-    @name = contact.user.name.presence || contact.user.email
+    @name = contact.user.name
     subject = "【アプリ名】お問い合わせを受付いたしました"
 
     mail(to: contact.user.email, subject: subject)
@@ -11,7 +11,7 @@ class ContactMailer < ApplicationMailer
 
   def admin_email(contact)
     @contact = contact
-    @name = contact.user.name.presence || contact.user.email
+    @name = contact.user.name
     subject = "【アプリ名】お問い合わせがありました"
 
     mail(to: ADMIN_EMAIL, subject: subject)
