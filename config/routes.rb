@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       put "cart_details/replace/:id", to: "cart_details#replace"
 
       resources :orders, only: %i[index create]
+
+      mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
     end
   end
 
