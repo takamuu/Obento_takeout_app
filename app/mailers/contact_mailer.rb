@@ -1,12 +1,19 @@
 class ContactMailer < ApplicationMailer
-  def user_email(name:, email:)
-    @name = name
-    mail(
-      to: email,
-      subject: "【弁テク】お問い合わせを受付いたしました",
-    )
+  ADMIN_EMAIL = "takapon589@gmail.com".freeze
+
+  def user_email(contact)
+    @contact = contact
+    @name = contact.user.name.presence || contact.user.email
+    subject = "【アプリ名】お問い合わせを受付いたしました"
+
+    mail(to: contact.user.email, subject: subject)
   end
 
-  def admin_email
+  def admin_email(contact)
+    @contact = contact
+    @name = contact.user.name.presence || contact.user.email
+    subject = "【アプリ名】お問い合わせがありました"
+
+    mail(to: ADMIN_EMAIL, subject: subject)
   end
 end
