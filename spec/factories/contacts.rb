@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :contact do
-    user_id { 1 }
+    association :user, factory: :user
     title { "MyString" }
     content { "MyText" }
     remote_ip { "MyString" }
