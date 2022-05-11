@@ -34,13 +34,14 @@ ActiveRecord::Schema.define(version: 2022_05_11_044429) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "title"
-    t.text "content"
-    t.string "remote_ip"
-    t.integer "status"
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "content", null: false
+    t.string "remote_ip", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "foods", force: :cascade do |t|
@@ -127,6 +128,7 @@ ActiveRecord::Schema.define(version: 2022_05_11_044429) do
   add_foreign_key "cart_details", "carts"
   add_foreign_key "cart_details", "foods"
   add_foreign_key "carts", "users"
+  add_foreign_key "contacts", "users"
   add_foreign_key "foods", "restaurants"
   add_foreign_key "order_details", "foods"
   add_foreign_key "order_details", "orders"
