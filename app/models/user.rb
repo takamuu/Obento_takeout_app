@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :cart_details, through: :cart, source: :cart_details
   has_many :orders, dependent: :destroy
   has_many :order_details, through: :orders, source: :order_details
+  has_many :contacts, dependent: :destroy
 
   validates :name,         presence: true
   validates :kana,         presence: true
