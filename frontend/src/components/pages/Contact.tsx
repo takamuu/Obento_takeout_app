@@ -5,11 +5,13 @@ import { Divider, Spacer, Stack, Text, VStack } from '@chakra-ui/layout';
 import { usePostContact } from 'hooks/usePostContact';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { ContactParams } from 'types/api/contact';
+import { useHistory } from 'react-router-dom';
 
 export const Contact: VFC = memo(() => {
   const { postContact, loading } = usePostContact();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const history = useHistory();
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
@@ -22,7 +24,9 @@ export const Contact: VFC = memo(() => {
     content: content,
   };
 
-  const onContact = () => postContact(params);
+  const onContact = async () => {
+    await postContact(params), history.push('/');
+  };
 
   return (
     <>
