@@ -41,7 +41,7 @@ RSpec.describe Contact, type: :model do
 
     context "contentが2000文字以内の場合" do
       let(:contact) { build(:contact, content: "a" * 2000) }
-      it "保存できない" do
+      it "保存できる" do
         expect(subject).to eq true
       end
     end
