@@ -27,3 +27,5 @@ export const cartDetailsReplaceUrl = (foodId: string) =>
   `${DEFAULT_API_LOCALHOST}/cart_details/replace/${foodId}`;
 
 export const ordersUrl = `${DEFAULT_API_LOCALHOST}/orders`;
+
+export const contactsUrl = `${DEFAULT_API_LOCALHOST}/contacts`;

@@ -332,3 +332,16 @@ OrderDetail.create!(
 )
 
 Rails.logger.debug "cart_detailテストデータを作成OK！".green
+
+#-----------------------------------------
+# Contact
+#-----------------------------------------
+Contact.create!(
+  user_id: 1,
+  title: "問い合わせテスト",
+  content: "問い合わせデータ内容です",
+  remote_ip: "192.168.0.1",
+  status: 0,
+)
+
+Rails.logger.debug "contactテストデータを作成OK！".green
