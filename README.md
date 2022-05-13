@@ -24,8 +24,11 @@ npm 8.1.3
 rbenv install 3.0.3
 rbenv global 3.0.3
 ```
+
 # .env
-ローカルで起動する場合は、root上に下記`.env`を設定
+
+ローカルで起動する場合は、root 上に下記`.env`を設定
+
 ```zsh
 REACT_APP_SERVER_URL=http://localhost:3000
 ```
@@ -36,7 +39,7 @@ REACT_APP_SERVER_URL=http://localhost:3000
 
 # URL
 
-- 本番環境（Production): https://obento-takeout-app.herokuapp.com
+- 本番環境（Production): https://www.benteku.com
 
 # Usage
 
