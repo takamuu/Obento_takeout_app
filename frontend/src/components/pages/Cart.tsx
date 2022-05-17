@@ -61,6 +61,8 @@ export const Cart: VFC = memo(() => {
       );
   }, [carts]);
 
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
     <>
       {loading ? (

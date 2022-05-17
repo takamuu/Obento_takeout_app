@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
+import { ChangeEvent, memo, useEffect, useState, VFC } from 'react';
 import {
   Input,
   Box,
@@ -63,9 +63,11 @@ export const NewUserRegistration: VFC = memo(() => {
   const onClickPolicy = () => history.push('/policy');
   const onClickTermsOfUse = () => history.push('/terms_of_use');
 
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="95vh">
-      <Box bg="white" p={2} borderRadius="md" shadow="md">
+    <Flex bg="gray.200" align="center" justify="center">
+      <Box m={'10'} bg="white" p={2} borderRadius="md" shadow="md">
         <VStack fontSize="23px" fontWeight="bold" color="brand" spacing="12px">
           <Text>お弁当テイクアウトアプリ</Text>
           <Text>アカウントを作成</Text>

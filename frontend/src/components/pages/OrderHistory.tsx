@@ -24,6 +24,8 @@ export const OrderHistory: VFC = memo(() => {
     orders;
   });
 
+  useEffect(() => window.scrollTo(0, 0));
+
   const history = useHistory();
 
   const onBackButton = () => history.push('/my_page');

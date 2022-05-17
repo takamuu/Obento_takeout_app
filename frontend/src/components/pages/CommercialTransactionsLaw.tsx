@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, VFC } from 'react';
+import { memo, useEffect, VFC } from 'react';
 import { Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
   Table,
@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 
 export const CommercialTransactionsLaw: VFC = memo(() => {
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
     <Flex align="center" justify="center" height={{ sm: '90vh', md: '140vh' }}>
       <Stack w={{ sm: 'md', md: '2xl' }}>

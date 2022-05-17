@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, VFC } from 'react';
+import { memo, useEffect, VFC } from 'react';
 import { HStack, Spacer, Text, VStack } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
 import SelectADish from 'images/SelectADish.svg';
@@ -7,6 +7,7 @@ import PlaceOrder from 'images/PlaceOrder.svg';
 import PickUp from 'images/PickUp.svg';
 
 export const HowToUseBenteku: VFC = memo(() => {
+  useEffect(() => window.scrollTo(0, 0));
   return (
     <VStack h={{ sm: '140vh', md: '72vh' }}>
       <Text

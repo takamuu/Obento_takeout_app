@@ -39,7 +39,6 @@ export const useAuth = () => {
         history.push('/');
         showMessage({ title: 'ログインしました', status: 'success' });
       } catch (e) {
-        alert(e);
         showMessage({
           title: 'ユーザID、パスワードの入力に誤りがあるか登録されていません。',
           status: 'error',

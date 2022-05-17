@@ -94,6 +94,8 @@ export const MyPage: VFC = memo(() => {
       setUserPhoneNumber(loginUser?.phone_number ?? ''));
   }, [loginUser]);
 
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
     <>
       <Flex align="top" justify="center">

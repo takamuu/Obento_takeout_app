@@ -22,6 +22,7 @@ import CafeTime from 'images/CafeTime.jpg';
 export const Restaurants: VFC = memo(() => {
   const { getRestaurants, restaurants, loading } = useRestaurants();
   useEffect(() => getRestaurants(), []);
+  useEffect(() => window.scrollTo(0, 0));
 
   const history = useHistory();
 
