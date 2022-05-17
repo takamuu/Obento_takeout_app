@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
+import { ChangeEvent, memo, useEffect, useState, VFC } from 'react';
 import {
   FormControl,
   FormErrorMessage,
@@ -12,6 +12,7 @@ import { usePostContact } from 'hooks/usePostContact';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { ContactParams } from 'types/api/contact';
 import { useHistory } from 'react-router-dom';
+import { useLoginUser } from 'hooks/useLoginUser';
 
 const TITLE_MAX_LENGTH = 50;
 const CONTENT_MAX_LENGTH = 2000;
@@ -21,6 +22,7 @@ export const Contact: VFC = memo(() => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const history = useHistory();
+  const { loginUser } = useLoginUser();
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
@@ -37,8 +39,11 @@ export const Contact: VFC = memo(() => {
     await postContact(params), history.push('/');
   };
 
+  const isLoginError = loginUser === undefined;
   const isTitleError = title.length > TITLE_MAX_LENGTH;
   const isContentError = content.length > CONTENT_MAX_LENGTH;
+
+  useEffect(() => window.scrollTo(0, 0));
 
   return (
     <>
@@ -54,6 +59,13 @@ export const Contact: VFC = memo(() => {
             お問い合わせ
           </Text>
           <Divider p={2} w={'97.5%'} borderColor="brand" />
+          <FormControl isInvalid={isLoginError}>
+            {isLoginError && (
+              <FormErrorMessage>
+                ログインまたはアカウントを作成してください
+              </FormErrorMessage>
+            )}
+          </FormControl>
           <FormControl isInvalid={isTitleError}>
             <FormLabel fontWeight={'bold'}>
               件 名
@@ -101,7 +113,13 @@ export const Contact: VFC = memo(() => {
           </FormControl>
           <Spacer p={2} />
           <PrimaryButton
-            disabled={!title || !content || isTitleError || isContentError}
+            disabled={
+              !title ||
+              !content ||
+              isTitleError ||
+              isContentError ||
+              isLoginError
+            }
             loading={loading}
             onClick={onContact}
           >
