@@ -1,3 +1,5 @@
+import { Restaurant } from './restaurant';
+
 export type Orders = {
   id?: number;
   user_id?: number;
@@ -8,6 +10,7 @@ export type Orders = {
   restaurant_name?: string;
   created_at?: string;
   order_details?: OrderDetail[];
+  restaurant?: Restaurant[];
 };
 
 export type OrderDetail = {
