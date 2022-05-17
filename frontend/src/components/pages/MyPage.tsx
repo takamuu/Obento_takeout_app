@@ -96,7 +96,7 @@ export const MyPage: VFC = memo(() => {
 
   return (
     <>
-      <Flex align="top" justify="center" height="85vh">
+      <Flex align="top" justify="center">
         <Box bg="white" w={'md'} h={'3xl'} p={2}>
           <VStack
             paddingTop="8"
