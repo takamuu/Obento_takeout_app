@@ -24,6 +24,7 @@ import { FoodButton } from 'components/atoms/button/FoodButton';
 import { useLoginUser } from 'hooks/useLoginUser';
 import { useHistory } from 'react-router-dom';
 import { useReplaceCartDetails } from 'hooks/useReplaceCartDetails';
+import { useMessage } from 'hooks/useMessage';
 
 type Props = {
   food: Food;
@@ -56,6 +57,8 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
 
   const history = useHistory();
   const { loginUser } = useLoginUser();
+  const { showMessage } = useMessage();
+
   const onCartButton = async ({ food, count }) => {
     if (loginUser) {
       await postCart({ food: food, count: count })
@@ -76,6 +79,10 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
         });
     } else {
       history.push('/login');
+      showMessage({
+        title: 'ログインまたはアカウントを作成してください',
+        status: 'error',
+      });
     }
   };
 
