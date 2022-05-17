@@ -13,6 +13,7 @@ import { MenuDrawer } from 'components/molecules/MenuDrawer';
 import MainLogo from 'images/MainLogo.svg';
 import CartIcon from 'images/CartIcon.svg';
 import { CartModal } from '../cart/CartModal';
+import { useMessage } from 'hooks/useMessage';
 
 export const Header: VFC = memo(() => {
   const {
@@ -31,6 +32,7 @@ export const Header: VFC = memo(() => {
   const history = useHistory();
   const { loginUser } = useLoginUser();
   const { logout } = useAuth();
+  const { showMessage } = useMessage();
 
   const onHome = () => history.push('/');
   const onContact = () => history.push('/contact');
@@ -44,6 +46,10 @@ export const Header: VFC = memo(() => {
       onOpenCartModal();
     } else {
       history.push('/login');
+      showMessage({
+        title: 'ログインまたはアカウントを作成してください',
+        status: 'error',
+      });
     }
   };
 
