@@ -69,10 +69,10 @@ export const Contact: VFC = memo(() => {
           <FormControl isInvalid={isTitleError}>
             <FormLabel fontWeight={'bold'}>
               件 名
-              <Badge variant="outline" ml="2">
+              <Badge colorScheme="red" variant="outline" ml="2">
                 必須
               </Badge>
-              <Badge variant="outline" ml="1">
+              <Badge colorScheme="red" variant="outline" ml="1">
                 50文字まで
               </Badge>
             </FormLabel>
@@ -91,10 +91,10 @@ export const Contact: VFC = memo(() => {
           <FormControl isInvalid={isContentError}>
             <FormLabel fontWeight={'bold'}>
               お問い合わせ内容
-              <Badge variant="outline" ml="2">
+              <Badge colorScheme="red" variant="outline" ml="2">
                 必須
               </Badge>
-              <Badge variant="outline" ml="1">
+              <Badge colorScheme="red" variant="outline" ml="1">
                 2000文字まで
               </Badge>
             </FormLabel>
