@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
+import { ChangeEvent, memo, useEffect, useState, VFC } from 'react';
 import {
   Input,
   Box,
@@ -12,6 +12,9 @@ import {
   Checkbox,
   Spacer,
   Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
 } from '@chakra-ui/react';
 
 import { SignUpParams } from 'types/api/sign';
@@ -63,16 +66,39 @@ export const NewUserRegistration: VFC = memo(() => {
   const onClickPolicy = () => history.push('/policy');
   const onClickTermsOfUse = () => history.push('/terms_of_use');
 
+  const regExpEmail =
+    /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+  const isEmailError = !regExpEmail.test(userId) && userId !== '';
+
+  const isPasswordNumberError =
+    userPassword !== '' &&
+    (userPassword.length < 6 || 24 < userPassword.length);
+
+  const regExpPassword = /^[a-zA-Z0-9.?/-]+$/;
+
+  const isPasswordCharacterError =
+    !regExpPassword.test(userPassword) && userPassword !== '';
+
+  const isPasswordConfirmationError =
+    userPasswordConfirmation !== '' &&
+    userPassword !== userPasswordConfirmation;
+
+  const regExpPhone = /[0-9]{10,11}/;
+  const isPhoneNumberError =
+    !regExpPhone.test(userPhoneNumber) && userPhoneNumber !== '';
+
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="95vh">
-      <Box bg="white" p={2} borderRadius="md" shadow="md">
+    <Flex bg="gray.200" align="center" justify="center">
+      <Box m={'10'} bg="white" p={2} borderRadius="md" shadow="md">
         <VStack fontSize="23px" fontWeight="bold" color="brand" spacing="12px">
           <Text>お弁当テイクアウトアプリ</Text>
           <Text>アカウントを作成</Text>
         </VStack>
         <Divider borderColor="brand" my={4} />
         <Stack spacing={4} py={4} px={10}>
-          <Text h="2">名前</Text>
+          <FormLabel h="0">名前</FormLabel>
           <Input
             borderColor="gray.300"
             placeholder="名前を入力してください"
@@ -81,7 +107,7 @@ export const NewUserRegistration: VFC = memo(() => {
             value={userName}
             onChange={onChangeName}
           />
-          <Text h="2">フリガナ</Text>
+          <FormLabel h="2">フリガナ</FormLabel>
           <Input
             borderColor="gray.300"
             placeholder="フリガナを入力してください"
@@ -90,44 +116,71 @@ export const NewUserRegistration: VFC = memo(() => {
             value={userKana}
             onChange={onChangeKana}
           />
-          <Text h="2">Eメールアドレス</Text>
-          <Input
-            borderColor="gray.300"
-            placeholder="Eメールを入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            value={userId}
-            onChange={onChangeId}
-          />
-          <Text h="2">パスワード</Text>
-          <Input
-            borderColor="gray.300"
-            placeholder="パスワードを入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            type="password"
-            value={userPassword}
-            onChange={onChangePassword}
-          />
-          <Text h="2">確認用パスワード</Text>
-          <Input
-            borderColor="gray.300"
-            placeholder="パスワードを入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            type="password"
-            value={userPasswordConfirmation}
-            onChange={onChangePasswordConfirmation}
-          />
-          <Text h="2">電話番号（数字のみ入力）</Text>
-          <Input
-            borderColor="gray.300"
-            placeholder="電話番号を入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            value={userPhoneNumber}
-            onChange={onChangePhoneNumber}
-          />
+          <FormControl isInvalid={isEmailError}>
+            <FormLabel h="4">Eメールアドレス</FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="Eメールを入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              value={userId}
+              onChange={onChangeId}
+            />
+            {isEmailError && (
+              <FormErrorMessage>Eメールアドレスが不正です</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl
+            isInvalid={isPasswordNumberError || isPasswordCharacterError}
+          >
+            <FormLabel h="4">パスワード（6~24文字）</FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="パスワードを入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              type="password"
+              value={userPassword}
+              onChange={onChangePassword}
+            />
+            {isPasswordNumberError && (
+              <FormErrorMessage>文字数が不正です</FormErrorMessage>
+            )}
+            {isPasswordCharacterError && (
+              <FormErrorMessage>
+                認証できない文字が含まれています
+              </FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={isPasswordConfirmationError}>
+            <FormLabel h="4">確認用パスワード</FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="パスワードを入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              type="password"
+              value={userPasswordConfirmation}
+              onChange={onChangePasswordConfirmation}
+            />
+            {isPasswordConfirmationError && (
+              <FormErrorMessage>パスワードが一致していません</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={isPhoneNumberError}>
+            <FormLabel h="4">電話番号（半角数字のみ入力）</FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="電話番号を入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              value={userPhoneNumber}
+              onChange={onChangePhoneNumber}
+            />
+            {isPhoneNumberError && (
+              <FormErrorMessage>電話番号が不正です</FormErrorMessage>
+            )}
+          </FormControl>
           <Divider borderColor="brand" my={4} />
           <VStack spacing={2} align="center">
             <Button color="brand" variant="link" onClick={onClickPolicy}>
@@ -156,7 +209,12 @@ export const NewUserRegistration: VFC = memo(() => {
               !userPassword ||
               !userPasswordConfirmation ||
               !userPhoneNumber ||
-              !isChecked
+              !isChecked ||
+              isEmailError ||
+              isPasswordNumberError ||
+              isPasswordCharacterError ||
+              isPasswordConfirmationError ||
+              isPhoneNumberError
             }
             loading={newUserRegistrationLoading}
             onClick={onClickNewRegistration}

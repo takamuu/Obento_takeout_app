@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-condition */
 /* eslint-disable arrow-body-style */
@@ -68,6 +69,8 @@ export const Foods: VFC = memo(() => {
   useEffect(() => {
     getFoods(restaurantId);
   }, []);
+
+  useEffect(() => window.scrollTo(0, 0));
 
   return (
     <>

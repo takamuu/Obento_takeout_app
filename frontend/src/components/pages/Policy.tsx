@@ -8,10 +8,10 @@ export const Policy: VFC = memo(() => {
   });
 
   return (
-    <Flex align="center" justify="center" height={{ sm: '880vh', md: '735vh' }}>
+    <Flex align="center" justify="center">
       <Stack w={{ sm: 'md', md: '2xl' }}>
         <Text
-          paddingTop="3"
+          paddingTop="20"
           fontSize="26px"
           fontWeight="bold"
           color="brand"

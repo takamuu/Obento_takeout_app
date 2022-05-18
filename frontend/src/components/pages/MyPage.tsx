@@ -8,12 +8,18 @@ import {
   VFC,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Input } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
 import { Box, Flex, Spacer, Stack, Text, VStack } from '@chakra-ui/layout';
 import { User } from 'types/api/user';
 import { useLoginUser } from 'hooks/useLoginUser';
 import { useMyPage } from 'hooks/useMyPage';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
+import { SecondaryButton } from 'components/atoms/button/SecondaryButton';
 
 export const MyPage: VFC = memo(() => {
   const [userId, setUserId] = useState('');
@@ -85,6 +91,10 @@ export const MyPage: VFC = memo(() => {
     phone_number: userPhoneNumber,
   };
 
+  const regExpPhone = /[0-9]{10,11}/;
+  const isPhoneNumberError =
+    !regExpPhone.test(userPhoneNumber) && userPhoneNumber !== '';
+
   useEffect(() => {
     loginUser &&
       (setUserId(String(loginUser?.id ?? '')),
@@ -94,9 +104,11 @@ export const MyPage: VFC = memo(() => {
       setUserPhoneNumber(loginUser?.phone_number ?? ''));
   }, [loginUser]);
 
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
     <>
-      <Flex align="top" justify="center" height="85vh">
+      <Flex align="top" justify="center">
         <Box bg="white" w={'md'} h={'3xl'} p={2}>
           <VStack
             paddingTop="8"
@@ -159,30 +171,35 @@ export const MyPage: VFC = memo(() => {
                 {userKana}
               </Box>
             )}
-            <Text pt={2} color={'gray.600'}>
-              電話番号（数字のみ入力）
-            </Text>
-            {isEdit ? (
-              <Input
-                borderColor="gray.300"
-                placeholder="電話番号を入力してください"
-                _placeholder={{ color: 'gray.300' }}
-                _hover={{ color: 'gray.600' }}
-                value={userPhoneNumber}
-                onChange={onChangePhoneNumber}
-                isReadOnly={!isEdit}
-              />
-            ) : (
-              <Box
-                pb={2}
-                pl={4}
-                fontSize={'xl'}
-                borderBottom={'1px'}
-                borderColor={'gray.400'}
-              >
-                {userPhoneNumber}
-              </Box>
-            )}
+            <FormControl isInvalid={isPhoneNumberError}>
+              <FormLabel pt={2} color={'gray.600'}>
+                電話番号（半角数字のみ入力）
+              </FormLabel>
+              {isEdit ? (
+                <Input
+                  borderColor="gray.300"
+                  placeholder="電話番号を入力してください"
+                  _placeholder={{ color: 'gray.300' }}
+                  _hover={{ color: 'gray.600' }}
+                  value={userPhoneNumber}
+                  onChange={onChangePhoneNumber}
+                  isReadOnly={!isEdit}
+                />
+              ) : (
+                <Box
+                  pb={2}
+                  pl={4}
+                  fontSize={'xl'}
+                  borderBottom={'1px'}
+                  borderColor={'gray.400'}
+                >
+                  {userPhoneNumber}
+                </Box>
+              )}
+              {isPhoneNumberError && (
+                <FormErrorMessage>電話番号が不正です</FormErrorMessage>
+              )}
+            </FormControl>
             <Spacer p={4}></Spacer>
             {!isEdit && (
               <PrimaryButton
@@ -216,7 +233,7 @@ export const MyPage: VFC = memo(() => {
               購入履歴
             </PrimaryButton>
             <Spacer p={4} />
-            <PrimaryButton
+            <SecondaryButton
               disabled={
                 editLoading ||
                 updateLoading ||
@@ -227,7 +244,7 @@ export const MyPage: VFC = memo(() => {
               onClick={() => onUnsubscribeButton()}
             >
               退会する
-            </PrimaryButton>
+            </SecondaryButton>
           </Stack>
         </Box>
       </Flex>

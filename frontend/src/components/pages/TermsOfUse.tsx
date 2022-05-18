@@ -16,10 +16,10 @@ export const TermsOfUse: VFC = memo(() => {
   });
 
   return (
-    <Flex align="center" justify="center" height={{ sm: '590vh', md: '465vh' }}>
+    <Flex align="center" justify="center">
       <Stack w={{ sm: 'md', md: '2xl' }}>
         <Text
-          paddingTop="3"
+          paddingTop="20"
           fontSize="26px"
           fontWeight="bold"
           color="brand"

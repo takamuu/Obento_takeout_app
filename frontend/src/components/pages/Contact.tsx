@@ -1,17 +1,28 @@
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useState, VFC } from 'react';
-import { Input, Textarea } from '@chakra-ui/react';
-import { Divider, Spacer, Stack, Text, VStack } from '@chakra-ui/layout';
+import { ChangeEvent, memo, useEffect, useState, VFC } from 'react';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Textarea,
+} from '@chakra-ui/react';
+import { Badge, Divider, Spacer, Stack, Text, VStack } from '@chakra-ui/layout';
 import { usePostContact } from 'hooks/usePostContact';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { ContactParams } from 'types/api/contact';
 import { useHistory } from 'react-router-dom';
+import { useLoginUser } from 'hooks/useLoginUser';
+
+const TITLE_MAX_LENGTH = 50;
+const CONTENT_MAX_LENGTH = 2000;
 
 export const Contact: VFC = memo(() => {
   const { postContact, loading } = usePostContact();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const history = useHistory();
+  const { loginUser } = useLoginUser();
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
@@ -28,6 +39,12 @@ export const Contact: VFC = memo(() => {
     await postContact(params), history.push('/');
   };
 
+  const isLoginError = loginUser === undefined;
+  const isTitleError = title.length > TITLE_MAX_LENGTH;
+  const isContentError = content.length > CONTENT_MAX_LENGTH;
+
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
     <>
       <VStack align="center">
@@ -42,28 +59,67 @@ export const Contact: VFC = memo(() => {
             お問い合わせ
           </Text>
           <Divider p={2} w={'97.5%'} borderColor="brand" />
-          <Text>件名（必須）</Text>
-          <Input
-            borderColor="gray.300"
-            placeholder="件名を入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            value={title}
-            onChange={onChangeTitle}
-          />
+          <FormControl isInvalid={isLoginError}>
+            {isLoginError && (
+              <FormErrorMessage fontWeight={'bold'}>
+                ログインまたはアカウントを作成してください
+              </FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={isTitleError}>
+            <FormLabel fontWeight={'bold'}>
+              件 名
+              <Badge variant="outline" ml="2">
+                必須
+              </Badge>
+              <Badge variant="outline" ml="1">
+                50文字まで
+              </Badge>
+            </FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="件名を入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              value={title}
+              onChange={onChangeTitle}
+            />
+            {isTitleError && (
+              <FormErrorMessage>50文字を超えています</FormErrorMessage>
+            )}
+          </FormControl>
           <Spacer />
-          <Text>お問い合わせ内容（必須）</Text>
-          <Textarea
-            h={'36'}
-            borderColor="gray.300"
-            placeholder="お問い合わせ内容を入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            value={content}
-            onChange={onChangeContent}
-          />
+          <FormControl isInvalid={isContentError}>
+            <FormLabel fontWeight={'bold'}>
+              お問い合わせ内容
+              <Badge variant="outline" ml="2">
+                必須
+              </Badge>
+              <Badge variant="outline" ml="1">
+                2000文字まで
+              </Badge>
+            </FormLabel>
+            <Textarea
+              h={'36'}
+              borderColor="gray.300"
+              placeholder="お問い合わせ内容を入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              value={content}
+              onChange={onChangeContent}
+            />
+            {isContentError && (
+              <FormErrorMessage>2000文字を超えています</FormErrorMessage>
+            )}
+          </FormControl>
           <Spacer p={2} />
           <PrimaryButton
-            disabled={!title || !content}
+            disabled={
+              !title ||
+              !content ||
+              isTitleError ||
+              isContentError ||
+              isLoginError
+            }
             loading={loading}
             onClick={onContact}
           >

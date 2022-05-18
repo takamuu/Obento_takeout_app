@@ -22,6 +22,7 @@ import CafeTime from 'images/CafeTime.jpg';
 export const Restaurants: VFC = memo(() => {
   const { getRestaurants, restaurants, loading } = useRestaurants();
   useEffect(() => getRestaurants(), []);
+  useEffect(() => window.scrollTo(0, 0));
 
   const history = useHistory();
 
@@ -42,7 +43,7 @@ export const Restaurants: VFC = memo(() => {
         </Center>
       ) : (
         <>
-          <Wrap h={'48vh'} justify={'center'} paddingTop={10}>
+          <Wrap justify={'center'} paddingTop={10}>
             <Text
               paddingTop="5"
               paddingBottom="5"
@@ -91,6 +92,7 @@ export const Restaurants: VFC = memo(() => {
               </VStack>
               <WrapItem>
                 <Image
+                  paddingBottom={'2'}
                   maxW="600px"
                   w={['300px', '400px', '500px', '600px']}
                   src={Toppageimage}

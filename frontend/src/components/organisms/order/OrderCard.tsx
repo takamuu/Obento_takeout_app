@@ -18,6 +18,7 @@ type Props = {
   progressStatus: string;
   receiptNumber: string;
   orderDetails: OrderDetail[];
+  onClick: () => void;
 };
 
 export const OrderCard: VFC<Props> = memo((props) => {
@@ -28,6 +29,7 @@ export const OrderCard: VFC<Props> = memo((props) => {
     progressStatus,
     receiptNumber,
     orderDetails,
+    onClick,
   } = props;
 
   const dateTime = new Date(createdAt).toLocaleDateString();
@@ -57,6 +59,8 @@ export const OrderCard: VFC<Props> = memo((props) => {
             fontSize={{ sm: 'xs', md: 'lg' }}
             fontWeight={'bold'}
             isTruncated
+            _hover={{ cursor: 'pointer', opacity: 0.6 }}
+            onClick={onClick}
           >
             {restaurantName}
           </Box>

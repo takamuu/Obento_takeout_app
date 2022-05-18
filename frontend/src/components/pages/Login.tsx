@@ -1,7 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
-import { ChangeEvent, memo, useCallback, useState, VFC } from 'react';
+import {
+  ChangeEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+  VFC,
+} from 'react';
 import {
   Input,
   Box,
@@ -51,9 +58,12 @@ export const Login: VFC = memo(() => {
   }, [history]);
 
   const onGuestLogin = () => guestLogin();
+
+  useEffect(() => window.scrollTo(0, 0));
+
   return (
-    <Flex bg="gray.200" align="center" justify="center" height="70vh">
-      <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
+    <Flex bg="gray.200" align="center" justify="center">
+      <Box m={10} bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <VStack
           fontSize="23px"
           fontWeight="bold"

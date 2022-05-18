@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { memo, useEffect, VFC } from 'react';
+import { memo, useCallback, useEffect, VFC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Spinner } from '@chakra-ui/react';
 import {
@@ -24,9 +24,22 @@ export const OrderHistory: VFC = memo(() => {
     orders;
   });
 
+  useEffect(() => window.scrollTo(0, 0));
+
   const history = useHistory();
 
   const onBackButton = () => history.push('/my_page');
+
+  const onRestaurant = useCallback(
+    (order) => {
+      const restaurant = order.restaurant;
+      history.push({
+        pathname: `restaurants/${order.restaurant.id}/foods`,
+        state: { restaurant },
+      });
+    },
+    [history]
+  );
 
   return (
     <>
@@ -118,6 +131,7 @@ export const OrderHistory: VFC = memo(() => {
                           orderDetails={order.order_details}
                           progressStatus={order.progress_status}
                           receiptNumber={order.rceipt_number}
+                          onClick={() => onRestaurant(order)}
                         />
                       </WrapItem>
                     ))}
