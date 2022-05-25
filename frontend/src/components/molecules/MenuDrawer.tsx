@@ -25,6 +25,7 @@ export const MenuDrawer: VFC<Props> = memo((props) => {
   const { loginUser } = useLoginUser();
 
   const onHowToUseBenteku = () => history.push('/how_to_use_benteku');
+  const onContact = () => history.push('/contact');
   const onMyPage = () => history.push('/my_page');
 
   return (
@@ -37,6 +38,9 @@ export const MenuDrawer: VFC<Props> = memo((props) => {
             </Button>
             <Button w="100%" onClick={onHowToUseBenteku}>
               弁テクの使い方
+            </Button>
+            <Button w="100%" onClick={onContact}>
+              お問い合わせ
             </Button>
             <>
               {loginUser && (
