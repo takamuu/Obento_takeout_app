@@ -56,9 +56,9 @@ export const Header: VFC = memo(() => {
   return (
     <>
       <HStack
+        bg="white"
         w="100%"
         h="80px"
-        bg="white"
         paddingRight={4}
         spacing={4}
         color="brand"

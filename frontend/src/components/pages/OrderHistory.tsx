@@ -50,10 +50,10 @@ export const OrderHistory: VFC = memo(() => {
       ) : (
         <Wrap justify={'center'}>
           <Text
-            p={{ sm: '3', md: '10' }}
-            h={{ sm: '50px', md: '100px' }}
+            p={{ base: '3', md: '10' }}
+            h={{ base: '50px', md: '100px' }}
             w={'100%'}
-            fontSize={{ sm: 'md', md: '2xl' }}
+            fontSize={{ base: 'md', md: '2xl' }}
             fontWeight={'bold'}
             color={'brand'}
             textAlign={'center'}
@@ -62,9 +62,9 @@ export const OrderHistory: VFC = memo(() => {
           </Text>
           <HStack>
             <Box
-              h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '62px', md: '80px' }}
-              fontSize={{ sm: 'xs', md: 'lg' }}
+              h={{ base: '20px', md: '30px' }}
+              w={{ base: '52px', md: '80px' }}
+              fontSize={{ base: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
               textAlign={'left'}
@@ -72,9 +72,9 @@ export const OrderHistory: VFC = memo(() => {
               購入日時
             </Box>
             <Box
-              h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '80px', md: '180px' }}
-              fontSize={{ sm: 'xs', md: 'lg' }}
+              h={{ base: '20px', md: '30px' }}
+              w={{ base: '60px', md: '180px' }}
+              fontSize={{ base: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
               textAlign={'center'}
@@ -82,9 +82,9 @@ export const OrderHistory: VFC = memo(() => {
               店名
             </Box>
             <Box
-              h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '110px', md: '180px' }}
-              fontSize={{ sm: 'xs', md: 'lg' }}
+              h={{ base: '20px', md: '30px' }}
+              w={{ base: '80px', md: '180px' }}
+              fontSize={{ base: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
               textAlign={'center'}
@@ -92,9 +92,9 @@ export const OrderHistory: VFC = memo(() => {
               商品
             </Box>
             <Box
-              h={{ sm: '20pxs', md: '30px' }}
-              w={{ sm: '110px', md: '180px' }}
-              fontSize={{ sm: 'xs', md: 'lg' }}
+              h={{ base: '20pxs', md: '30px' }}
+              w={{ base: '80px', md: '180px' }}
+              fontSize={{ base: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
               textAlign={'center'}
@@ -102,9 +102,9 @@ export const OrderHistory: VFC = memo(() => {
               金額
             </Box>
             <Box
-              h={{ sm: '20px', md: '30px' }}
-              w={{ sm: '68px', md: '80px' }}
-              fontSize={{ sm: 'xs', md: 'lg' }}
+              h={{ base: '20px', md: '30px' }}
+              w={{ base: '68px', md: '80px' }}
+              fontSize={{ base: 'xs', md: 'lg' }}
               fontWeight={'bold'}
               color={'brand'}
               textAlign={'right'}
@@ -114,7 +114,7 @@ export const OrderHistory: VFC = memo(() => {
           </HStack>
           <VStack>
             <Divider
-              w={{ sm: '460px', md: '730px' }}
+              w={{ base: '380px', md: '730px' }}
               borderColor={'brand'}
               border={'1px'}
             />

@@ -48,7 +48,7 @@ export const Contact: VFC = memo(() => {
   return (
     <>
       <VStack align="center">
-        <Stack spacing={4} w={500}>
+        <Stack spacing={4} w={{ base: 300, md: 500 }}>
           <Text
             pt={10}
             fontSize="24px"

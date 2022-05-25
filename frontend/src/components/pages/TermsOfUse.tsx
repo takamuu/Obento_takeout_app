@@ -17,7 +17,7 @@ export const TermsOfUse: VFC = memo(() => {
 
   return (
     <Flex align="center" justify="center">
-      <Stack w={{ sm: 'md', md: '2xl' }}>
+      <Stack w={{ base: '360px', md: '2xl' }}>
         <Text
           paddingTop="20"
           fontSize="26px"
@@ -27,7 +27,7 @@ export const TermsOfUse: VFC = memo(() => {
         >
           利用規約
         </Text>
-        <Divider borderColor="brand" p={4} />
+        <Divider borderColor="brand" p={4} w={{ base: '320px', md: '95%' }} />
         <Spacer p={2} />
         <Text>
           この利用規約（以下、「本規約」といいます。）は、弁テク（以下、「当社」といいます。）がこのウェブサイト上で提供するオンラインショップ（以下、「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。
@@ -271,6 +271,7 @@ export const TermsOfUse: VFC = memo(() => {
         <Text textAlign={'right'}>以上</Text>
         <Spacer p={6} />
         <Text textAlign={'right'}>制定 2022年〇月〇〇日 </Text>
+        <Spacer p={4} />
       </Stack>
     </Flex>
   );

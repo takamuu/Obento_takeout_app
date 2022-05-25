@@ -47,18 +47,17 @@ export const Restaurants: VFC = memo(() => {
             <Text
               paddingTop="5"
               paddingBottom="5"
-              w="full"
               fontFamily={'sans-serif'}
               fontSize={'22px'}
               textColor={'brand'}
               justifyContent={'center'}
-              display={{ sm: 'flex', md: 'none' }}
+              display={{ base: 'flex', md: 'none' }}
               fontWeight={'bold'}
             >
               おトクでカンタンお弁当テイクアウト
             </Text>
             <HStack>
-              <VStack display={{ sm: 'none', md: 'flex' }}>
+              <VStack display={{ base: 'none', md: 'flex' }}>
                 <Text
                   w="full"
                   fontFamily={'sans-serif'}
@@ -118,12 +117,12 @@ export const Restaurants: VFC = memo(() => {
             ))}
           </Wrap>
           <Flex
-            marginRight={{ sm: '0', md: '20' }}
+            marginRight={{ base: '0', md: '20' }}
             marginBottom={4}
-            justify={{ sm: 'center', md: 'right' }}
-            aligin={{ sm: 'center', md: 'right' }}
+            justify={{ base: 'center', md: 'right' }}
+            aligin={{ base: 'center', md: 'right' }}
           >
-            <Image w={{ sm: '300px', md: '340px' }} src={CafeTime} />
+            <Image w={{ base: '300px', md: '340px' }} src={CafeTime} />
           </Flex>
         </>
       )}
