@@ -12,7 +12,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/modal';
 import { Image } from '@chakra-ui/image';
-import { useDisclosure } from '@chakra-ui/react';
+import { useBreakpointValue, useDisclosure } from '@chakra-ui/react';
 
 import { CountDownButton } from 'components/atoms/button/CountDownButton';
 import { CountUpButton } from 'components/atoms/button/CountUpButton';
@@ -96,10 +96,12 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     }
   };
 
+  const variant = useBreakpointValue({ base: 'sm', md: 'lg' });
+
   return (
     <>
       <Modal
-        size={'lg'}
+        size={variant}
         isOpen={isOpen}
         onClose={onClose}
         autoFocus={false}
@@ -143,7 +145,11 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
                 onClick={() => onDownCount()}
                 isDisabled={count <= 1}
               />
-              <Text fontSize="xl" fontWeight={'bold'} p={4}>
+              <Text
+                fontSize={{ base: 'lg', md: 'xl' }}
+                fontWeight={'bold'}
+                p={{ base: 2, md: 4 }}
+              >
                 {count}
               </Text>
               <CountUpButton
@@ -152,10 +158,13 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
               />
               <Spacer />
               <FoodButton onClick={() => onCartButton({ food, count })}>
-                <Text>{`${count}点をカートに追加 `}</Text>
-                <Text ml={4}>{`¥${(
-                  count * food?.price
-                ).toLocaleString()}`}</Text>
+                <Text
+                  fontSize={{ base: '12px', md: 'xl' }}
+                >{`${count}点をカートに追加 `}</Text>
+                <Text
+                  ml={{ base: 2, md: 4 }}
+                  fontSize={{ base: '12px', md: 'xl' }}
+                >{`¥${(count * food?.price).toLocaleString()}`}</Text>
               </FoodButton>
             </ModalFooter>
           </ModalContent>
