@@ -6,7 +6,6 @@ import { Contact } from 'components/pages/Contact';
 import { HowToUseBenteku } from 'components/pages/HowToUseBenteku';
 import { TermsOfUse } from 'components/pages/TermsOfUse';
 import { Policy } from 'components/pages/Policy';
-import { CommercialTransactionsLaw } from 'components/pages/CommercialTransactionsLaw';
 import { OrderHistory } from 'components/pages/OrderHistory';
 import { MyPage } from 'components/pages/MyPage';
 import { NewUserRegistration } from 'components/pages/NewUserRegistration';
@@ -42,11 +41,6 @@ export const Routes = [
     path: 'policy',
     exact: false,
     children: <Policy />,
-  },
-  {
-    path: 'commercial_transactions_law',
-    exact: false,
-    children: <CommercialTransactionsLaw />,
   },
   {
     path: 'terms_of_use',
