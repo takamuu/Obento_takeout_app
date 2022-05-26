@@ -20,16 +20,18 @@ export const Footer: VFC = memo(() => {
 
   return (
     <>
-      <Flex bg="brand" w="100%" h="300px" padding={20} color="white">
+      <Flex bg="brand" w="100%" h="300px" color="white">
         <Image
+          marginTop={20}
+          marginLeft={{ base: 10, md: 20 }}
           boxSize="60px"
           src={MainLogoReversed}
           alt="MainLogoReversed"
           _hover={{ opacity: '0.8', cursor: 'pointer' }}
           onClick={onClickHome}
         />
-        <Box w="40%" align="stretch"></Box>
-        <VStack w="300px" spacing={6} align="left">
+        <Box w={['20%', '30%', '40%', '50%']} align="stretch"></Box>
+        <VStack marginTop={20} spacing={6} align="left">
           <Link onClick={onClickContact}>お問い合わせ</Link>
           <Link onClick={onClickPolicy}>プライバシーポリシー</Link>
           <Link onClick={onClickTermsOfUse}>利用規約</Link>
