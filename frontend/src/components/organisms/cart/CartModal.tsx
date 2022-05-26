@@ -18,7 +18,7 @@ import {
   ModalFooter,
   ModalOverlay,
 } from '@chakra-ui/modal';
-import { Spinner } from '@chakra-ui/react';
+import { Spinner, useBreakpointValue } from '@chakra-ui/react';
 
 import { useCartIndex } from 'hooks/useCartIndex';
 import { CartModalCard } from './CartModalCard';
@@ -64,6 +64,8 @@ export const CartModal: VFC<Props> = memo((props) => {
     setNewCarts((s) => s.filter((cart) => String(cart.food.id) !== foodId));
   };
 
+  const variant = useBreakpointValue({ base: 'sm', md: 'md' });
+
   useEffect(() => {
     if (carts.length)
       setNewCarts(
@@ -81,7 +83,7 @@ export const CartModal: VFC<Props> = memo((props) => {
   return (
     <>
       <Modal
-        size={'md'}
+        size={variant}
         isOpen={isOpen}
         onClose={onClose}
         autoFocus={false}

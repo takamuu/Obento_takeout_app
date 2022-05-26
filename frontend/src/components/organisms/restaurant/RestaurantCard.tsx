@@ -16,7 +16,7 @@ export const RestaurantCard: VFC<Props> = memo((props) => {
       <Stack margin={1} marginTop={4} textAlign="center">
         <Image
           w="100%"
-          minW={{ sm: '270px' }}
+          minW={{ base: '270px' }}
           maxH={'360px'}
           src={imageUrl}
           alt={restaurantName}

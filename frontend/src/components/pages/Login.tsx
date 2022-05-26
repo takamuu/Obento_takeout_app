@@ -65,7 +65,7 @@ export const Login: VFC = memo(() => {
     <Flex bg="gray.200" align="center" justify="center">
       <Box m={10} bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <VStack
-          fontSize="23px"
+          fontSize={{ base: '20px', md: '23px' }}
           fontWeight="bold"
           color="brand"
           spacing={2}
@@ -75,7 +75,7 @@ export const Login: VFC = memo(() => {
           <Text>ログイン</Text>
         </VStack>
         <Divider borderColor="brand" my={4} />
-        <Stack spacing={6} py={4} px={10}>
+        <Stack spacing={6}>
           <Text h="1">Eメールアドレス</Text>
           <Input
             borderColor="gray.300"

@@ -9,7 +9,7 @@ export const Policy: VFC = memo(() => {
 
   return (
     <Flex align="center" justify="center">
-      <Stack w={{ sm: 'md', md: '2xl' }}>
+      <Stack w={{ base: '360px', md: '2xl' }}>
         <Text
           paddingTop="20"
           fontSize="26px"
@@ -19,7 +19,7 @@ export const Policy: VFC = memo(() => {
         >
           プライバシーポリシー
         </Text>
-        <Divider borderColor="brand" p={4} />
+        <Divider borderColor="brand" p={4} w={{ base: '320px', md: '95%' }} />
         <Spacer p={2} />
         <Text>
           弁テク（以下「当社」といいます）では、当社が取扱う全ての個人情報の保護について、本人の権利の保護、個人情報に関する法規制等を遵守します。また、以下に示す方針を具現化するための個人情報保護マネジメントシステムを構築し、最新のＩＴ技術の動向、社会的要請の変化、経営環境の変動等を常に認識しながら、その継続的改善に、全社を挙げて取り組むことをここに宣言します。
@@ -72,7 +72,7 @@ export const Policy: VFC = memo(() => {
         >
           個人情報保護方針
         </Text>
-        <Divider borderColor="brand" p={4} />
+        <Divider borderColor="brand" p={4} w={{ base: '320px', md: '95%' }} />
         <Spacer p={2} />
         <Text>
           当社は、プライバシーポリシーに基づき、お客様、お取引先様、従業員の方々の個人情報を適切に管理し、個人情報の保護に努めております。具体的には以下の内容に従って個人情報の取扱いを行います。

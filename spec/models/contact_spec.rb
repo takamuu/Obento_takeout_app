@@ -18,15 +18,15 @@ RSpec.describe Contact, type: :model do
       end
     end
 
-    context "titleが100文字以内の場合" do
-      let(:contact) { build(:contact, title: "a" * 100) }
+    context "titleが50文字以内の場合" do
+      let(:contact) { build(:contact, title: "a" * 50) }
       it "保存できる" do
         expect(subject).to eq true
       end
     end
 
-    context "titleが100文字を超える場合" do
-      let(:contact) { build(:contact, title: "a" * 101) }
+    context "titleが50文字を超える場合" do
+      let(:contact) { build(:contact, title: "a" * 51) }
       it "保存できない" do
         expect(subject).to eq false
       end

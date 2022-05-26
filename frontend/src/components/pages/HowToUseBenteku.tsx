@@ -9,10 +9,10 @@ import PickUp from 'images/PickUp.svg';
 export const HowToUseBenteku: VFC = memo(() => {
   useEffect(() => window.scrollTo(0, 0));
   return (
-    <VStack h={{ sm: '140vh', md: '72vh' }}>
+    <VStack>
       <Text
-        paddingTop={{ sm: '12', md: '20' }}
-        paddingBottom={{ sm: '16' }}
+        paddingTop={{ base: '12', md: '20' }}
+        paddingBottom={{ base: '16' }}
         fontSize="28px"
         fontWeight="bold"
         color="brand"
@@ -20,17 +20,17 @@ export const HowToUseBenteku: VFC = memo(() => {
         弁テクの使い方
       </Text>
       <HStack
-        display={{ sm: 'none', md: 'flex' }}
+        display={{ base: 'none', md: 'flex' }}
         spacing={{ md: '10', lg: '20' }}
       >
         <Image w={{ md: '220px' }} src={SelectADish} />
         <Image w={{ md: '220px' }} src={PlaceOrder} />
         <Image w={{ md: '220px' }} src={PickUp} />
       </HStack>
-      <VStack display={{ sm: 'flex', md: 'none' }} spacing={10}>
-        <Image w={{ sm: '250px' }} src={SelectADish} />
-        <Image w={{ sm: '250px' }} src={PlaceOrder} />
-        <Image w={{ sm: '250px' }} src={PickUp} />
+      <VStack display={{ base: 'flex', md: 'none' }} spacing={10}>
+        <Image w={{ base: '250px' }} src={SelectADish} />
+        <Image w={{ base: '250px' }} src={PlaceOrder} />
+        <Image w={{ base: '250px' }} src={PickUp} />
       </VStack>
       <Spacer p={20} />
     </VStack>

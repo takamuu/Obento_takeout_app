@@ -21,7 +21,7 @@ import { useFoods } from 'hooks/useFoods';
 import { FoodCard } from 'components/organisms/food/FoodCard';
 import { FoodOrderModal } from 'components/organisms/food/FoodOrderModal';
 import { useSelectFood } from 'hooks/useSelectFood';
-import { Image } from '@chakra-ui/react';
+import { Image, useBreakpointValue } from '@chakra-ui/react';
 // import mapStyles from './mapUtils/mapStyles';
 
 export const Foods: VFC = memo(() => {
@@ -40,10 +40,11 @@ export const Foods: VFC = memo(() => {
     },
     [foods, onSelectFood, onOpen]
   );
+  const variant = useBreakpointValue({ base: '360px', md: '400px' });
   const onClickHome = () => history.push(`/`);
   // Setting Google map
   const containerStyle = {
-    width: '400px',
+    width: variant,
     height: '267px',
   };
   const center = {
@@ -84,7 +85,7 @@ export const Foods: VFC = memo(() => {
             paddingTop={10}
             w="full"
             justify={'center'}
-            display={{ sm: 'flex', md: 'none' }}
+            display={{ base: 'flex', md: 'none' }}
           >
             <Image
               w="200px"
@@ -97,11 +98,11 @@ export const Foods: VFC = memo(() => {
             </Text>
           </VStack>
           <HStack
-            paddingTop={{ sm: 'none', md: '10' }}
+            paddingTop={{ base: 'none', md: '10' }}
             w="full"
             justify={'center'}
           >
-            <VStack display={{ sm: 'none', md: 'flex' }}>
+            <VStack display={{ base: 'none', md: 'flex' }}>
               <Image
                 w="200px"
                 _hover={{ cursor: 'pointer', opacity: 0.8 }}
@@ -117,7 +118,7 @@ export const Foods: VFC = memo(() => {
                 {restaurant.name}
               </Text>
             </VStack>
-            <VStack paddingBottom={{ sm: '10', md: '0' }}>
+            <VStack paddingBottom={{ base: '10', md: '0' }}>
               {isLoaded ? (
                 <GoogleMap
                   mapContainerStyle={containerStyle}
