@@ -87,17 +87,22 @@ export const NewUserRegistration: VFC = memo(() => {
   const isPhoneNumberError =
     !regExpPhone.test(userPhoneNumber) && userPhoneNumber !== '';
 
-  useEffect(() => window.scrollTo(0, 0));
+  // useEffect(() => window.scrollTo(0, 0));
 
   return (
     <Flex bg="gray.200" align="center" justify="center">
-      <Box m={'10'} bg="white" p={2} borderRadius="md" shadow="md">
-        <VStack fontSize="23px" fontWeight="bold" color="brand" spacing="12px">
+      <Box m={10} bg="white" w="sm" p={4} borderRadius="md" shadow="md">
+        <VStack
+          fontSize={{ base: '20px', md: '23px' }}
+          fontWeight="bold"
+          color="brand"
+          spacing="12px"
+        >
           <Text>お弁当テイクアウトアプリ</Text>
           <Text>アカウントを作成</Text>
         </VStack>
         <Divider borderColor="brand" my={4} />
-        <Stack spacing={4} py={4} px={10}>
+        <Stack spacing={4}>
           <FormLabel h="0">名前</FormLabel>
           <Input
             borderColor="gray.300"
