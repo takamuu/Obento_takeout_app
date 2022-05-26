@@ -47,7 +47,7 @@ export const Header: VFC = memo(() => {
     } else {
       history.push('/login');
       showMessage({
-        title: 'ログインまたはアカウントを作成してください',
+        title: 'ログインしてください',
         status: 'error',
       });
     }

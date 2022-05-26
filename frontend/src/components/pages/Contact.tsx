@@ -61,8 +61,8 @@ export const Contact: VFC = memo(() => {
           <Divider p={2} w={'97.5%'} borderColor="brand" />
           <FormControl isInvalid={isLoginError}>
             {isLoginError && (
-              <FormErrorMessage fontWeight={'bold'}>
-                ログインまたはアカウントを作成してください
+              <FormErrorMessage fontSize={'lg'} fontWeight={'bold'}>
+                ログインしてください
               </FormErrorMessage>
             )}
           </FormControl>

@@ -80,7 +80,7 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
     } else {
       history.push('/login');
       showMessage({
-        title: 'ログインまたはアカウントを作成してください',
+        title: 'ログインしてください',
         status: 'error',
       });
     }
