@@ -1,26 +1,25 @@
+/* eslint-disable no-irregular-whitespace */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable arrow-body-style */
 import { ChangeEvent, memo, useEffect, useState, VFC } from 'react';
 import {
   Input,
   Box,
-  Divider,
   Flex,
-  Stack,
-  VStack,
-  Text,
   Checkbox,
-  Spacer,
   Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
 } from '@chakra-ui/react';
+import { Badge, Divider, Spacer, Stack, Text, VStack } from '@chakra-ui/layout';
 
 import { SignUpParams } from 'types/api/sign';
 import { useNewUserRegistration } from 'hooks/useNewUserRegistration';
 import { PrimaryButton } from 'components/atoms/button/PrimaryButton';
 import { useHistory } from 'react-router-dom';
+
+const NAME_MAX_LENGTH = 30;
 
 export const NewUserRegistration: VFC = memo(() => {
   const { newUserRegistration, newUserRegistrationLoading } =
@@ -66,6 +65,11 @@ export const NewUserRegistration: VFC = memo(() => {
   const onClickPolicy = () => history.push('/policy');
   const onClickTermsOfUse = () => history.push('/terms_of_use');
 
+  const isNameError = userName.length > NAME_MAX_LENGTH;
+
+  const regExpKana = /^[ァ-ヶー　]+$/;
+  const isKanaError = !regExpKana.test(userKana) && userKana !== '';
+
   const regExpEmail =
     /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
   const isEmailError = !regExpEmail.test(userId) && userId !== '';
@@ -75,7 +79,6 @@ export const NewUserRegistration: VFC = memo(() => {
     (userPassword.length < 6 || 24 < userPassword.length);
 
   const regExpPassword = /^[a-zA-Z0-9.?/-]+$/;
-
   const isPasswordCharacterError =
     !regExpPassword.test(userPassword) && userPassword !== '';
 
@@ -86,8 +89,6 @@ export const NewUserRegistration: VFC = memo(() => {
   const regExpPhone = /[0-9]{10,11}/;
   const isPhoneNumberError =
     !regExpPhone.test(userPhoneNumber) && userPhoneNumber !== '';
-
-  // useEffect(() => window.scrollTo(0, 0));
 
   return (
     <Flex bg="gray.200" align="center" justify="center">
@@ -103,26 +104,53 @@ export const NewUserRegistration: VFC = memo(() => {
         </VStack>
         <Divider borderColor="brand" my={4} />
         <Stack spacing={4}>
-          <FormLabel h="0">名前</FormLabel>
-          <Input
-            borderColor="gray.300"
-            placeholder="名前を入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            value={userName}
-            onChange={onChangeName}
-          />
-          <FormLabel h="2">フリガナ</FormLabel>
-          <Input
-            borderColor="gray.300"
-            placeholder="フリガナを入力してください"
-            _placeholder={{ color: 'gray.300' }}
-            _hover={{ color: 'gray.600' }}
-            value={userKana}
-            onChange={onChangeKana}
-          />
+          <FormControl isInvalid={isNameError}>
+            <FormLabel>
+              名前
+              <Badge colorScheme="red" variant="outline" ml="2">
+                30文字
+              </Badge>
+            </FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="名前を入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              value={userName}
+              onChange={onChangeName}
+            />
+            {isNameError && (
+              <FormErrorMessage>30文字を超えています</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={isKanaError}>
+            <FormLabel>
+              フリガナ
+              <Badge colorScheme="red" variant="outline" ml="2">
+                全角カタカナ
+              </Badge>
+            </FormLabel>
+            <Input
+              borderColor="gray.300"
+              placeholder="フリガナを入力してください"
+              _placeholder={{ color: 'gray.300' }}
+              _hover={{ color: 'gray.600' }}
+              value={userKana}
+              onChange={onChangeKana}
+            />
+            {isKanaError && (
+              <FormErrorMessage>
+                全角カナではない文字が含まれています
+              </FormErrorMessage>
+            )}
+          </FormControl>
           <FormControl isInvalid={isEmailError}>
-            <FormLabel h="4">Eメールアドレス</FormLabel>
+            <FormLabel>
+              Eメールアドレス
+              <Badge colorScheme="red" variant="outline" ml="2">
+                半角英数字
+              </Badge>
+            </FormLabel>
             <Input
               borderColor="gray.300"
               placeholder="Eメールを入力してください"
@@ -138,7 +166,12 @@ export const NewUserRegistration: VFC = memo(() => {
           <FormControl
             isInvalid={isPasswordNumberError || isPasswordCharacterError}
           >
-            <FormLabel h="4">パスワード（6~24文字）</FormLabel>
+            <FormLabel>
+              パスワード
+              <Badge colorScheme="red" variant="outline" ml="1">
+                6~24文字
+              </Badge>
+            </FormLabel>
             <Input
               borderColor="gray.300"
               placeholder="パスワードを入力してください"
@@ -158,7 +191,7 @@ export const NewUserRegistration: VFC = memo(() => {
             )}
           </FormControl>
           <FormControl isInvalid={isPasswordConfirmationError}>
-            <FormLabel h="4">確認用パスワード</FormLabel>
+            <FormLabel>確認用パスワード</FormLabel>
             <Input
               borderColor="gray.300"
               placeholder="パスワードを入力してください"
@@ -173,7 +206,12 @@ export const NewUserRegistration: VFC = memo(() => {
             )}
           </FormControl>
           <FormControl isInvalid={isPhoneNumberError}>
-            <FormLabel h="4">電話番号（半角数字のみ入力）</FormLabel>
+            <FormLabel>
+              電話番号
+              <Badge colorScheme="red" variant="outline" ml="2">
+                半角数字
+              </Badge>
+            </FormLabel>
             <Input
               borderColor="gray.300"
               placeholder="電話番号を入力してください"
@@ -215,6 +253,8 @@ export const NewUserRegistration: VFC = memo(() => {
               !userPasswordConfirmation ||
               !userPhoneNumber ||
               !isChecked ||
+              isNameError ||
+              isKanaError ||
               isEmailError ||
               isPasswordNumberError ||
               isPasswordCharacterError ||
