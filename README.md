@@ -24,7 +24,7 @@
 
 ### **フロントエンド**
 
-- HTML,CSS,JavaScript,TypeScript(4.5.4)
+- JavaScript,TypeScript(4.5.4)
 - React(17.0.2)
 - Chakra-ui
 
@@ -48,37 +48,38 @@
 - Rubocop
 - Draw.io
 - Figma
+- Google Spreadsheet
 - Notion
 
 ## **使い方**
 
 ### **ゲストログイン**
 
-https://user-images.githubusercontent.com/42578729/170806361-45e13f28-4fcc-436e-a932-e52a4dfbaa92.mov
+![ゲストログイン](https://user-images.githubusercontent.com/42578729/170818479-90b444be-bf39-44f2-be6d-7abbc526d976.gif)
 
 ### **レストラン選択**
 
-https://user-images.githubusercontent.com/42578729/170806416-721d914d-1a9d-4c9b-a5d3-df1c5475d3aa.mov
+![レストラン選択](https://user-images.githubusercontent.com/42578729/170818526-ba5c1299-361b-4663-92a4-ab311cbd0ee7.gif)
 
 ### **フード選択**
 
-https://user-images.githubusercontent.com/42578729/170806663-cbdc8fb3-a57c-439c-bc56-334357161bf2.mov
+![フード選択](https://user-images.githubusercontent.com/42578729/170818557-d4315698-2a6b-47ac-833f-0d45083ec88b.gif)
 
 ### **カート機能**
 
-https://user-images.githubusercontent.com/42578729/170807174-3f61d5cf-94d6-4475-b394-de3e2071372a.mov
+![カート機能](https://user-images.githubusercontent.com/42578729/170818594-ffe081eb-1295-4b29-ba76-8f86e7c6f2a6.gif)
 
 ### **他店舗フード入替**
 
-https://user-images.githubusercontent.com/42578729/170807256-dcfea68e-d10c-4092-b1fc-edf06823ebeb.mov
+![他店舗フード入替](https://user-images.githubusercontent.com/42578729/170818643-b7aa6980-4b2c-4e7c-966c-d60e0749460e.gif)
 
 ### **注文〜受取番号発行**
 
-https://user-images.githubusercontent.com/42578729/170807818-2d66a60e-36a8-4571-8645-a42cda3a7f7a.mov
+![注文〜受取番号発行](https://user-images.githubusercontent.com/42578729/170818687-a34d4dc0-e3c6-46a2-90db-8b3d54041c79.gif)
 
 ### **購入履歴表示**
 
-https://user-images.githubusercontent.com/42578729/170807836-97f2619d-25f5-43e5-b48d-4b8874439634.mov
+![購入履歴表示](https://user-images.githubusercontent.com/42578729/170818721-d2a3140c-8b25-4606-be15-bb158087ad3e.gif)
 
 ## **工夫した点**
 
