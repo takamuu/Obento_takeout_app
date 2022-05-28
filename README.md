@@ -52,9 +52,89 @@
 
 ## **使い方**
 
+### **ゲストログイン**
+
+https://user-images.githubusercontent.com/42578729/170806361-45e13f28-4fcc-436e-a932-e52a4dfbaa92.mov
+
+### **レストラン選択**
+
+https://user-images.githubusercontent.com/42578729/170806416-721d914d-1a9d-4c9b-a5d3-df1c5475d3aa.mov
+
+### **フード選択**
+
+https://user-images.githubusercontent.com/42578729/170806663-cbdc8fb3-a57c-439c-bc56-334357161bf2.mov
+
+### **カート機能**
+
+https://user-images.githubusercontent.com/42578729/170807174-3f61d5cf-94d6-4475-b394-de3e2071372a.mov
+
+### **他店舗フード入替**
+
+https://user-images.githubusercontent.com/42578729/170807256-dcfea68e-d10c-4092-b1fc-edf06823ebeb.mov
+
+### **注文〜受取番号発行**
+
+https://user-images.githubusercontent.com/42578729/170807818-2d66a60e-36a8-4571-8645-a42cda3a7f7a.mov
+
+### **購入履歴表示**
+
+https://user-images.githubusercontent.com/42578729/170807836-97f2619d-25f5-43e5-b48d-4b8874439634.mov
+
 ## **工夫した点**
 
-### チーム開発を意識
+### **SPA（Single Page Application）**
+
+SPA を選択した理由としては、一般的に言われている「SPA のメリット」を享受する目的プラス、
+新しい技術のキャッチアップを行うことで、自走力を確認する意図も含め選択しました。<br>
+同時に、「SPA のデメリット」も享受する結果となっております。
+
+【SPA のメリット】
+
+1.  Web で表現できることの幅が広がる
+1.  動作性の向上
+1.  ネイティブアプリの代用
+1.  UX の向上
+
+【SPA のデメリット】
+
+1.  開発コストが大きい
+1.  初期ローディングが遅い
+1.  SEO で不利になる可能性がある
+
+【SPA を選択したことによるメリット】
+
+1. 自走力の確認
+1. 新しい技術のキャッチアップ
+1. 開発者が少ない市場へのアプローチ
+
+### **SPA 認証**
+
+Rails API モード + React という構成において、認証方法として、devise_token_auth を選択しました。
+理由としては、サンプルが多かったためですが、結果として、公式原文や公式のコードを読み解かなければ実装・加工はできなかったので、とてもよい学びとなりました。
+
+### **React**
+
+React キャッチアップまでのタスクとして、下記ルートで学習を進めました。（3、4 は反復）<br>
+最終的には JS の理解底上げも必要になり、JSPrimer も繰り返し読み直しました。
+
+1.  JavaScript（JSPrimer）
+1.  React（JSX）
+1.  TypeScript
+1.  React（TSX)
+1.  axios/カスタムフック/Chakra-ui 等
+
+### **Rails**
+
+Rails は何度も戻ってリファクタリングや JSON データの操作を修正し、より深く理解できたと感じています。
+
+### **SPA まとめ**
+
+- 機能追加の際、Rails→RSpec→React というバックエンドとフロントエンドを分業したイメージで実装することができるようになった
+- SPA の開発工程やバックエンドとフロントエンドの開発に必要な情報が理解できるようになった
+- 今後学びたい、Next.js、ReactNative、Node.js などの敷居が下がった
+- バックエンドとフロントエンドのそれぞれの面白さを知ることができた
+
+### **チーム開発を意識**
 
 実務を想定して、下記の手順で開発
 
@@ -65,11 +145,16 @@
 1. レビュー(現役エンジニアの方からレビュー頂く)
 1. Github 上でマージ、closed
 
-### タスク管理
+### **タスク管理**
 
 - notion にて、開発予定・進捗を管理
 
-### UI/UX
+### **UI/UX**
+
+- お弁当をモチーフにしたロゴを作成
+
+  ![Component 1](https://user-images.githubusercontent.com/42578729/170804052-77420859-4bdb-400f-bbef-0a1393e43d46.png)
+  ![Component 2](https://user-images.githubusercontent.com/42578729/170804054-90ef89f6-d503-48ce-a11a-d572b1924642.png)
 
 - 深緑をブランドカラーに決め、それに合わせた配色を設定
 
@@ -77,42 +162,42 @@
 
 ## **機能一覧**
 
-|     |            機能            |         gem 等         |
-| :-: | :------------------------: | :--------------------: |
-|  1  |    ログイン・ログアウト    |   devise-token-auth    |
-|  2  |  ユーザー登録・編集、削除  |   devise-token-auth    |
-|  3  |     ゲストログイン機能     |   devise-token-auth    |
-|  4  | アカウント登録、編集、削除 |   devise-token-auth    |
-|  5  |     レストラン一覧表示     |           ☓            |
-|  6  |       フード一覧表示       |           ☓            |
-|  7  |       フードモーダル       | Chakra-ui Modal Dialog |
-|  8  |         カート機能         | Chakra-ui Modal Dialog |
-|  9  |    別店舗フード追加機能    |           ☓            |
-| 10  |        受取番号機能        | Chakra-ui Modal Dialog |
-| 11  |          購入履歴          |           ☓            |
-| 12  |      お問い合わせ機能      |           ☓            |
-| 13  |    レスポンシブデザイン    |       chakra-ui        |
-| 14  |   フォーマッター(Rails)    |        rubocop         |
-| 15  |   フォーマッター(React)    |        prettier        |
-| 16  |          リンター          |         eslint         |
+|     | 機能                       | gem 等                 |
+| :-: | :------------------------- | :--------------------- |
+|  1  | ログイン・ログアウト       | devise-token-auth      |
+|  2  | ユーザー登録・編集、削除   | devise-token-auth      |
+|  3  | ゲストログイン機能         | devise-token-auth      |
+|  4  | アカウント登録、編集、削除 | devise-token-auth      |
+|  5  | レストラン一覧表示         | -                      |
+|  6  | フード一覧表示             | -                      |
+|  7  | フードモーダル             | Chakra-ui Modal Dialog |
+|  8  | カート機能                 | Chakra-ui Modal Dialog |
+|  9  | 別店舗フード追加機能       | -                      |
+| 10  | 受取番号機能               | Chakra-ui Modal Dialog |
+| 11  | 購入履歴                   | -                      |
+| 12  | お問い合わせ機能           | -                      |
+| 13  | レスポンシブデザイン       | React,Chakra-ui        |
+| 14  | フォーマッター(Rails)      | rubocop                |
+| 15  | フォーマッター(React)      | prettier               |
+| 16  | リンター                   | eslint                 |
 
-- SPA 認証(Cookie)
-- 新規ユーザー登録・ログイン・ログアウト
-- ゲストログイン
-- プロフィール編集
-- 退会
-
-### ER 図
+### **ER 図**
 
 ![ER_benteku](https://user-images.githubusercontent.com/42578729/170650240-e79fed87-3cc6-4a05-ab43-d30286127876.png)
 
-### テーブル設計
+### **テーブル設計**
 
 - URL:https://docs.google.com/spreadsheets/d/1GThRXZaGjKL2k5qqxgDiX5DEl4QOPfnBflZ3d_DEK30/edit?usp=sharing
 
-### デザイン
+### **デザイン（Figma）**
 
-- Figma URL:https://www.figma.com/file/xYJrUZES803PMw2QeRLcnH/%E5%BC%81%E3%83%86%E3%82%AF?node-id=0%3A1
+- URL:https://www.figma.com/file/xYJrUZES803PMw2QeRLcnH/%E5%BC%81%E3%83%86%E3%82%AF?node-id=0%3A1
+
+### **ユースケース図**
+
+- URL:https://drive.google.com/file/d/16OQf6UQr0jav9GhrKd_OJzhMCHr6PemU/view?usp=sharing
+
+  ※実際の決済機能と管理者機能を記載していますが、本実装には含まれていません（追加実装予定）
 
 ## **追加予定機能**
 
