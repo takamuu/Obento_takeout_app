@@ -48,7 +48,7 @@ export const OrderHistory: VFC = memo(() => {
           <Spinner />
         </Center>
       ) : (
-        <VStack justify={'center'}>
+        <Wrap justify={'center'}>
           <Text
             p={{ base: '3', md: '10' }}
             h={{ base: '50px', md: '100px' }}
@@ -155,7 +155,7 @@ export const OrderHistory: VFC = memo(() => {
               マイページへ戻る
             </Button>
           </Flex>
-        </VStack>
+        </Wrap>
       )}
     </>
   );
