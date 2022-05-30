@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable arrow-body-style */
-import { memo, useState, VFC } from 'react';
+import { memo, useEffect, useState, VFC } from 'react';
 import { FormControl } from '@chakra-ui/form-control';
 import { Spacer, Stack, Text } from '@chakra-ui/layout';
 import {
@@ -97,6 +97,10 @@ export const FoodOrderModal: VFC<Props> = memo((props) => {
   };
 
   const variant = useBreakpointValue({ base: 'sm', md: 'lg' });
+
+  useEffect(() => {
+    setCount(1);
+  }, [onClose]);
 
   return (
     <>
