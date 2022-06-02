@@ -36,7 +36,7 @@ export const OrderCard: VFC<Props> = memo((props) => {
 
   const today = new Date();
   const dateOfPurchase = new Date(createdAt);
-  const dayAfterPurchase = new Date();
+  const dayAfterPurchase = new Date(createdAt);
   dayAfterPurchase.setDate(dateOfPurchase.getDate() + 1);
   dayAfterPurchase.setHours(0);
   dayAfterPurchase.setMinutes(0);
