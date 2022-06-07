@@ -15,7 +15,6 @@ export const RestaurantCard: VFC<Props> = memo((props) => {
     <Box _hover={{ cursor: 'pointer', opacity: 0.8 }} onClick={onClick}>
       <Stack margin={1} marginTop={4} textAlign="center">
         <Image
-          w="100%"
           minW={{ base: '270px' }}
           maxH={'360px'}
           src={imageUrl}
